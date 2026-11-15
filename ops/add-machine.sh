@@ -149,8 +149,14 @@ fi
 # Node tekshirish (login shell'da, nvm uchun)
 NODE_PATH_LOGIN=$(bash -lc 'command -v node' 2>/dev/null || echo "")
 # nvm odatda faqat interaktiv shell'da yuklanadi — eng yangi versiyani to'g'ridan-to'g'ri qidiramiz
-if [ -z "$NODE_PATH_LOGIN" ]; then
-  NODE_PATH_LOGIN=$(ls -1d "$HOME"/.nvm/versions/node/v*/bin/node 2>/dev/null | sort -V | tail -1 || echo "")
+NODE_MAJOR_LOGIN=0
+if [ -n "$NODE_PATH_LOGIN" ]; then
+  NODE_MAJOR_LOGIN=$("$NODE_PATH_LOGIN" -v 2>/dev/null | grep -oE '^v[0-9]+' | grep -oE '[0-9]+' || echo 0)
+fi
+# Login shell'da Node yo'q yoki < 22 (masalan tizim Node'i eski, 22 esa faqat nvm'da): nvm'dagi eng yangisi olinadi
+if [ -z "$NODE_PATH_LOGIN" ] || [ "$NODE_MAJOR_LOGIN" -lt 22 ]; then
+  NODE_PATH_NVM=$(ls -1d "$HOME"/.nvm/versions/node/v*/bin/node 2>/dev/null | sort -V | tail -1 || echo "")
+  [ -z "$NODE_PATH_NVM" ] || NODE_PATH_LOGIN="$NODE_PATH_NVM"
 fi
 if [ -z "$NODE_PATH_LOGIN" ]; then
   errors="$errors"$'\n'"xato: node topilmadi (login shell'da)"
