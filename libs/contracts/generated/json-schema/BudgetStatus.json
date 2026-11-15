@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "BudgetStatus.json",
+  "title": "BudgetStatus",
+  "type": "object",
+  "properties": {
+    "scopeKind": {
+      "$ref": "BudgetScopeKind.json"
+    },
+    "scopeKey": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "dailyTokens": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "extraToday": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "effectiveLimit": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "usedToday": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "pct": {
+      "type": "number"
+    },
+    "state": {
+      "$ref": "BudgetState.json"
+    },
+    "autoStop": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "scopeKind",
+    "scopeKey",
+    "label",
+    "dailyTokens",
+    "extraToday",
+    "effectiveLimit",
+    "usedToday",
+    "pct",
+    "state",
+    "autoStop"
+  ],
+  "additionalProperties": false
+}

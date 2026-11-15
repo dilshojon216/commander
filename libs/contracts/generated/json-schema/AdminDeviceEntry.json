@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminDeviceEntry.json",
+  "title": "AdminDeviceEntry",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "$ref": "AdminDeviceState.json"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "lastUsedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revokedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rotationRequired": {
+      "type": "boolean"
+    },
+    "keyRotatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "machineId",
+    "name",
+    "state",
+    "createdAt",
+    "lastUsedAt",
+    "revokedAt",
+    "rotationRequired",
+    "keyRotatedAt"
+  ],
+  "additionalProperties": false
+}

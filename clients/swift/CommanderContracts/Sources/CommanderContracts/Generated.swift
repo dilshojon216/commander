@@ -33,6 +33,779 @@ public enum CommanderContract {
     public static let sessionStatuses: [String] = ["idle", "working", "waiting", "awaiting_approval", "done", "ended"]
 }
 
+public struct AdminCenterKeyOverlap: Codable, Hashable, Sendable {
+    public let fromFingerprint: String
+    public let toFingerprint: String
+    public let issuedAt: String
+    public let expiresAt: String
+
+    public init(fromFingerprint: String, toFingerprint: String, issuedAt: String, expiresAt: String) {
+        self.fromFingerprint = fromFingerprint
+        self.toFingerprint = toFingerprint
+        self.issuedAt = issuedAt
+        self.expiresAt = expiresAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case fromFingerprint
+        case toFingerprint
+        case issuedAt
+        case expiresAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.fromFingerprint = try c.decode(String.self, forKey: .fromFingerprint)
+        self.toFingerprint = try c.decode(String.self, forKey: .toFingerprint)
+        self.issuedAt = try c.decode(String.self, forKey: .issuedAt)
+        self.expiresAt = try c.decode(String.self, forKey: .expiresAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.fromFingerprint, forKey: .fromFingerprint)
+        try c.encode(self.toFingerprint, forKey: .toFingerprint)
+        try c.encode(self.issuedAt, forKey: .issuedAt)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+    }
+}
+
+public struct AdminCenterKeyShow: Codable, Hashable, Sendable {
+    public let publicKey: String
+    public let fingerprint: String
+    public let overlap: [AdminCenterKeyOverlap]
+
+    public init(publicKey: String, fingerprint: String, overlap: [AdminCenterKeyOverlap]) {
+        self.publicKey = publicKey
+        self.fingerprint = fingerprint
+        self.overlap = overlap
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case publicKey = "public_key"
+        case fingerprint
+        case overlap
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.publicKey = try c.decode(String.self, forKey: .publicKey)
+        self.fingerprint = try c.decode(String.self, forKey: .fingerprint)
+        self.overlap = try c.decode([AdminCenterKeyOverlap].self, forKey: .overlap)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.publicKey, forKey: .publicKey)
+        try c.encode(self.fingerprint, forKey: .fingerprint)
+        try c.encode(self.overlap, forKey: .overlap)
+    }
+}
+
+public struct AdminDeviceEntry: Codable, Hashable, Sendable {
+    public let id: String
+    public let machineId: String?
+    public let name: String?
+    public let state: AdminDeviceState
+    public let createdAt: String
+    public let lastUsedAt: String?
+    public let revokedAt: String?
+    public let rotationRequired: Bool
+    public let keyRotatedAt: String?
+
+    public init(id: String, machineId: String? = nil, name: String? = nil, state: AdminDeviceState, createdAt: String, lastUsedAt: String? = nil, revokedAt: String? = nil, rotationRequired: Bool, keyRotatedAt: String? = nil) {
+        self.id = id
+        self.machineId = machineId
+        self.name = name
+        self.state = state
+        self.createdAt = createdAt
+        self.lastUsedAt = lastUsedAt
+        self.revokedAt = revokedAt
+        self.rotationRequired = rotationRequired
+        self.keyRotatedAt = keyRotatedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case machineId
+        case name
+        case state
+        case createdAt
+        case lastUsedAt
+        case revokedAt
+        case rotationRequired
+        case keyRotatedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.machineId = try c.decodeIfPresent(String.self, forKey: .machineId)
+        self.name = try c.decodeIfPresent(String.self, forKey: .name)
+        self.state = try c.decode(AdminDeviceState.self, forKey: .state)
+        self.createdAt = try c.decode(String.self, forKey: .createdAt)
+        self.lastUsedAt = try c.decodeIfPresent(String.self, forKey: .lastUsedAt)
+        self.revokedAt = try c.decodeIfPresent(String.self, forKey: .revokedAt)
+        self.rotationRequired = try c.decode(Bool.self, forKey: .rotationRequired)
+        self.keyRotatedAt = try c.decodeIfPresent(String.self, forKey: .keyRotatedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.machineId, forKey: .machineId)
+        try c.encode(self.name, forKey: .name)
+        try c.encode(self.state, forKey: .state)
+        try c.encode(self.createdAt, forKey: .createdAt)
+        try c.encode(self.lastUsedAt, forKey: .lastUsedAt)
+        try c.encode(self.revokedAt, forKey: .revokedAt)
+        try c.encode(self.rotationRequired, forKey: .rotationRequired)
+        try c.encode(self.keyRotatedAt, forKey: .keyRotatedAt)
+    }
+}
+
+public struct AdminDeviceList: Codable, Hashable, Sendable {
+    public let items: [AdminDeviceEntry]
+
+    public init(items: [AdminDeviceEntry]) {
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AdminDeviceEntry].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum AdminDeviceState: Hashable, Sendable, Codable {
+    case active
+    case revoked
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "active": self = .active
+        case "revoked": self = .revoked
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .active: return "active"
+        case .revoked: return "revoked"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct AdminEnrollCodeEntry: Codable, Hashable, Sendable {
+    public let id: String
+    public let machineName: String
+    public let state: AdminEnrollCodeState
+    public let createdAt: String
+    public let expiresAt: String
+    public let usedAt: String?
+
+    public init(id: String, machineName: String, state: AdminEnrollCodeState, createdAt: String, expiresAt: String, usedAt: String? = nil) {
+        self.id = id
+        self.machineName = machineName
+        self.state = state
+        self.createdAt = createdAt
+        self.expiresAt = expiresAt
+        self.usedAt = usedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case machineName
+        case state
+        case createdAt
+        case expiresAt
+        case usedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.machineName = try c.decode(String.self, forKey: .machineName)
+        self.state = try c.decode(AdminEnrollCodeState.self, forKey: .state)
+        self.createdAt = try c.decode(String.self, forKey: .createdAt)
+        self.expiresAt = try c.decode(String.self, forKey: .expiresAt)
+        self.usedAt = try c.decodeIfPresent(String.self, forKey: .usedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.machineName, forKey: .machineName)
+        try c.encode(self.state, forKey: .state)
+        try c.encode(self.createdAt, forKey: .createdAt)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+        try c.encode(self.usedAt, forKey: .usedAt)
+    }
+}
+
+public struct AdminEnrollCodeList: Codable, Hashable, Sendable {
+    public let items: [AdminEnrollCodeEntry]
+
+    public init(items: [AdminEnrollCodeEntry]) {
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AdminEnrollCodeEntry].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+public struct AdminEnrollCodeOutput: Codable, Hashable, Sendable {
+    public let id: String
+    public let code: String
+    public let kind: String
+    public let machineName: String
+    public let expiresAt: String
+
+    public init(id: String, code: String, machineName: String, expiresAt: String) {
+        self.id = id
+        self.code = code
+        self.kind = "agentd"
+        self.machineName = machineName
+        self.expiresAt = expiresAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case code
+        case kind
+        case machineName = "machine_name"
+        case expiresAt = "expires_at"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.code = try c.decode(String.self, forKey: .code)
+        self.kind = try c.decode(String.self, forKey: .kind)
+        self.machineName = try c.decode(String.self, forKey: .machineName)
+        self.expiresAt = try c.decode(String.self, forKey: .expiresAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.code, forKey: .code)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.machineName, forKey: .machineName)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum AdminEnrollCodeState: Hashable, Sendable, Codable {
+    case pending
+    case used
+    case expired
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "pending": self = .pending
+        case "used": self = .used
+        case "expired": self = .expired
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .pending: return "pending"
+        case .used: return "used"
+        case .expired: return "expired"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct AdminLockdownStatus: Codable, Hashable, Sendable {
+    public let enabled: Bool
+    public let since: String?
+
+    public init(enabled: Bool, since: String? = nil) {
+        self.enabled = enabled
+        self.since = since
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case enabled
+        case since
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.enabled = try c.decode(Bool.self, forKey: .enabled)
+        self.since = try c.decodeIfPresent(String.self, forKey: .since)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.enabled, forKey: .enabled)
+        try c.encode(self.since, forKey: .since)
+    }
+}
+
+public struct AdminPairOutput: Codable, Hashable, Sendable {
+    public let id: String
+    public let code: String
+    public let url: String
+    public let expiresAt: String
+    public let kind: ClientPairingKind
+    public let scopes: [ClientTokenScope]
+
+    public init(id: String, code: String, url: String, expiresAt: String, kind: ClientPairingKind, scopes: [ClientTokenScope]) {
+        self.id = id
+        self.code = code
+        self.url = url
+        self.expiresAt = expiresAt
+        self.kind = kind
+        self.scopes = scopes
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case code
+        case url
+        case expiresAt = "expires_at"
+        case kind
+        case scopes
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.code = try c.decode(String.self, forKey: .code)
+        self.url = try c.decode(String.self, forKey: .url)
+        self.expiresAt = try c.decode(String.self, forKey: .expiresAt)
+        self.kind = try c.decode(ClientPairingKind.self, forKey: .kind)
+        self.scopes = try c.decode([ClientTokenScope].self, forKey: .scopes)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.code, forKey: .code)
+        try c.encode(self.url, forKey: .url)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.scopes, forKey: .scopes)
+    }
+}
+
+public struct AdminTelegramEntry: Codable, Hashable, Sendable {
+    public let chatId: String
+    public let source: AdminTelegramSource
+
+    public init(chatId: String, source: AdminTelegramSource) {
+        self.chatId = chatId
+        self.source = source
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case chatId
+        case source
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.chatId = try c.decode(String.self, forKey: .chatId)
+        self.source = try c.decode(AdminTelegramSource.self, forKey: .source)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.chatId, forKey: .chatId)
+        try c.encode(self.source, forKey: .source)
+    }
+}
+
+public struct AdminTelegramList: Codable, Hashable, Sendable {
+    public let items: [AdminTelegramEntry]
+
+    public init(items: [AdminTelegramEntry]) {
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AdminTelegramEntry].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+public struct AdminTelegramPending: Codable, Hashable, Sendable {
+    public let items: [AdminTelegramPendingEntry]
+
+    public init(items: [AdminTelegramPendingEntry]) {
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AdminTelegramPendingEntry].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+public struct AdminTelegramPendingEntry: Codable, Hashable, Sendable {
+    public let chatId: String
+    public let username: String?
+    public let name: String?
+    public let atMs: Int
+
+    public init(chatId: String, username: String? = nil, name: String? = nil, atMs: Int) {
+        self.chatId = chatId
+        self.username = username
+        self.name = name
+        self.atMs = atMs
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case chatId
+        case username
+        case name
+        case atMs
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.chatId = try c.decode(String.self, forKey: .chatId)
+        self.username = try c.decodeIfPresent(String.self, forKey: .username)
+        self.name = try c.decodeIfPresent(String.self, forKey: .name)
+        self.atMs = try c.decode(Int.self, forKey: .atMs)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.chatId, forKey: .chatId)
+        try c.encode(self.username, forKey: .username)
+        try c.encode(self.name, forKey: .name)
+        try c.encode(self.atMs, forKey: .atMs)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum AdminTelegramSource: Hashable, Sendable, Codable {
+    case env
+    case db
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "env": self = .env
+        case "db": self = .db
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .env: return "env"
+        case .db: return "db"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct AdminTokenEntry: Codable, Hashable, Sendable {
+    public let id: String
+    public let kind: String
+    public let name: String?
+    public let scopes: [String]
+    public let state: AdminTokenState
+    public let createdAt: String
+    public let lastUsedAt: String?
+    public let expiresAt: String?
+    public let revokedAt: String?
+
+    public init(id: String, kind: String, name: String? = nil, scopes: [String], state: AdminTokenState, createdAt: String, lastUsedAt: String? = nil, expiresAt: String? = nil, revokedAt: String? = nil) {
+        self.id = id
+        self.kind = kind
+        self.name = name
+        self.scopes = scopes
+        self.state = state
+        self.createdAt = createdAt
+        self.lastUsedAt = lastUsedAt
+        self.expiresAt = expiresAt
+        self.revokedAt = revokedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case kind
+        case name
+        case scopes
+        case state
+        case createdAt
+        case lastUsedAt
+        case expiresAt
+        case revokedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.kind = try c.decode(String.self, forKey: .kind)
+        self.name = try c.decodeIfPresent(String.self, forKey: .name)
+        self.scopes = try c.decode([String].self, forKey: .scopes)
+        self.state = try c.decode(AdminTokenState.self, forKey: .state)
+        self.createdAt = try c.decode(String.self, forKey: .createdAt)
+        self.lastUsedAt = try c.decodeIfPresent(String.self, forKey: .lastUsedAt)
+        self.expiresAt = try c.decodeIfPresent(String.self, forKey: .expiresAt)
+        self.revokedAt = try c.decodeIfPresent(String.self, forKey: .revokedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.name, forKey: .name)
+        try c.encode(self.scopes, forKey: .scopes)
+        try c.encode(self.state, forKey: .state)
+        try c.encode(self.createdAt, forKey: .createdAt)
+        try c.encode(self.lastUsedAt, forKey: .lastUsedAt)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+        try c.encode(self.revokedAt, forKey: .revokedAt)
+    }
+}
+
+public struct AdminTokenIssued: Codable, Hashable, Sendable {
+    public let id: String
+    public let token: String
+    public let kind: ClientDeviceKind
+    public let name: String
+    public let scopes: [ClientTokenScope]
+    public let expiresAt: String?
+
+    public init(id: String, token: String, kind: ClientDeviceKind, name: String, scopes: [ClientTokenScope], expiresAt: String? = nil) {
+        self.id = id
+        self.token = token
+        self.kind = kind
+        self.name = name
+        self.scopes = scopes
+        self.expiresAt = expiresAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case token
+        case kind
+        case name
+        case scopes
+        case expiresAt = "expires_at"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.token = try c.decode(String.self, forKey: .token)
+        self.kind = try c.decode(ClientDeviceKind.self, forKey: .kind)
+        self.name = try c.decode(String.self, forKey: .name)
+        self.scopes = try c.decode([ClientTokenScope].self, forKey: .scopes)
+        self.expiresAt = try c.decodeIfPresent(String.self, forKey: .expiresAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.token, forKey: .token)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.name, forKey: .name)
+        try c.encode(self.scopes, forKey: .scopes)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+    }
+}
+
+public struct AdminTokenList: Codable, Hashable, Sendable {
+    public let items: [AdminTokenEntry]
+
+    public init(items: [AdminTokenEntry]) {
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AdminTokenEntry].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+public struct AdminTokenRotated: Codable, Hashable, Sendable {
+    public let id: String
+    public let token: String
+    public let kind: ClientDeviceKind
+    public let name: String
+    public let scopes: [ClientTokenScope]
+    public let expiresAt: String?
+    public let rotatedFrom: String
+    public let graceEndsAt: String?
+    public let stepupExemptInherited: Bool
+
+    public init(id: String, token: String, kind: ClientDeviceKind, name: String, scopes: [ClientTokenScope], expiresAt: String? = nil, rotatedFrom: String, graceEndsAt: String? = nil, stepupExemptInherited: Bool) {
+        self.id = id
+        self.token = token
+        self.kind = kind
+        self.name = name
+        self.scopes = scopes
+        self.expiresAt = expiresAt
+        self.rotatedFrom = rotatedFrom
+        self.graceEndsAt = graceEndsAt
+        self.stepupExemptInherited = stepupExemptInherited
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case token
+        case kind
+        case name
+        case scopes
+        case expiresAt = "expires_at"
+        case rotatedFrom = "rotated_from"
+        case graceEndsAt = "grace_ends_at"
+        case stepupExemptInherited = "stepup_exempt_inherited"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.token = try c.decode(String.self, forKey: .token)
+        self.kind = try c.decode(ClientDeviceKind.self, forKey: .kind)
+        self.name = try c.decode(String.self, forKey: .name)
+        self.scopes = try c.decode([ClientTokenScope].self, forKey: .scopes)
+        self.expiresAt = try c.decodeIfPresent(String.self, forKey: .expiresAt)
+        self.rotatedFrom = try c.decode(String.self, forKey: .rotatedFrom)
+        self.graceEndsAt = try c.decodeIfPresent(String.self, forKey: .graceEndsAt)
+        self.stepupExemptInherited = try c.decode(Bool.self, forKey: .stepupExemptInherited)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.token, forKey: .token)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.name, forKey: .name)
+        try c.encode(self.scopes, forKey: .scopes)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+        try c.encode(self.rotatedFrom, forKey: .rotatedFrom)
+        try c.encode(self.graceEndsAt, forKey: .graceEndsAt)
+        try c.encode(self.stepupExemptInherited, forKey: .stepupExemptInherited)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum AdminTokenState: Hashable, Sendable, Codable {
+    case active
+    case revoked
+    case expired
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "active": self = .active
+        case "revoked": self = .revoked
+        case "expired": self = .expired
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .active: return "active"
+        case .revoked: return "revoked"
+        case .expired: return "expired"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
 public struct AgentControlState: Codable, Hashable, Sendable {
     public let enabled: Bool
     public let allowStart: Bool
@@ -987,6 +1760,118 @@ public struct ApprovalResolvedMessagePayload: Codable, Hashable, Sendable {
     }
 }
 
+public struct ApprovalRuleDto: Codable, Hashable, Sendable {
+    public let id: Int
+    public let scope: RuleScope
+    public let scopeRef: String
+    public let scopeLabel: String?
+    public let tools: [String]
+    public let pathGlobs: [String]
+    public let expiresAt: String
+    public let createdByDeviceId: String
+    public let createdAt: String
+    public let revokedAt: String?
+    public let status: ApprovalRuleDtoStatus
+    public let autoCount: Int
+
+    public init(id: Int, scope: RuleScope, scopeRef: String, scopeLabel: String? = nil, tools: [String], pathGlobs: [String], expiresAt: String, createdByDeviceId: String, createdAt: String, revokedAt: String? = nil, status: ApprovalRuleDtoStatus, autoCount: Int) {
+        self.id = id
+        self.scope = scope
+        self.scopeRef = scopeRef
+        self.scopeLabel = scopeLabel
+        self.tools = tools
+        self.pathGlobs = pathGlobs
+        self.expiresAt = expiresAt
+        self.createdByDeviceId = createdByDeviceId
+        self.createdAt = createdAt
+        self.revokedAt = revokedAt
+        self.status = status
+        self.autoCount = autoCount
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case scope
+        case scopeRef
+        case scopeLabel
+        case tools
+        case pathGlobs
+        case expiresAt
+        case createdByDeviceId
+        case createdAt
+        case revokedAt
+        case status
+        case autoCount
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(Int.self, forKey: .id)
+        self.scope = try c.decode(RuleScope.self, forKey: .scope)
+        self.scopeRef = try c.decode(String.self, forKey: .scopeRef)
+        self.scopeLabel = try c.decodeIfPresent(String.self, forKey: .scopeLabel)
+        self.tools = try c.decode([String].self, forKey: .tools)
+        self.pathGlobs = try c.decode([String].self, forKey: .pathGlobs)
+        self.expiresAt = try c.decode(String.self, forKey: .expiresAt)
+        self.createdByDeviceId = try c.decode(String.self, forKey: .createdByDeviceId)
+        self.createdAt = try c.decode(String.self, forKey: .createdAt)
+        self.revokedAt = try c.decodeIfPresent(String.self, forKey: .revokedAt)
+        self.status = try c.decode(ApprovalRuleDtoStatus.self, forKey: .status)
+        self.autoCount = try c.decode(Int.self, forKey: .autoCount)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.scope, forKey: .scope)
+        try c.encode(self.scopeRef, forKey: .scopeRef)
+        try c.encode(self.scopeLabel, forKey: .scopeLabel)
+        try c.encode(self.tools, forKey: .tools)
+        try c.encode(self.pathGlobs, forKey: .pathGlobs)
+        try c.encode(self.expiresAt, forKey: .expiresAt)
+        try c.encode(self.createdByDeviceId, forKey: .createdByDeviceId)
+        try c.encode(self.createdAt, forKey: .createdAt)
+        try c.encode(self.revokedAt, forKey: .revokedAt)
+        try c.encode(self.status, forKey: .status)
+        try c.encode(self.autoCount, forKey: .autoCount)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum ApprovalRuleDtoStatus: Hashable, Sendable, Codable {
+    case active
+    case expired
+    case revoked
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "active": self = .active
+        case "expired": self = .expired
+        case "revoked": self = .revoked
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .active: return "active"
+        case .expired: return "expired"
+        case .revoked: return "revoked"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
 /// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
 public enum ApprovalStatus: Hashable, Sendable, Codable {
     case pending
@@ -1190,6 +2075,571 @@ public struct AskQuestion: Codable, Hashable, Sendable {
         try c.encode(self.header, forKey: .header)
         try c.encode(self.options, forKey: .options)
         try c.encode(self.multiSelect, forKey: .multiSelect)
+    }
+}
+
+public struct AuditEntry: Codable, Hashable, Sendable {
+    public let id: String
+    public let ts: String
+    public let actorDeviceId: String?
+    public let actorKind: AuditEntryActorKind
+    public let action: String
+    public let target: String?
+    public let details: [String: JSONValue]
+    public let ip: String?
+    public let prevHash: String?
+    public let hash: String
+
+    public init(id: String, ts: String, actorDeviceId: String? = nil, actorKind: AuditEntryActorKind, action: String, target: String? = nil, details: [String: JSONValue], ip: String? = nil, prevHash: String? = nil, hash: String) {
+        self.id = id
+        self.ts = ts
+        self.actorDeviceId = actorDeviceId
+        self.actorKind = actorKind
+        self.action = action
+        self.target = target
+        self.details = details
+        self.ip = ip
+        self.prevHash = prevHash
+        self.hash = hash
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case ts
+        case actorDeviceId = "actor_device_id"
+        case actorKind = "actor_kind"
+        case action
+        case target
+        case details
+        case ip
+        case prevHash = "prev_hash"
+        case hash
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.ts = try c.decode(String.self, forKey: .ts)
+        self.actorDeviceId = try c.decodeIfPresent(String.self, forKey: .actorDeviceId)
+        self.actorKind = try c.decode(AuditEntryActorKind.self, forKey: .actorKind)
+        self.action = try c.decode(String.self, forKey: .action)
+        self.target = try c.decodeIfPresent(String.self, forKey: .target)
+        self.details = try c.decode([String: JSONValue].self, forKey: .details)
+        self.ip = try c.decodeIfPresent(String.self, forKey: .ip)
+        self.prevHash = try c.decodeIfPresent(String.self, forKey: .prevHash)
+        self.hash = try c.decode(String.self, forKey: .hash)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.ts, forKey: .ts)
+        try c.encode(self.actorDeviceId, forKey: .actorDeviceId)
+        try c.encode(self.actorKind, forKey: .actorKind)
+        try c.encode(self.action, forKey: .action)
+        try c.encode(self.target, forKey: .target)
+        try c.encode(self.details, forKey: .details)
+        try c.encode(self.ip, forKey: .ip)
+        try c.encode(self.prevHash, forKey: .prevHash)
+        try c.encode(self.hash, forKey: .hash)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum AuditEntryActorKind: Hashable, Sendable, Codable {
+    case agentd
+    case web
+    case menubar
+    case mobile
+    case telegram
+    case system
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "agentd": self = .agentd
+        case "web": self = .web
+        case "menubar": self = .menubar
+        case "mobile": self = .mobile
+        case "telegram": self = .telegram
+        case "system": self = .system
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .agentd: return "agentd"
+        case .web: return "web"
+        case .menubar: return "menubar"
+        case .mobile: return "mobile"
+        case .telegram: return "telegram"
+        case .system: return "system"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum BudgetScopeKind: Hashable, Sendable, Codable {
+    case project
+    case machine
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "project": self = .project
+        case "machine": self = .machine
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .project: return "project"
+        case .machine: return "machine"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum BudgetState: Hashable, Sendable, Codable {
+    case ok
+    case soft
+    case hard
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "ok": self = .ok
+        case "soft": self = .soft
+        case "hard": self = .hard
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .ok: return "ok"
+        case .soft: return "soft"
+        case .hard: return "hard"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct BudgetStatus: Codable, Hashable, Sendable {
+    public let scopeKind: BudgetScopeKind
+    public let scopeKey: String
+    public let label: String
+    public let dailyTokens: Int
+    public let extraToday: Int
+    public let effectiveLimit: Int
+    public let usedToday: Int
+    public let pct: Double
+    public let state: BudgetState
+    public let autoStop: Bool
+
+    public init(scopeKind: BudgetScopeKind, scopeKey: String, label: String, dailyTokens: Int, extraToday: Int, effectiveLimit: Int, usedToday: Int, pct: Double, state: BudgetState, autoStop: Bool) {
+        self.scopeKind = scopeKind
+        self.scopeKey = scopeKey
+        self.label = label
+        self.dailyTokens = dailyTokens
+        self.extraToday = extraToday
+        self.effectiveLimit = effectiveLimit
+        self.usedToday = usedToday
+        self.pct = pct
+        self.state = state
+        self.autoStop = autoStop
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case scopeKind
+        case scopeKey
+        case label
+        case dailyTokens
+        case extraToday
+        case effectiveLimit
+        case usedToday
+        case pct
+        case state
+        case autoStop
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.scopeKind = try c.decode(BudgetScopeKind.self, forKey: .scopeKind)
+        self.scopeKey = try c.decode(String.self, forKey: .scopeKey)
+        self.label = try c.decode(String.self, forKey: .label)
+        self.dailyTokens = try c.decode(Int.self, forKey: .dailyTokens)
+        self.extraToday = try c.decode(Int.self, forKey: .extraToday)
+        self.effectiveLimit = try c.decode(Int.self, forKey: .effectiveLimit)
+        self.usedToday = try c.decode(Int.self, forKey: .usedToday)
+        self.pct = try c.decode(Double.self, forKey: .pct)
+        self.state = try c.decode(BudgetState.self, forKey: .state)
+        self.autoStop = try c.decode(Bool.self, forKey: .autoStop)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.scopeKind, forKey: .scopeKind)
+        try c.encode(self.scopeKey, forKey: .scopeKey)
+        try c.encode(self.label, forKey: .label)
+        try c.encode(self.dailyTokens, forKey: .dailyTokens)
+        try c.encode(self.extraToday, forKey: .extraToday)
+        try c.encode(self.effectiveLimit, forKey: .effectiveLimit)
+        try c.encode(self.usedToday, forKey: .usedToday)
+        try c.encode(self.pct, forKey: .pct)
+        try c.encode(self.state, forKey: .state)
+        try c.encode(self.autoStop, forKey: .autoStop)
+    }
+}
+
+public struct BudgetsResponse: Codable, Hashable, Sendable {
+    public let day: String
+    public let resetsAt: String
+    public let items: [BudgetStatus]
+
+    public init(day: String, resetsAt: String, items: [BudgetStatus]) {
+        self.day = day
+        self.resetsAt = resetsAt
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case day
+        case resetsAt
+        case items
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.day = try c.decode(String.self, forKey: .day)
+        self.resetsAt = try c.decode(String.self, forKey: .resetsAt)
+        self.items = try c.decode([BudgetStatus].self, forKey: .items)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.day, forKey: .day)
+        try c.encode(self.resetsAt, forKey: .resetsAt)
+        try c.encode(self.items, forKey: .items)
+    }
+}
+
+public struct CenterCheckDto: Codable, Hashable, Sendable {
+    public let kind: CenterCheckKind
+    public let status: CenterCheckStatus
+    public let summary: String
+    public let metrics: [String: Double?]
+    public let checkedAt: String
+
+    public init(kind: CenterCheckKind, status: CenterCheckStatus, summary: String, metrics: [String: Double?], checkedAt: String) {
+        self.kind = kind
+        self.status = status
+        self.summary = summary
+        self.metrics = metrics
+        self.checkedAt = checkedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case kind
+        case status
+        case summary
+        case metrics
+        case checkedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.kind = try c.decode(CenterCheckKind.self, forKey: .kind)
+        self.status = try c.decode(CenterCheckStatus.self, forKey: .status)
+        self.summary = try c.decode(String.self, forKey: .summary)
+        self.metrics = try c.decode([String: Double?].self, forKey: .metrics)
+        self.checkedAt = try c.decode(String.self, forKey: .checkedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.status, forKey: .status)
+        try c.encode(self.summary, forKey: .summary)
+        try c.encode(self.metrics, forKey: .metrics)
+        try c.encode(self.checkedAt, forKey: .checkedAt)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum CenterCheckKind: Hashable, Sendable, Codable {
+    case dbDisk
+    case backup
+    case dashboard
+    case tailscale
+    case runtime
+    case telegram
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "db_disk": self = .dbDisk
+        case "backup": self = .backup
+        case "dashboard": self = .dashboard
+        case "tailscale": self = .tailscale
+        case "runtime": self = .runtime
+        case "telegram": self = .telegram
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .dbDisk: return "db_disk"
+        case .backup: return "backup"
+        case .dashboard: return "dashboard"
+        case .tailscale: return "tailscale"
+        case .runtime: return "runtime"
+        case .telegram: return "telegram"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum CenterCheckStatus: Hashable, Sendable, Codable {
+    case ok
+    case warn
+    case critical
+    case unknownValue
+    case disabled
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "ok": self = .ok
+        case "warn": self = .warn
+        case "critical": self = .critical
+        case "unknown": self = .unknownValue
+        case "disabled": self = .disabled
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .ok: return "ok"
+        case .warn: return "warn"
+        case .critical: return "critical"
+        case .unknownValue: return "unknown"
+        case .disabled: return "disabled"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct CenterHealthResponse: Codable, Hashable, Sendable {
+    public let checkedAt: String?
+    public let status: CenterHealthResponseStatus
+    public let checks: [CenterCheckDto]
+    public let incidents: [CenterIncidentDto]
+    public let machinesOffline: Int
+    public let uptimeSec: Int
+
+    public init(checkedAt: String? = nil, status: CenterHealthResponseStatus, checks: [CenterCheckDto], incidents: [CenterIncidentDto], machinesOffline: Int, uptimeSec: Int) {
+        self.checkedAt = checkedAt
+        self.status = status
+        self.checks = checks
+        self.incidents = incidents
+        self.machinesOffline = machinesOffline
+        self.uptimeSec = uptimeSec
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case checkedAt
+        case status
+        case checks
+        case incidents
+        case machinesOffline
+        case uptimeSec
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.checkedAt = try c.decodeIfPresent(String.self, forKey: .checkedAt)
+        self.status = try c.decode(CenterHealthResponseStatus.self, forKey: .status)
+        self.checks = try c.decode([CenterCheckDto].self, forKey: .checks)
+        self.incidents = try c.decode([CenterIncidentDto].self, forKey: .incidents)
+        self.machinesOffline = try c.decode(Int.self, forKey: .machinesOffline)
+        self.uptimeSec = try c.decode(Int.self, forKey: .uptimeSec)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.checkedAt, forKey: .checkedAt)
+        try c.encode(self.status, forKey: .status)
+        try c.encode(self.checks, forKey: .checks)
+        try c.encode(self.incidents, forKey: .incidents)
+        try c.encode(self.machinesOffline, forKey: .machinesOffline)
+        try c.encode(self.uptimeSec, forKey: .uptimeSec)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum CenterHealthResponseStatus: Hashable, Sendable, Codable {
+    case ok
+    case warn
+    case critical
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "ok": self = .ok
+        case "warn": self = .warn
+        case "critical": self = .critical
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .ok: return "ok"
+        case .warn: return "warn"
+        case .critical: return "critical"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+public struct CenterIncidentDto: Codable, Hashable, Sendable {
+    public let id: String
+    public let kind: CenterCheckKind
+    public let severity: CenterIncidentDtoSeverity
+    public let summary: String
+    public let openedAt: String
+    public let resolvedAt: String?
+
+    public init(id: String, kind: CenterCheckKind, severity: CenterIncidentDtoSeverity, summary: String, openedAt: String, resolvedAt: String? = nil) {
+        self.id = id
+        self.kind = kind
+        self.severity = severity
+        self.summary = summary
+        self.openedAt = openedAt
+        self.resolvedAt = resolvedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case kind
+        case severity
+        case summary
+        case openedAt
+        case resolvedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.kind = try c.decode(CenterCheckKind.self, forKey: .kind)
+        self.severity = try c.decode(CenterIncidentDtoSeverity.self, forKey: .severity)
+        self.summary = try c.decode(String.self, forKey: .summary)
+        self.openedAt = try c.decode(String.self, forKey: .openedAt)
+        self.resolvedAt = try c.decodeIfPresent(String.self, forKey: .resolvedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.kind, forKey: .kind)
+        try c.encode(self.severity, forKey: .severity)
+        try c.encode(self.summary, forKey: .summary)
+        try c.encode(self.openedAt, forKey: .openedAt)
+        try c.encode(self.resolvedAt, forKey: .resolvedAt)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum CenterIncidentDtoSeverity: Hashable, Sendable, Codable {
+    case warn
+    case critical
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "warn": self = .warn
+        case "critical": self = .critical
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .warn: return "warn"
+        case .critical: return "critical"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
     }
 }
 
@@ -2475,6 +3925,38 @@ public struct ClientPairResponse: Codable, Hashable, Sendable {
         try c.encode(self.scopes, forKey: .scopes)
         try c.encode(self.expiresAt, forKey: .expiresAt)
         try c.encode(self.serverTime, forKey: .serverTime)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum ClientPairingKind: Hashable, Sendable, Codable {
+    case menubar
+    case mobile
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "menubar": self = .menubar
+        case "mobile": self = .mobile
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .menubar: return "menubar"
+        case .mobile: return "mobile"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
     }
 }
 
@@ -4550,6 +6032,95 @@ public struct HealthThresholds: Codable, Hashable, Sendable {
     }
 }
 
+public struct HealthThresholdsPatch: Codable, Hashable, Sendable {
+    public let diskWarnPct: Double?
+    public let diskCriticalPct: Double?
+    public let memPct: Double?
+    public let memForMin: Double?
+    public let cpuPct: Double?
+    public let cpuForMin: Double?
+    public let restartLoopCount: Int?
+    public let restartLoopWindowMin: Double?
+    public let offlineAfterMin: Double?
+
+    public init(diskWarnPct: Double? = nil, diskCriticalPct: Double? = nil, memPct: Double? = nil, memForMin: Double? = nil, cpuPct: Double? = nil, cpuForMin: Double? = nil, restartLoopCount: Int? = nil, restartLoopWindowMin: Double? = nil, offlineAfterMin: Double? = nil) {
+        self.diskWarnPct = diskWarnPct
+        self.diskCriticalPct = diskCriticalPct
+        self.memPct = memPct
+        self.memForMin = memForMin
+        self.cpuPct = cpuPct
+        self.cpuForMin = cpuForMin
+        self.restartLoopCount = restartLoopCount
+        self.restartLoopWindowMin = restartLoopWindowMin
+        self.offlineAfterMin = offlineAfterMin
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case diskWarnPct
+        case diskCriticalPct
+        case memPct
+        case memForMin
+        case cpuPct
+        case cpuForMin
+        case restartLoopCount
+        case restartLoopWindowMin
+        case offlineAfterMin
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.diskWarnPct = try c.decodeIfPresent(Double.self, forKey: .diskWarnPct)
+        self.diskCriticalPct = try c.decodeIfPresent(Double.self, forKey: .diskCriticalPct)
+        self.memPct = try c.decodeIfPresent(Double.self, forKey: .memPct)
+        self.memForMin = try c.decodeIfPresent(Double.self, forKey: .memForMin)
+        self.cpuPct = try c.decodeIfPresent(Double.self, forKey: .cpuPct)
+        self.cpuForMin = try c.decodeIfPresent(Double.self, forKey: .cpuForMin)
+        self.restartLoopCount = try c.decodeIfPresent(Int.self, forKey: .restartLoopCount)
+        self.restartLoopWindowMin = try c.decodeIfPresent(Double.self, forKey: .restartLoopWindowMin)
+        self.offlineAfterMin = try c.decodeIfPresent(Double.self, forKey: .offlineAfterMin)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encodeIfPresent(self.diskWarnPct, forKey: .diskWarnPct)
+        try c.encodeIfPresent(self.diskCriticalPct, forKey: .diskCriticalPct)
+        try c.encodeIfPresent(self.memPct, forKey: .memPct)
+        try c.encodeIfPresent(self.memForMin, forKey: .memForMin)
+        try c.encodeIfPresent(self.cpuPct, forKey: .cpuPct)
+        try c.encodeIfPresent(self.cpuForMin, forKey: .cpuForMin)
+        try c.encodeIfPresent(self.restartLoopCount, forKey: .restartLoopCount)
+        try c.encodeIfPresent(self.restartLoopWindowMin, forKey: .restartLoopWindowMin)
+        try c.encodeIfPresent(self.offlineAfterMin, forKey: .offlineAfterMin)
+    }
+}
+
+public struct HealthThresholdsResponse: Codable, Hashable, Sendable {
+    public let defaults: HealthThresholds
+    public let machines: [String: HealthThresholdsPatch]
+
+    public init(defaults: HealthThresholds, machines: [String: HealthThresholdsPatch]) {
+        self.defaults = defaults
+        self.machines = machines
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case defaults
+        case machines
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.defaults = try c.decode(HealthThresholds.self, forKey: .defaults)
+        self.machines = try c.decode([String: HealthThresholdsPatch].self, forKey: .machines)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.defaults, forKey: .defaults)
+        try c.encode(self.machines, forKey: .machines)
+    }
+}
+
 public struct HealthTopProcesses: Codable, Hashable, Sendable {
     public let byCpu: [HealthProcess]
     public let byMem: [HealthProcess]
@@ -5068,6 +6639,28 @@ public struct ListAlertsResponse: Codable, Hashable, Sendable {
     }
 }
 
+public struct ListApprovalRulesResponse: Codable, Hashable, Sendable {
+    public let rules: [ApprovalRuleDto]
+
+    public init(rules: [ApprovalRuleDto]) {
+        self.rules = rules
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case rules
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.rules = try c.decode([ApprovalRuleDto].self, forKey: .rules)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.rules, forKey: .rules)
+    }
+}
+
 public struct ListApprovalsResponse: Codable, Hashable, Sendable {
     public let pending: [ApprovalDto]
     public let recent: [ApprovalDto]
@@ -5092,6 +6685,33 @@ public struct ListApprovalsResponse: Codable, Hashable, Sendable {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(self.pending, forKey: .pending)
         try c.encode(self.recent, forKey: .recent)
+    }
+}
+
+public struct ListAuditResponse: Codable, Hashable, Sendable {
+    public let items: [AuditEntry]
+    public let nextBefore: String?
+
+    public init(items: [AuditEntry], nextBefore: String? = nil) {
+        self.items = items
+        self.nextBefore = nextBefore
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case items
+        case nextBefore = "next_before"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try c.decode([AuditEntry].self, forKey: .items)
+        self.nextBefore = try c.decodeIfPresent(String.self, forKey: .nextBefore)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.items, forKey: .items)
+        try c.encode(self.nextBefore, forKey: .nextBefore)
     }
 }
 
@@ -5483,6 +7103,33 @@ public struct LockdownUpdatedMessagePayload: Codable, Hashable, Sendable {
     }
 }
 
+public struct MachineArchiveResponse: Codable, Hashable, Sendable {
+    public let id: String
+    public let archivedAt: String?
+
+    public init(id: String, archivedAt: String? = nil) {
+        self.id = id
+        self.archivedAt = archivedAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case archivedAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try c.decode(String.self, forKey: .id)
+        self.archivedAt = try c.decodeIfPresent(String.self, forKey: .archivedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.id, forKey: .id)
+        try c.encode(self.archivedAt, forKey: .archivedAt)
+    }
+}
+
 public struct MachineDto: Codable, Hashable, Sendable {
     public let id: String
     public let slug: String
@@ -5498,8 +7145,9 @@ public struct MachineDto: Codable, Hashable, Sendable {
     public let identityStatus: String
     public let sessions: MachineSessionCounts
     public let control: AgentControlState?
+    public let archivedAt: String?
 
-    public init(id: String, slug: String, displayName: String? = nil, hostname: String? = nil, os: String? = nil, online: Bool, lastSeenAt: String? = nil, connectedAt: String? = nil, disconnectedAt: String? = nil, agentdVersion: String? = nil, claudeVersion: String? = nil, identityStatus: String, sessions: MachineSessionCounts, control: AgentControlState? = nil) {
+    public init(id: String, slug: String, displayName: String? = nil, hostname: String? = nil, os: String? = nil, online: Bool, lastSeenAt: String? = nil, connectedAt: String? = nil, disconnectedAt: String? = nil, agentdVersion: String? = nil, claudeVersion: String? = nil, identityStatus: String, sessions: MachineSessionCounts, control: AgentControlState? = nil, archivedAt: String? = nil) {
         self.id = id
         self.slug = slug
         self.displayName = displayName
@@ -5514,6 +7162,7 @@ public struct MachineDto: Codable, Hashable, Sendable {
         self.identityStatus = identityStatus
         self.sessions = sessions
         self.control = control
+        self.archivedAt = archivedAt
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5531,6 +7180,7 @@ public struct MachineDto: Codable, Hashable, Sendable {
         case identityStatus
         case sessions
         case control
+        case archivedAt
     }
 
     public init(from decoder: Decoder) throws {
@@ -5549,6 +7199,7 @@ public struct MachineDto: Codable, Hashable, Sendable {
         self.identityStatus = try c.decode(String.self, forKey: .identityStatus)
         self.sessions = try c.decode(MachineSessionCounts.self, forKey: .sessions)
         self.control = try c.decodeIfPresent(AgentControlState.self, forKey: .control)
+        self.archivedAt = try c.decodeIfPresent(String.self, forKey: .archivedAt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -5567,6 +7218,7 @@ public struct MachineDto: Codable, Hashable, Sendable {
         try c.encode(self.identityStatus, forKey: .identityStatus)
         try c.encode(self.sessions, forKey: .sessions)
         try c.encode(self.control, forKey: .control)
+        try c.encode(self.archivedAt, forKey: .archivedAt)
     }
 }
 
@@ -7523,6 +9175,33 @@ public struct ProjectUpdatedPayloadProject: Codable, Hashable, Sendable {
     }
 }
 
+public struct PutHealthThresholdsBody: Codable, Hashable, Sendable {
+    public let defaults: HealthThresholdsPatch?
+    public let machines: [String: HealthThresholdsPatch?]?
+
+    public init(defaults: HealthThresholdsPatch? = nil, machines: [String: HealthThresholdsPatch?]? = nil) {
+        self.defaults = defaults
+        self.machines = machines
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case defaults
+        case machines
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.defaults = try c.decodeIfPresent(HealthThresholdsPatch.self, forKey: .defaults)
+        self.machines = try c.decodeIfPresent([String: HealthThresholdsPatch?].self, forKey: .machines)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encodeIfPresent(self.defaults, forKey: .defaults)
+        try c.encodeIfPresent(self.machines, forKey: .machines)
+    }
+}
+
 public struct PutPaceSettingsBody: Codable, Hashable, Sendable {
     public let enabled: Bool?
     public let softPct: Double?
@@ -8442,6 +10121,41 @@ public enum ResumeReason: Hashable, Sendable, Codable {
         case .startNotAllowed: return "start_not_allowed"
         case .unsupportedOs: return "unsupported_os"
         case .noCwd: return "no_cwd"
+        case .unknown(let raw): return raw
+        }
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.init(rawValue: try decoder.singleValueContainer().decode(String.self))
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        try c.encode(rawValue)
+    }
+}
+
+/// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
+public enum RuleScope: Hashable, Sendable, Codable {
+    case session
+    case project
+    case repo
+    case unknown(String)
+
+    public init(rawValue: String) {
+        switch rawValue {
+        case "session": self = .session
+        case "project": self = .project
+        case "repo": self = .repo
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .session: return "session"
+        case .project: return "project"
+        case .repo: return "repo"
         case .unknown(let raw): return raw
         }
     }
@@ -9491,6 +11205,43 @@ public enum StepStatus: Hashable, Sendable, Codable {
     }
 }
 
+public struct StepUpExemptionResponse: Codable, Hashable, Sendable {
+    public let available: Bool
+    public let exempt: Bool
+    public let dashboardDevices: Int
+    public let otherExemptDevices: Int
+
+    public init(available: Bool, exempt: Bool, dashboardDevices: Int, otherExemptDevices: Int) {
+        self.available = available
+        self.exempt = exempt
+        self.dashboardDevices = dashboardDevices
+        self.otherExemptDevices = otherExemptDevices
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case available
+        case exempt
+        case dashboardDevices
+        case otherExemptDevices
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.available = try c.decode(Bool.self, forKey: .available)
+        self.exempt = try c.decode(Bool.self, forKey: .exempt)
+        self.dashboardDevices = try c.decode(Int.self, forKey: .dashboardDevices)
+        self.otherExemptDevices = try c.decode(Int.self, forKey: .otherExemptDevices)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.available, forKey: .available)
+        try c.encode(self.exempt, forKey: .exempt)
+        try c.encode(self.dashboardDevices, forKey: .dashboardDevices)
+        try c.encode(self.otherExemptDevices, forKey: .otherExemptDevices)
+    }
+}
+
 /// Noma'lum (kelajakdagi) qiymatlar `.unknown(raw)` bo'lib dekodlanadi, xato tashlanmaydi.
 public enum TaskBoardColumn: Hashable, Sendable, Codable {
     case todo
@@ -10118,6 +11869,28 @@ public struct UnattributedTasks: Codable, Hashable, Sendable {
         try c.encode(self.label, forKey: .label)
         try c.encode(self.tokens, forKey: .tokens)
         try c.encode(self.sessions, forKey: .sessions)
+    }
+}
+
+public struct UpdateMachineBody: Codable, Hashable, Sendable {
+    public let displayName: String?
+
+    public init(displayName: String? = nil) {
+        self.displayName = displayName
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case displayName
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.displayName = try c.decodeIfPresent(String.self, forKey: .displayName)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(self.displayName, forKey: .displayName)
     }
 }
 

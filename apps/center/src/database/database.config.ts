@@ -67,6 +67,7 @@ import { BackfillSessionModel1731408600000 } from './migrations/1731408600000-Ba
 import { ProjectParts1731408700000 } from './migrations/1731408700000-ProjectParts.js';
 import { ProjectArchive1731408800000 } from './migrations/1731408800000-ProjectArchive.js';
 import { DailySummaryPart1731409000000 } from './migrations/1731409000000-DailySummaryPart.js';
+import { MachineArchive1731409100000 } from './migrations/1731409100000-MachineArchive.js';
 
 /** Barcha entity'lar va migratsiyalar (tartib bo'yicha). `synchronize` taqiqlangan. */
 export const ENTITIES = [
@@ -145,6 +146,7 @@ export const MIGRATIONS = [
   ProjectParts1731408700000,
   ProjectArchive1731408800000,
   DailySummaryPart1731409000000,
+  MachineArchive1731409100000,
 ];
 
 /** Ilova va CLI uchun umumiy TypeORM sozlamasi. CLI migratsiya ishga tushirmaydi (buni ilova qiladi). */

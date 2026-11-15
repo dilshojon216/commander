@@ -8,7 +8,7 @@ import { LOG_ERROR_TEXT } from "./logs-view";
 
 /** Masofaviy boshqaruv UI mantig'i (sof, testlanadi). */
 
-const ERROR_TEXT: Record<string, string> = {
+export const ERROR_TEXT: Record<string, string> = {
   // Deploy (6.5) / checkpoint (6.9): umumiy (git) matnlar ustun, yangi kodlar shu yerdan
   ...DEPLOY_ERROR_TEXT,
   ...GIT_ERROR_TEXT,

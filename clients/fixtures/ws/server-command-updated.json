@@ -1,0 +1,42 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000021",
+  "type": "command.updated",
+  "ts": 1763092800000,
+  "payload": {
+    "command": {
+      "id": "00000000-0000-4000-8000-000000000104",
+      "type": "session.resume",
+      "status": "running",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "srv-01",
+      "projectId": null,
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "claudeSessionId": "005e43c5-ae9f-4f9f-84c2-808f3ce95955",
+      "cwd": "/home/dev/project",
+      "permissionMode": "default",
+      "model": "sonnet",
+      "promptLength": null,
+      "promptPreview": null,
+      "requestedByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "stepUp": {
+        "required": false,
+        "via": null,
+        "expiresAt": null,
+        "confirmedAt": null,
+        "confirmedByDeviceId": null
+      },
+      "errorCode": null,
+      "errorMessage": null,
+      "result": {
+        "tmuxSession": "cmdr-1",
+        "shortId": "83552025"
+      },
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "sentAt": "2025-11-14T08:00:00.000Z",
+      "ackedAt": "2025-11-14T08:00:00.000Z",
+      "finishedAt": null,
+      "expiresAt": "2025-11-14T08:05:00.000Z"
+    }
+  }
+}

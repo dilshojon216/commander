@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "id": 1,
+      "scope": "session",
+      "scopeRef": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "scopeLabel": "Sessiya 83552025",
+      "tools": [
+        "Edit",
+        "Write"
+      ],
+      "pathGlobs": [
+        "src/**"
+      ],
+      "expiresAt": "2025-11-14T10:00:00.000Z",
+      "createdByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "revokedAt": null,
+      "status": "active",
+      "autoCount": 12
+    },
+    {
+      "id": 2,
+      "scope": "project",
+      "scopeRef": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "scopeLabel": "commander",
+      "tools": [
+        "Bash"
+      ],
+      "pathGlobs": [],
+      "expiresAt": "2025-11-13T10:00:00.000Z",
+      "createdByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "createdAt": "2025-11-13T08:00:00.000Z",
+      "revokedAt": "2025-11-13T09:00:00.000Z",
+      "status": "revoked",
+      "autoCount": 3
+    }
+  ]
+}

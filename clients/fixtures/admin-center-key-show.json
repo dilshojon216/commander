@@ -1,0 +1,12 @@
+{
+  "public_key": "EXAMPLE-PUBLIC-KEY-BASE64URL",
+  "fingerprint": "ab:cd:ef:01",
+  "overlap": [
+    {
+      "fromFingerprint": "11:22:33:44",
+      "toFingerprint": "ab:cd:ef:01",
+      "issuedAt": "2026-11-01T10:00:00.000Z",
+      "expiresAt": "2026-12-01T10:00:00.000Z"
+    }
+  ]
+}

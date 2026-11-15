@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2025-11-14T08:00:00.000Z",
+  "status": "warn",
+  "checks": [
+    {
+      "kind": "db_disk",
+      "status": "ok",
+      "summary": "Disk 41% band",
+      "metrics": {
+        "usedPct": 41
+      },
+      "checkedAt": "2025-11-14T08:00:00.000Z"
+    },
+    {
+      "kind": "backup",
+      "status": "warn",
+      "summary": "Oxirgi zaxira 26 soat oldin",
+      "metrics": {
+        "ageHours": 26
+      },
+      "checkedAt": "2025-11-14T08:00:00.000Z"
+    },
+    {
+      "kind": "telegram",
+      "status": "disabled",
+      "summary": "Telegram o'chiq",
+      "metrics": {},
+      "checkedAt": "2025-11-14T08:00:00.000Z"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "00000000-0000-4000-8000-000000000400",
+      "kind": "backup",
+      "severity": "warn",
+      "summary": "Zaxira kechikdi",
+      "openedAt": "2025-11-14T08:00:00.000Z",
+      "resolvedAt": null
+    }
+  ],
+  "machinesOffline": 1,
+  "uptimeSec": 86400
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CenterHealthResponse.json",
+  "title": "CenterHealthResponse",
+  "type": "object",
+  "properties": {
+    "checkedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warn",
+        "critical"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "CenterCheckDto.json"
+      }
+    },
+    "incidents": {
+      "type": "array",
+      "items": {
+        "$ref": "CenterIncidentDto.json"
+      }
+    },
+    "machinesOffline": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "uptimeSec": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "checkedAt",
+    "status",
+    "checks",
+    "incidents",
+    "machinesOffline",
+    "uptimeSec"
+  ],
+  "additionalProperties": false
+}

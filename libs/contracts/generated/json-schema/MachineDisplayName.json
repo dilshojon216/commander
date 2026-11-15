@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "MachineDisplayName.json",
+  "title": "MachineDisplayName",
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 64,
+  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+}

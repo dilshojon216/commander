@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminTelegramPendingEntry.json",
+  "title": "AdminTelegramPendingEntry",
+  "type": "object",
+  "properties": {
+    "chatId": {
+      "type": "string"
+    },
+    "username": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "atMs": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "chatId",
+    "username",
+    "name",
+    "atMs"
+  ],
+  "additionalProperties": false
+}

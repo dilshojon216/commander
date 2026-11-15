@@ -1,0 +1,12 @@
+{
+  "items": [
+    {
+      "chatId": "111111111",
+      "source": "env"
+    },
+    {
+      "chatId": "222222222",
+      "source": "db"
+    }
+  ]
+}

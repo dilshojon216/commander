@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": "cccccccc-0000-4000-8000-000000000001",
+      "machineId": "11111111-1111-4111-8111-111111111111",
+      "name": "example-mac",
+      "state": "active",
+      "createdAt": "2026-11-01T10:00:00.000Z",
+      "lastUsedAt": "2026-11-15T09:59:30.000Z",
+      "revokedAt": null,
+      "rotationRequired": true,
+      "keyRotatedAt": null
+    },
+    {
+      "id": "cccccccc-0000-4000-8000-000000000002",
+      "machineId": null,
+      "name": null,
+      "state": "revoked",
+      "createdAt": "2026-10-01T10:00:00.000Z",
+      "lastUsedAt": null,
+      "revokedAt": "2026-10-05T10:00:00.000Z",
+      "rotationRequired": false,
+      "keyRotatedAt": "2026-10-03T10:00:00.000Z"
+    }
+  ]
+}

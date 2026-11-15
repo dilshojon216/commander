@@ -5,7 +5,11 @@
 #   ops/claude-tmux.sh <ssh-alias> install|uninstall|status    # server (Linux, ~/.bashrc) ssh orqali
 # rc fayl o'zgartirishdan oldin zaxiralanadi (<rc>.bak-commander-<vaqt>). Snippet: ops/lib/claude-tmux.snippet.sh.
 # Windows qo'llab-quvvatlanmaydi (tmux yo'q).
+# COMMANDER_PROGRESS=1 bo'lsa progress markerlar chiqaradi: ##commander-step <k>/<N> <title> va ##commander-result <JSON>
 set -euo pipefail
+
+# Jarayon markerlari (COMMANDER_PROGRESS=1): ops/lib/progress.sh
+. "$(cd "$(dirname "$0")" && pwd)/lib/progress.sh"
 
 TARGET="${1:-}"
 ACTION="${2:-}"
@@ -50,15 +54,18 @@ esac
 EOF
 
 if [ "$TARGET" = "local" ]; then
+  commander_step 1 1 "claude-tmux $ACTION"
   case "$(uname -s)" in
     Darwin) RC="$HOME/.zshrc" ;;
     Linux) RC="$HOME/.bashrc" ;;
     *) echo "qo'llab-quvvatlanmaydi: $(uname -s)"; exit 1 ;;
   esac
   bash -c "$REMOTE_ACTION" _ "$ACTION" "$RC" < "$SNIPPET"
+  commander_result "$(json_object target local action "$ACTION" status success)"
   exit 0
 fi
 
+commander_step 1 1 "claude-tmux $ACTION (remote)"
 SSH=(ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=yes "$TARGET")
 OS_PROBE=$("${SSH[@]}" 'echo %OS%' 2>/dev/null | tr -d '\r' | tail -1 || true)
 [ "$OS_PROBE" != "Windows_NT" ] || { echo "Windows qo'llab-quvvatlanmaydi (tmux yo'q)"; exit 1; }
@@ -70,3 +77,4 @@ case "$REMOTE_OS" in
 esac
 # Skript argv'da (printf %q), snippet stdin'da; rc yo'li serverda kengayadi
 "${SSH[@]}" "bash -c $(printf '%q' "$REMOTE_ACTION") _ $(printf '%q' "$ACTION") \"$RC_REMOTE\"" < "$SNIPPET"
+commander_result "$(json_object target "$TARGET" action "$ACTION" status success)"

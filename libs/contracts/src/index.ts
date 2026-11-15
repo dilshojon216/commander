@@ -44,3 +44,4 @@ export * from './deploy.js';
 export * from './checkpoints.js';
 export * from './limits-pace.js';
 export * from './stepup-exemption.js';
+export * from './admin-cli.js';

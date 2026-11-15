@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": "00000000-0000-4000-8000-000000000301",
+      "kind": "waiting",
+      "state": "open",
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "projectId": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "sessionName": "backend",
+      "projectName": "commander",
+      "title": "Sessiya sizni kutmoqda",
+      "detail": "20 daqiqadan beri javob yo'q",
+      "metrics": {
+        "minutes": 20
+      },
+      "remindersSent": 1,
+      "autoStopped": false,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "updatedAt": "2025-11-14T08:00:00.000Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000302",
+      "kind": "burn",
+      "state": "resolved",
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "projectId": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "sessionName": "backend",
+      "projectName": "commander",
+      "title": "Token sarfi yuqori",
+      "detail": "Soatiga 1.2M token",
+      "metrics": {
+        "tokensPerHour": 1200000
+      },
+      "remindersSent": 1,
+      "autoStopped": false,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "updatedAt": "2025-11-14T08:00:00.000Z",
+      "resolvedAt": "2025-11-14T09:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000303",
+      "kind": "error_loop",
+      "state": "dismissed",
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "projectId": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "sessionName": "backend",
+      "projectName": "commander",
+      "title": "Xato sikli",
+      "detail": "Bir xil xato 6 marta takrorlandi",
+      "metrics": {
+        "repeats": 6
+      },
+      "remindersSent": 1,
+      "autoStopped": true,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "updatedAt": "2025-11-14T08:00:00.000Z",
+      "resolvedAt": null
+    }
+  ]
+}

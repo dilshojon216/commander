@@ -86,6 +86,7 @@ function machine(over: Partial<MachineDto>): MachineDto {
     identityStatus: "verified",
     sessions: { open: 0, working: 0, waiting: 0, awaitingApproval: 0, idle: 0, done: 0 },
     control: { enabled: true, allowStart: true, allowPrompt: true, allowStop: true, allowSetMode: false, allowAutoMode: false, maxConcurrentStarted: 2, allowedRootCount: 1, centerKeyPinned: true, runningAsRoot: false },
+    archivedAt: null,
     ...over,
   };
 }

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminTokenRotated.json",
+  "title": "AdminTokenRotated",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "token": {
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "ClientDeviceKind.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "ClientTokenScope.json"
+      }
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rotated_from": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "grace_ends_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stepup_exempt_inherited": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "token",
+    "kind",
+    "name",
+    "scopes",
+    "expires_at",
+    "rotated_from",
+    "grace_ends_at",
+    "stepup_exempt_inherited"
+  ],
+  "additionalProperties": false
+}

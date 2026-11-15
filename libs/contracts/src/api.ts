@@ -63,8 +63,28 @@ export const MachineDtoSchema = z.object({
   sessions: MachineSessionCountsSchema,
   /** agentd lokal siyosati (so'nggi heartbeat); `null` = agentd hali e'lon qilmagan (eski versiya yoki hech ulanmagan). */
   control: AgentControlStateSchema.nullable(),
+  /** N2.14: arxivlangan vaqt (ISO) yoki `null` (faol). Arxiv = standart ro'yxatdan yashirish; ma'lumot o'chmaydi. */
+  archivedAt: IsoDate.nullable().default(null),
 });
 export type MachineDto = z.infer<typeof MachineDtoSchema>;
+
+/** `GET /v1/machines`: yo'q/`0` = faqat faollar (default); `1` = faqat arxivlanganlar (projects 6.16 bilan bir xil). */
+export const ListMachinesQuerySchema = z.object({ archived: QueryFlagSchema.optional() }).strict();
+export type ListMachinesQuery = z.infer<typeof ListMachinesQuerySchema>;
+
+/** N2.13: `PATCH /v1/machines/:id`. `displayName: null` = ko'rsatiladigan nomni tozalash (slug'ga qaytadi). */
+export const MachineDisplayNameSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(64)
+  .regex(/^[^\u0000-\u001f\u007f]+$/, 'control characters not allowed');
+export const UpdateMachineBodySchema = z.object({ displayName: MachineDisplayNameSchema.nullable() }).strict();
+export type UpdateMachineBody = z.infer<typeof UpdateMachineBodySchema>;
+
+/** N2.14: `POST /v1/machines/:id/archive|unarchive` javobi. `archivedAt` = arxivdan keyin vaqt, qaytarilgandan keyin `null`. */
+export const MachineArchiveResponseSchema = z.object({ id: z.uuid(), archivedAt: z.string().nullable() });
+export type MachineArchiveResponse = z.infer<typeof MachineArchiveResponseSchema>;
 
 export const ListMachinesResponseSchema = z.object({
   items: z.array(MachineDtoSchema),

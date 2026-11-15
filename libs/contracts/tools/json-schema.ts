@@ -15,6 +15,7 @@ export const OUTPUT_ROOTS: readonly string[] = [
   // o'qish REST (camelCase /v1)
   'MachineDto',
   'ListMachinesResponse',
+  'MachineArchiveResponse',
   'SessionDto',
   'ListSessionsResponseV1',
   'SessionEventDto',
@@ -39,6 +40,12 @@ export const OUTPUT_ROOTS: readonly string[] = [
   'CommandDto',
   'CreateCommandResponse',
   'ListCommandsResponse',
+  // avto-ruxsat qoidalari, byudjetlar, markaz salomatligi, step-up istisnosi (native dashboard, N0.4)
+  'ApprovalRuleDto',
+  'ListApprovalRulesResponse',
+  'BudgetsResponse',
+  'CenterHealthResponse',
+  'StepUpExemptionResponse',
   // navbat, ogohlantirishlar, salomatlik, shablonlar, orkestratsiya
   'QueueItemDto',
   'ListQueueResponse',
@@ -60,6 +67,20 @@ export const OUTPUT_ROOTS: readonly string[] = [
   // auth / pairing
   'ClientPairResponse',
   'ClientDeviceMeResponse',
+  // admin CLI `--json` chiqishlari (N1.12) + audit/salomatlik chegaralari (N3.8)
+  'AdminEnrollCodeOutput',
+  'AdminEnrollCodeList',
+  'AdminTokenIssued',
+  'AdminTokenRotated',
+  'AdminTokenList',
+  'AdminDeviceList',
+  'AdminPairOutput',
+  'AdminLockdownStatus',
+  'AdminTelegramList',
+  'AdminTelegramPending',
+  'AdminCenterKeyShow',
+  'ListAuditResponse',
+  'HealthThresholdsResponse',
 ];
 
 /** So'rov tanalari (io='input': default'li maydonlar ixtiyoriy). */
@@ -74,6 +95,8 @@ export const INPUT_ROOTS: readonly string[] = [
   'SendTemplatePromptBody',
   'CreateOrchestrationBody',
   'ClientPairBody',
+  'UpdateMachineBody',
+  'PutHealthThresholdsBody',
   // klient WS protokoli (klient -> server)
   'ClientToServerMessage',
 ];

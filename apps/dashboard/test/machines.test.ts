@@ -21,6 +21,7 @@ function machine(over: Partial<MachineDto> = {}): MachineDto {
     identityStatus: "verified",
     sessions: { open: 0, working: 0, waiting: 0, awaitingApproval: 0, idle: 0, done: 0 },
     control: null,
+    archivedAt: null,
     ...over,
   };
 }

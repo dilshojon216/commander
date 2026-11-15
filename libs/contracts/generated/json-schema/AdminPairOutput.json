@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminPairOutput.json",
+  "title": "AdminPairOutput",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "code": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "ClientPairingKind.json"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "ClientTokenScope.json"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "code",
+    "url",
+    "expires_at",
+    "kind",
+    "scopes"
+  ],
+  "additionalProperties": false
+}

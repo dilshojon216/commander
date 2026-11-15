@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "bbbbbbbb-0000-4000-8000-000000000001",
+      "kind": "web",
+      "name": "example-dashboard",
+      "scopes": [
+        "read",
+        "control"
+      ],
+      "state": "active",
+      "createdAt": "2026-11-01T10:00:00.000Z",
+      "lastUsedAt": "2026-11-15T09:59:00.000Z",
+      "expiresAt": "2027-01-30T10:00:00.000Z",
+      "revokedAt": null
+    },
+    {
+      "id": "bbbbbbbb-0000-4000-8000-000000000002",
+      "kind": "mobile",
+      "name": "example-phone",
+      "scopes": [
+        "read",
+        "approve"
+      ],
+      "state": "revoked",
+      "createdAt": "2026-10-01T10:00:00.000Z",
+      "lastUsedAt": null,
+      "expiresAt": null,
+      "revokedAt": "2026-11-02T10:00:00.000Z"
+    },
+    {
+      "id": "bbbbbbbb-0000-4000-8000-000000000003",
+      "kind": "telegram",
+      "name": null,
+      "scopes": [
+        "read"
+      ],
+      "state": "expired",
+      "createdAt": "2026-08-01T10:00:00.000Z",
+      "lastUsedAt": null,
+      "expiresAt": "2026-11-01T10:00:00.000Z",
+      "revokedAt": null
+    }
+  ]
+}

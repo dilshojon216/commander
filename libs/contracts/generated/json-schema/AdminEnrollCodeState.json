@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminEnrollCodeState.json",
+  "title": "AdminEnrollCodeState",
+  "type": "string",
+  "enum": [
+    "pending",
+    "used",
+    "expired"
+  ]
+}

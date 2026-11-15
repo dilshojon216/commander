@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "chatId": "333333333",
+      "username": "example_user",
+      "name": "Example User",
+      "atMs": 1763200000000
+    },
+    {
+      "chatId": "444444444",
+      "username": null,
+      "name": null,
+      "atMs": 1763200100000
+    }
+  ]
+}

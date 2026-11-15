@@ -32,6 +32,539 @@ abstract final class CommanderContract {
   static const sessionStatuses = <String>['idle', 'working', 'waiting', 'awaiting_approval', 'done', 'ended'];
 }
 
+final class AdminCenterKeyOverlap {
+  final String fromFingerprint;
+  final String toFingerprint;
+  final String issuedAt;
+  final String expiresAt;
+
+  const AdminCenterKeyOverlap({required this.fromFingerprint, required this.toFingerprint, required this.issuedAt, required this.expiresAt});
+
+  factory AdminCenterKeyOverlap.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminCenterKeyOverlap(
+      fromFingerprint: json['fromFingerprint'] as String,
+      toFingerprint: json['toFingerprint'] as String,
+      issuedAt: json['issuedAt'] as String,
+      expiresAt: json['expiresAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'fromFingerprint': fromFingerprint,
+        'toFingerprint': toFingerprint,
+        'issuedAt': issuedAt,
+        'expiresAt': expiresAt,
+      };
+}
+
+final class AdminCenterKeyShow {
+  final String publicKey;
+  final String fingerprint;
+  final List<AdminCenterKeyOverlap> overlap;
+
+  const AdminCenterKeyShow({required this.publicKey, required this.fingerprint, required this.overlap});
+
+  factory AdminCenterKeyShow.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminCenterKeyShow(
+      publicKey: json['public_key'] as String,
+      fingerprint: json['fingerprint'] as String,
+      overlap: (json['overlap'] as List<dynamic>).map((e) => AdminCenterKeyOverlap.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'public_key': publicKey,
+        'fingerprint': fingerprint,
+        'overlap': overlap.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminDeviceEntry {
+  final String id;
+  final String? machineId;
+  final String? name_;
+  final AdminDeviceState state;
+  final String createdAt;
+  final String? lastUsedAt;
+  final String? revokedAt;
+  final bool rotationRequired;
+  final String? keyRotatedAt;
+
+  const AdminDeviceEntry({required this.id, this.machineId, this.name_, required this.state, required this.createdAt, this.lastUsedAt, this.revokedAt, required this.rotationRequired, this.keyRotatedAt});
+
+  factory AdminDeviceEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminDeviceEntry(
+      id: json['id'] as String,
+      machineId: json['machineId'] == null ? null : json['machineId'] as String,
+      name_: json['name'] == null ? null : json['name'] as String,
+      state: AdminDeviceState.fromJson(json['state']),
+      createdAt: json['createdAt'] as String,
+      lastUsedAt: json['lastUsedAt'] == null ? null : json['lastUsedAt'] as String,
+      revokedAt: json['revokedAt'] == null ? null : json['revokedAt'] as String,
+      rotationRequired: json['rotationRequired'] as bool,
+      keyRotatedAt: json['keyRotatedAt'] == null ? null : json['keyRotatedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'machineId': machineId,
+        'name': name_,
+        'state': state.toJson(),
+        'createdAt': createdAt,
+        'lastUsedAt': lastUsedAt,
+        'revokedAt': revokedAt,
+        'rotationRequired': rotationRequired,
+        'keyRotatedAt': keyRotatedAt,
+      };
+}
+
+final class AdminDeviceList {
+  final List<AdminDeviceEntry> items;
+
+  const AdminDeviceList({required this.items});
+
+  factory AdminDeviceList.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminDeviceList(
+      items: (json['items'] as List<dynamic>).map((e) => AdminDeviceEntry.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `AdminDeviceState.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum AdminDeviceState {
+  active('active'),
+  revoked('revoked'),
+  unknown('');
+
+  const AdminDeviceState(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory AdminDeviceState.fromJson(Object? raw) {
+    for (final e in AdminDeviceState.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class AdminEnrollCodeEntry {
+  final String id;
+  final String machineName;
+  final AdminEnrollCodeState state;
+  final String createdAt;
+  final String expiresAt;
+  final String? usedAt;
+
+  const AdminEnrollCodeEntry({required this.id, required this.machineName, required this.state, required this.createdAt, required this.expiresAt, this.usedAt});
+
+  factory AdminEnrollCodeEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminEnrollCodeEntry(
+      id: json['id'] as String,
+      machineName: json['machineName'] as String,
+      state: AdminEnrollCodeState.fromJson(json['state']),
+      createdAt: json['createdAt'] as String,
+      expiresAt: json['expiresAt'] as String,
+      usedAt: json['usedAt'] == null ? null : json['usedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'machineName': machineName,
+        'state': state.toJson(),
+        'createdAt': createdAt,
+        'expiresAt': expiresAt,
+        'usedAt': usedAt,
+      };
+}
+
+final class AdminEnrollCodeList {
+  final List<AdminEnrollCodeEntry> items;
+
+  const AdminEnrollCodeList({required this.items});
+
+  factory AdminEnrollCodeList.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminEnrollCodeList(
+      items: (json['items'] as List<dynamic>).map((e) => AdminEnrollCodeEntry.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminEnrollCodeOutput {
+  final String id;
+  final String code;
+  final String kind;
+  final String machineName;
+  final String expiresAt;
+
+  const AdminEnrollCodeOutput({required this.id, required this.code, required this.machineName, required this.expiresAt}) : kind = 'agentd';
+
+  factory AdminEnrollCodeOutput.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminEnrollCodeOutput(
+      id: json['id'] as String,
+      code: json['code'] as String,
+      machineName: json['machine_name'] as String,
+      expiresAt: json['expires_at'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'code': code,
+        'kind': kind,
+        'machine_name': machineName,
+        'expires_at': expiresAt,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `AdminEnrollCodeState.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum AdminEnrollCodeState {
+  pending('pending'),
+  used('used'),
+  expired('expired'),
+  unknown('');
+
+  const AdminEnrollCodeState(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory AdminEnrollCodeState.fromJson(Object? raw) {
+    for (final e in AdminEnrollCodeState.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class AdminLockdownStatus {
+  final bool enabled;
+  final String? since;
+
+  const AdminLockdownStatus({required this.enabled, this.since});
+
+  factory AdminLockdownStatus.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminLockdownStatus(
+      enabled: json['enabled'] as bool,
+      since: json['since'] == null ? null : json['since'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'enabled': enabled,
+        'since': since,
+      };
+}
+
+final class AdminPairOutput {
+  final String id;
+  final String code;
+  final String url;
+  final String expiresAt;
+  final ClientPairingKind kind;
+  final List<ClientTokenScope> scopes;
+
+  const AdminPairOutput({required this.id, required this.code, required this.url, required this.expiresAt, required this.kind, required this.scopes});
+
+  factory AdminPairOutput.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminPairOutput(
+      id: json['id'] as String,
+      code: json['code'] as String,
+      url: json['url'] as String,
+      expiresAt: json['expires_at'] as String,
+      kind: ClientPairingKind.fromJson(json['kind']),
+      scopes: (json['scopes'] as List<dynamic>).map((e) => ClientTokenScope.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'code': code,
+        'url': url,
+        'expires_at': expiresAt,
+        'kind': kind.toJson(),
+        'scopes': scopes.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminTelegramEntry {
+  final String chatId;
+  final AdminTelegramSource source;
+
+  const AdminTelegramEntry({required this.chatId, required this.source});
+
+  factory AdminTelegramEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTelegramEntry(
+      chatId: json['chatId'] as String,
+      source: AdminTelegramSource.fromJson(json['source']),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'chatId': chatId,
+        'source': source.toJson(),
+      };
+}
+
+final class AdminTelegramList {
+  final List<AdminTelegramEntry> items;
+
+  const AdminTelegramList({required this.items});
+
+  factory AdminTelegramList.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTelegramList(
+      items: (json['items'] as List<dynamic>).map((e) => AdminTelegramEntry.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminTelegramPending {
+  final List<AdminTelegramPendingEntry> items;
+
+  const AdminTelegramPending({required this.items});
+
+  factory AdminTelegramPending.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTelegramPending(
+      items: (json['items'] as List<dynamic>).map((e) => AdminTelegramPendingEntry.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminTelegramPendingEntry {
+  final String chatId;
+  final String? username;
+  final String? name_;
+  final int atMs;
+
+  const AdminTelegramPendingEntry({required this.chatId, this.username, this.name_, required this.atMs});
+
+  factory AdminTelegramPendingEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTelegramPendingEntry(
+      chatId: json['chatId'] as String,
+      username: json['username'] == null ? null : json['username'] as String,
+      name_: json['name'] == null ? null : json['name'] as String,
+      atMs: (json['atMs'] as num).toInt(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'chatId': chatId,
+        'username': username,
+        'name': name_,
+        'atMs': atMs,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `AdminTelegramSource.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum AdminTelegramSource {
+  env('env'),
+  db('db'),
+  unknown('');
+
+  const AdminTelegramSource(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory AdminTelegramSource.fromJson(Object? raw) {
+    for (final e in AdminTelegramSource.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class AdminTokenEntry {
+  final String id;
+  final String kind;
+  final String? name_;
+  final List<String> scopes;
+  final AdminTokenState state;
+  final String createdAt;
+  final String? lastUsedAt;
+  final String? expiresAt;
+  final String? revokedAt;
+
+  const AdminTokenEntry({required this.id, required this.kind, this.name_, required this.scopes, required this.state, required this.createdAt, this.lastUsedAt, this.expiresAt, this.revokedAt});
+
+  factory AdminTokenEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTokenEntry(
+      id: json['id'] as String,
+      kind: json['kind'] as String,
+      name_: json['name'] == null ? null : json['name'] as String,
+      scopes: (json['scopes'] as List<dynamic>).map((e) => e as String).toList(),
+      state: AdminTokenState.fromJson(json['state']),
+      createdAt: json['createdAt'] as String,
+      lastUsedAt: json['lastUsedAt'] == null ? null : json['lastUsedAt'] as String,
+      expiresAt: json['expiresAt'] == null ? null : json['expiresAt'] as String,
+      revokedAt: json['revokedAt'] == null ? null : json['revokedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'kind': kind,
+        'name': name_,
+        'scopes': scopes,
+        'state': state.toJson(),
+        'createdAt': createdAt,
+        'lastUsedAt': lastUsedAt,
+        'expiresAt': expiresAt,
+        'revokedAt': revokedAt,
+      };
+}
+
+final class AdminTokenIssued {
+  final String id;
+  final String token;
+  final ClientDeviceKind kind;
+  final String name_;
+  final List<ClientTokenScope> scopes;
+  final String? expiresAt;
+
+  const AdminTokenIssued({required this.id, required this.token, required this.kind, required this.name_, required this.scopes, this.expiresAt});
+
+  factory AdminTokenIssued.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTokenIssued(
+      id: json['id'] as String,
+      token: json['token'] as String,
+      kind: ClientDeviceKind.fromJson(json['kind']),
+      name_: json['name'] as String,
+      scopes: (json['scopes'] as List<dynamic>).map((e) => ClientTokenScope.fromJson(e)).toList(),
+      expiresAt: json['expires_at'] == null ? null : json['expires_at'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'token': token,
+        'kind': kind.toJson(),
+        'name': name_,
+        'scopes': scopes.map((e) => e.toJson()).toList(),
+        'expires_at': expiresAt,
+      };
+}
+
+final class AdminTokenList {
+  final List<AdminTokenEntry> items;
+
+  const AdminTokenList({required this.items});
+
+  factory AdminTokenList.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTokenList(
+      items: (json['items'] as List<dynamic>).map((e) => AdminTokenEntry.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class AdminTokenRotated {
+  final String id;
+  final String token;
+  final ClientDeviceKind kind;
+  final String name_;
+  final List<ClientTokenScope> scopes;
+  final String? expiresAt;
+  final String rotatedFrom;
+  final String? graceEndsAt;
+  final bool stepupExemptInherited;
+
+  const AdminTokenRotated({required this.id, required this.token, required this.kind, required this.name_, required this.scopes, this.expiresAt, required this.rotatedFrom, this.graceEndsAt, required this.stepupExemptInherited});
+
+  factory AdminTokenRotated.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AdminTokenRotated(
+      id: json['id'] as String,
+      token: json['token'] as String,
+      kind: ClientDeviceKind.fromJson(json['kind']),
+      name_: json['name'] as String,
+      scopes: (json['scopes'] as List<dynamic>).map((e) => ClientTokenScope.fromJson(e)).toList(),
+      expiresAt: json['expires_at'] == null ? null : json['expires_at'] as String,
+      rotatedFrom: json['rotated_from'] as String,
+      graceEndsAt: json['grace_ends_at'] == null ? null : json['grace_ends_at'] as String,
+      stepupExemptInherited: json['stepup_exempt_inherited'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'token': token,
+        'kind': kind.toJson(),
+        'name': name_,
+        'scopes': scopes.map((e) => e.toJson()).toList(),
+        'expires_at': expiresAt,
+        'rotated_from': rotatedFrom,
+        'grace_ends_at': graceEndsAt,
+        'stepup_exempt_inherited': stepupExemptInherited,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `AdminTokenState.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum AdminTokenState {
+  active('active'),
+  revoked('revoked'),
+  expired('expired'),
+  unknown('');
+
+  const AdminTokenState(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory AdminTokenState.fromJson(Object? raw) {
+    for (final e in AdminTokenState.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
 final class AgentControlState {
   final bool enabled;
   final bool allowStart;
@@ -662,6 +1195,78 @@ final class ApprovalResolvedMessagePayload {
       };
 }
 
+final class ApprovalRuleDto {
+  final int id;
+  final RuleScope scope;
+  final String scopeRef;
+  final String? scopeLabel;
+  final List<String> tools;
+  final List<String> pathGlobs;
+  final String expiresAt;
+  final String createdByDeviceId;
+  final String createdAt;
+  final String? revokedAt;
+  final ApprovalRuleDtoStatus status;
+  final int autoCount;
+
+  const ApprovalRuleDto({required this.id, required this.scope, required this.scopeRef, this.scopeLabel, required this.tools, required this.pathGlobs, required this.expiresAt, required this.createdByDeviceId, required this.createdAt, this.revokedAt, required this.status, required this.autoCount});
+
+  factory ApprovalRuleDto.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return ApprovalRuleDto(
+      id: (json['id'] as num).toInt(),
+      scope: RuleScope.fromJson(json['scope']),
+      scopeRef: json['scopeRef'] as String,
+      scopeLabel: json['scopeLabel'] == null ? null : json['scopeLabel'] as String,
+      tools: (json['tools'] as List<dynamic>).map((e) => e as String).toList(),
+      pathGlobs: (json['pathGlobs'] as List<dynamic>).map((e) => e as String).toList(),
+      expiresAt: json['expiresAt'] as String,
+      createdByDeviceId: json['createdByDeviceId'] as String,
+      createdAt: json['createdAt'] as String,
+      revokedAt: json['revokedAt'] == null ? null : json['revokedAt'] as String,
+      status: ApprovalRuleDtoStatus.fromJson(json['status']),
+      autoCount: (json['autoCount'] as num).toInt(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'scope': scope.toJson(),
+        'scopeRef': scopeRef,
+        'scopeLabel': scopeLabel,
+        'tools': tools,
+        'pathGlobs': pathGlobs,
+        'expiresAt': expiresAt,
+        'createdByDeviceId': createdByDeviceId,
+        'createdAt': createdAt,
+        'revokedAt': revokedAt,
+        'status': status.toJson(),
+        'autoCount': autoCount,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `ApprovalRuleDtoStatus.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum ApprovalRuleDtoStatus {
+  active('active'),
+  expired('expired'),
+  revoked('revoked'),
+  unknown('');
+
+  const ApprovalRuleDtoStatus(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory ApprovalRuleDtoStatus.fromJson(Object? raw) {
+    for (final e in ApprovalRuleDtoStatus.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
 /// Noma'lum (kelajakdagi) qiymat `ApprovalStatus.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
 enum ApprovalStatus {
   pending('pending'),
@@ -802,6 +1407,370 @@ final class AskQuestion {
         'options': options.map((e) => e.toJson()).toList(),
         'multiSelect': multiSelect,
       };
+}
+
+final class AuditEntry {
+  final String id;
+  final String ts;
+  final String? actorDeviceId;
+  final AuditEntryActorKind actorKind;
+  final String action;
+  final String? target;
+  final Map<String, Object?> details;
+  final String? ip;
+  final String? prevHash;
+  final String hash;
+
+  const AuditEntry({required this.id, required this.ts, this.actorDeviceId, required this.actorKind, required this.action, this.target, required this.details, this.ip, this.prevHash, required this.hash});
+
+  factory AuditEntry.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return AuditEntry(
+      id: json['id'] as String,
+      ts: json['ts'] as String,
+      actorDeviceId: json['actor_device_id'] == null ? null : json['actor_device_id'] as String,
+      actorKind: AuditEntryActorKind.fromJson(json['actor_kind']),
+      action: json['action'] as String,
+      target: json['target'] == null ? null : json['target'] as String,
+      details: (json['details'] as Map<String, dynamic>).map((k, v) => MapEntry(k, v)),
+      ip: json['ip'] == null ? null : json['ip'] as String,
+      prevHash: json['prev_hash'] == null ? null : json['prev_hash'] as String,
+      hash: json['hash'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'ts': ts,
+        'actor_device_id': actorDeviceId,
+        'actor_kind': actorKind.toJson(),
+        'action': action,
+        'target': target,
+        'details': details,
+        'ip': ip,
+        'prev_hash': prevHash,
+        'hash': hash,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `AuditEntryActorKind.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum AuditEntryActorKind {
+  agentd('agentd'),
+  web('web'),
+  menubar('menubar'),
+  mobile('mobile'),
+  telegram('telegram'),
+  system('system'),
+  unknown('');
+
+  const AuditEntryActorKind(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory AuditEntryActorKind.fromJson(Object? raw) {
+    for (final e in AuditEntryActorKind.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+/// Noma'lum (kelajakdagi) qiymat `BudgetScopeKind.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum BudgetScopeKind {
+  project('project'),
+  machine('machine'),
+  unknown('');
+
+  const BudgetScopeKind(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory BudgetScopeKind.fromJson(Object? raw) {
+    for (final e in BudgetScopeKind.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+/// Noma'lum (kelajakdagi) qiymat `BudgetState.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum BudgetState {
+  ok('ok'),
+  soft('soft'),
+  hard('hard'),
+  unknown('');
+
+  const BudgetState(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory BudgetState.fromJson(Object? raw) {
+    for (final e in BudgetState.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class BudgetStatus {
+  final BudgetScopeKind scopeKind;
+  final String scopeKey;
+  final String label;
+  final int dailyTokens;
+  final int extraToday;
+  final int effectiveLimit;
+  final int usedToday;
+  final double pct;
+  final BudgetState state;
+  final bool autoStop;
+
+  const BudgetStatus({required this.scopeKind, required this.scopeKey, required this.label, required this.dailyTokens, required this.extraToday, required this.effectiveLimit, required this.usedToday, required this.pct, required this.state, required this.autoStop});
+
+  factory BudgetStatus.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return BudgetStatus(
+      scopeKind: BudgetScopeKind.fromJson(json['scopeKind']),
+      scopeKey: json['scopeKey'] as String,
+      label: json['label'] as String,
+      dailyTokens: (json['dailyTokens'] as num).toInt(),
+      extraToday: (json['extraToday'] as num).toInt(),
+      effectiveLimit: (json['effectiveLimit'] as num).toInt(),
+      usedToday: (json['usedToday'] as num).toInt(),
+      pct: (json['pct'] as num).toDouble(),
+      state: BudgetState.fromJson(json['state']),
+      autoStop: json['autoStop'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'scopeKind': scopeKind.toJson(),
+        'scopeKey': scopeKey,
+        'label': label,
+        'dailyTokens': dailyTokens,
+        'extraToday': extraToday,
+        'effectiveLimit': effectiveLimit,
+        'usedToday': usedToday,
+        'pct': pct,
+        'state': state.toJson(),
+        'autoStop': autoStop,
+      };
+}
+
+final class BudgetsResponse {
+  final String day;
+  final String resetsAt;
+  final List<BudgetStatus> items;
+
+  const BudgetsResponse({required this.day, required this.resetsAt, required this.items});
+
+  factory BudgetsResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return BudgetsResponse(
+      day: json['day'] as String,
+      resetsAt: json['resetsAt'] as String,
+      items: (json['items'] as List<dynamic>).map((e) => BudgetStatus.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'day': day,
+        'resetsAt': resetsAt,
+        'items': items.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class CenterCheckDto {
+  final CenterCheckKind kind;
+  final CenterCheckStatus status;
+  final String summary;
+  final Map<String, double?> metrics;
+  final String checkedAt;
+
+  const CenterCheckDto({required this.kind, required this.status, required this.summary, required this.metrics, required this.checkedAt});
+
+  factory CenterCheckDto.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return CenterCheckDto(
+      kind: CenterCheckKind.fromJson(json['kind']),
+      status: CenterCheckStatus.fromJson(json['status']),
+      summary: json['summary'] as String,
+      metrics: (json['metrics'] as Map<String, dynamic>).map((k, v) => MapEntry(k, v == null ? null : (v as num).toDouble())),
+      checkedAt: json['checkedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'kind': kind.toJson(),
+        'status': status.toJson(),
+        'summary': summary,
+        'metrics': metrics.map((k, v) => MapEntry(k, v)),
+        'checkedAt': checkedAt,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `CenterCheckKind.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum CenterCheckKind {
+  dbDisk('db_disk'),
+  backup('backup'),
+  dashboard('dashboard'),
+  tailscale('tailscale'),
+  runtime('runtime'),
+  telegram('telegram'),
+  unknown('');
+
+  const CenterCheckKind(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory CenterCheckKind.fromJson(Object? raw) {
+    for (final e in CenterCheckKind.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+/// Noma'lum (kelajakdagi) qiymat `CenterCheckStatus.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum CenterCheckStatus {
+  ok('ok'),
+  warn('warn'),
+  critical('critical'),
+  unknownValue('unknown'),
+  disabled('disabled'),
+  unknown('');
+
+  const CenterCheckStatus(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory CenterCheckStatus.fromJson(Object? raw) {
+    for (final e in CenterCheckStatus.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class CenterHealthResponse {
+  final String? checkedAt;
+  final CenterHealthResponseStatus status;
+  final List<CenterCheckDto> checks;
+  final List<CenterIncidentDto> incidents;
+  final int machinesOffline;
+  final int uptimeSec;
+
+  const CenterHealthResponse({this.checkedAt, required this.status, required this.checks, required this.incidents, required this.machinesOffline, required this.uptimeSec});
+
+  factory CenterHealthResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return CenterHealthResponse(
+      checkedAt: json['checkedAt'] == null ? null : json['checkedAt'] as String,
+      status: CenterHealthResponseStatus.fromJson(json['status']),
+      checks: (json['checks'] as List<dynamic>).map((e) => CenterCheckDto.fromJson(e)).toList(),
+      incidents: (json['incidents'] as List<dynamic>).map((e) => CenterIncidentDto.fromJson(e)).toList(),
+      machinesOffline: (json['machinesOffline'] as num).toInt(),
+      uptimeSec: (json['uptimeSec'] as num).toInt(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'checkedAt': checkedAt,
+        'status': status.toJson(),
+        'checks': checks.map((e) => e.toJson()).toList(),
+        'incidents': incidents.map((e) => e.toJson()).toList(),
+        'machinesOffline': machinesOffline,
+        'uptimeSec': uptimeSec,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `CenterHealthResponseStatus.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum CenterHealthResponseStatus {
+  ok('ok'),
+  warn('warn'),
+  critical('critical'),
+  unknown('');
+
+  const CenterHealthResponseStatus(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory CenterHealthResponseStatus.fromJson(Object? raw) {
+    for (final e in CenterHealthResponseStatus.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+final class CenterIncidentDto {
+  final String id;
+  final CenterCheckKind kind;
+  final CenterIncidentDtoSeverity severity;
+  final String summary;
+  final String openedAt;
+  final String? resolvedAt;
+
+  const CenterIncidentDto({required this.id, required this.kind, required this.severity, required this.summary, required this.openedAt, this.resolvedAt});
+
+  factory CenterIncidentDto.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return CenterIncidentDto(
+      id: json['id'] as String,
+      kind: CenterCheckKind.fromJson(json['kind']),
+      severity: CenterIncidentDtoSeverity.fromJson(json['severity']),
+      summary: json['summary'] as String,
+      openedAt: json['openedAt'] as String,
+      resolvedAt: json['resolvedAt'] == null ? null : json['resolvedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'kind': kind.toJson(),
+        'severity': severity.toJson(),
+        'summary': summary,
+        'openedAt': openedAt,
+        'resolvedAt': resolvedAt,
+      };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `CenterIncidentDtoSeverity.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum CenterIncidentDtoSeverity {
+  warn('warn'),
+  critical('critical'),
+  unknown('');
+
+  const CenterIncidentDtoSeverity(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory CenterIncidentDtoSeverity.fromJson(Object? raw) {
+    for (final e in CenterIncidentDtoSeverity.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
 }
 
 final class ChatAssistantItem {
@@ -1700,6 +2669,27 @@ final class ClientPairResponse {
         'expiresAt': expiresAt,
         'serverTime': serverTime,
       };
+}
+
+/// Noma'lum (kelajakdagi) qiymat `ClientPairingKind.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum ClientPairingKind {
+  menubar('menubar'),
+  mobile('mobile'),
+  unknown('');
+
+  const ClientPairingKind(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory ClientPairingKind.fromJson(Object? raw) {
+    for (final e in ClientPairingKind.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
 }
 
 final class ClientPingMessage {
@@ -3204,6 +4194,67 @@ final class HealthThresholds {
       };
 }
 
+final class HealthThresholdsPatch {
+  final double? diskWarnPct;
+  final double? diskCriticalPct;
+  final double? memPct;
+  final double? memForMin;
+  final double? cpuPct;
+  final double? cpuForMin;
+  final int? restartLoopCount;
+  final double? restartLoopWindowMin;
+  final double? offlineAfterMin;
+
+  const HealthThresholdsPatch({this.diskWarnPct, this.diskCriticalPct, this.memPct, this.memForMin, this.cpuPct, this.cpuForMin, this.restartLoopCount, this.restartLoopWindowMin, this.offlineAfterMin});
+
+  factory HealthThresholdsPatch.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return HealthThresholdsPatch(
+      diskWarnPct: json['diskWarnPct'] == null ? null : (json['diskWarnPct'] as num).toDouble(),
+      diskCriticalPct: json['diskCriticalPct'] == null ? null : (json['diskCriticalPct'] as num).toDouble(),
+      memPct: json['memPct'] == null ? null : (json['memPct'] as num).toDouble(),
+      memForMin: json['memForMin'] == null ? null : (json['memForMin'] as num).toDouble(),
+      cpuPct: json['cpuPct'] == null ? null : (json['cpuPct'] as num).toDouble(),
+      cpuForMin: json['cpuForMin'] == null ? null : (json['cpuForMin'] as num).toDouble(),
+      restartLoopCount: json['restartLoopCount'] == null ? null : (json['restartLoopCount'] as num).toInt(),
+      restartLoopWindowMin: json['restartLoopWindowMin'] == null ? null : (json['restartLoopWindowMin'] as num).toDouble(),
+      offlineAfterMin: json['offlineAfterMin'] == null ? null : (json['offlineAfterMin'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        if (diskWarnPct != null) 'diskWarnPct': diskWarnPct!,
+        if (diskCriticalPct != null) 'diskCriticalPct': diskCriticalPct!,
+        if (memPct != null) 'memPct': memPct!,
+        if (memForMin != null) 'memForMin': memForMin!,
+        if (cpuPct != null) 'cpuPct': cpuPct!,
+        if (cpuForMin != null) 'cpuForMin': cpuForMin!,
+        if (restartLoopCount != null) 'restartLoopCount': restartLoopCount!,
+        if (restartLoopWindowMin != null) 'restartLoopWindowMin': restartLoopWindowMin!,
+        if (offlineAfterMin != null) 'offlineAfterMin': offlineAfterMin!,
+      };
+}
+
+final class HealthThresholdsResponse {
+  final HealthThresholds defaults;
+  final Map<String, HealthThresholdsPatch> machines;
+
+  const HealthThresholdsResponse({required this.defaults, required this.machines});
+
+  factory HealthThresholdsResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return HealthThresholdsResponse(
+      defaults: HealthThresholds.fromJson(json['defaults']),
+      machines: (json['machines'] as Map<String, dynamic>).map((k, v) => MapEntry(k, HealthThresholdsPatch.fromJson(v))),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'defaults': defaults.toJson(),
+        'machines': machines.map((k, v) => MapEntry(k, v.toJson())),
+      };
+}
+
 final class HealthTopProcesses {
   final List<HealthProcess> byCpu;
   final List<HealthProcess> byMem;
@@ -3552,6 +4603,23 @@ final class ListAlertsResponse {
       };
 }
 
+final class ListApprovalRulesResponse {
+  final List<ApprovalRuleDto> rules;
+
+  const ListApprovalRulesResponse({required this.rules});
+
+  factory ListApprovalRulesResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return ListApprovalRulesResponse(
+      rules: (json['rules'] as List<dynamic>).map((e) => ApprovalRuleDto.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'rules': rules.map((e) => e.toJson()).toList(),
+      };
+}
+
 final class ListApprovalsResponse {
   final List<ApprovalDto> pending;
   final List<ApprovalDto> recent;
@@ -3569,6 +4637,26 @@ final class ListApprovalsResponse {
   Map<String, dynamic> toJson() => {
         'pending': pending.map((e) => e.toJson()).toList(),
         'recent': recent.map((e) => e.toJson()).toList(),
+      };
+}
+
+final class ListAuditResponse {
+  final List<AuditEntry> items;
+  final String? nextBefore;
+
+  const ListAuditResponse({required this.items, this.nextBefore});
+
+  factory ListAuditResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return ListAuditResponse(
+      items: (json['items'] as List<dynamic>).map((e) => AuditEntry.fromJson(e)).toList(),
+      nextBefore: json['next_before'] == null ? null : json['next_before'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'items': items.map((e) => e.toJson()).toList(),
+        'next_before': nextBefore,
       };
 }
 
@@ -3855,6 +4943,26 @@ final class LockdownUpdatedMessagePayload {
       };
 }
 
+final class MachineArchiveResponse {
+  final String id;
+  final String? archivedAt;
+
+  const MachineArchiveResponse({required this.id, this.archivedAt});
+
+  factory MachineArchiveResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return MachineArchiveResponse(
+      id: json['id'] as String,
+      archivedAt: json['archivedAt'] == null ? null : json['archivedAt'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'archivedAt': archivedAt,
+      };
+}
+
 final class MachineDto {
   final String id;
   final String slug;
@@ -3870,8 +4978,9 @@ final class MachineDto {
   final String identityStatus;
   final MachineSessionCounts sessions;
   final AgentControlState? control;
+  final String? archivedAt;
 
-  const MachineDto({required this.id, required this.slug, this.displayName, this.hostname, this.os, required this.online, this.lastSeenAt, this.connectedAt, this.disconnectedAt, this.agentdVersion, this.claudeVersion, required this.identityStatus, required this.sessions, this.control});
+  const MachineDto({required this.id, required this.slug, this.displayName, this.hostname, this.os, required this.online, this.lastSeenAt, this.connectedAt, this.disconnectedAt, this.agentdVersion, this.claudeVersion, required this.identityStatus, required this.sessions, this.control, this.archivedAt});
 
   factory MachineDto.fromJson(Object? raw) {
     final json = raw as Map<String, dynamic>;
@@ -3890,6 +4999,7 @@ final class MachineDto {
       identityStatus: json['identityStatus'] as String,
       sessions: MachineSessionCounts.fromJson(json['sessions']),
       control: json['control'] == null ? null : AgentControlState.fromJson(json['control']),
+      archivedAt: json['archivedAt'] == null ? null : json['archivedAt'] as String,
     );
   }
 
@@ -3908,6 +5018,7 @@ final class MachineDto {
         'identityStatus': identityStatus,
         'sessions': sessions.toJson(),
         'control': control == null ? null : control!.toJson(),
+        'archivedAt': archivedAt,
       };
 }
 
@@ -5202,6 +6313,26 @@ final class ProjectUpdatedPayloadProject {
       };
 }
 
+final class PutHealthThresholdsBody {
+  final HealthThresholdsPatch? defaults;
+  final Map<String, HealthThresholdsPatch?>? machines;
+
+  const PutHealthThresholdsBody({this.defaults, this.machines});
+
+  factory PutHealthThresholdsBody.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return PutHealthThresholdsBody(
+      defaults: json['defaults'] == null ? null : HealthThresholdsPatch.fromJson(json['defaults']),
+      machines: json['machines'] == null ? null : (json['machines'] as Map<String, dynamic>).map((k, v) => MapEntry(k, v == null ? null : HealthThresholdsPatch.fromJson(v))),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        if (defaults != null) 'defaults': defaults!.toJson(),
+        if (machines != null) 'machines': machines!.map((k, v) => MapEntry(k, v == null ? null : v!.toJson())),
+      };
+}
+
 final class PutPaceSettingsBody {
   final bool? enabled;
   final double? softPct;
@@ -5858,6 +6989,28 @@ enum ResumeReason {
 
   factory ResumeReason.fromJson(Object? raw) {
     for (final e in ResumeReason.values) {
+      if (e != unknown && e.value == raw) return e;
+    }
+    return unknown;
+  }
+
+  String toJson() => value;
+}
+
+/// Noma'lum (kelajakdagi) qiymat `RuleScope.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
+enum RuleScope {
+  session('session'),
+  project('project'),
+  repo('repo'),
+  unknown('');
+
+  const RuleScope(this.value);
+
+  /// Simdagi qiymat (`unknown` uchun bo'sh satr).
+  final String value;
+
+  factory RuleScope.fromJson(Object? raw) {
+    for (final e in RuleScope.values) {
       if (e != unknown && e.value == raw) return e;
     }
     return unknown;
@@ -6750,6 +7903,32 @@ enum StepStatus {
   String toJson() => value;
 }
 
+final class StepUpExemptionResponse {
+  final bool available;
+  final bool exempt;
+  final int dashboardDevices;
+  final int otherExemptDevices;
+
+  const StepUpExemptionResponse({required this.available, required this.exempt, required this.dashboardDevices, required this.otherExemptDevices});
+
+  factory StepUpExemptionResponse.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return StepUpExemptionResponse(
+      available: json['available'] as bool,
+      exempt: json['exempt'] as bool,
+      dashboardDevices: (json['dashboardDevices'] as num).toInt(),
+      otherExemptDevices: (json['otherExemptDevices'] as num).toInt(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'available': available,
+        'exempt': exempt,
+        'dashboardDevices': dashboardDevices,
+        'otherExemptDevices': otherExemptDevices,
+      };
+}
+
 /// Noma'lum (kelajakdagi) qiymat `TaskBoardColumn.unknown` bo'lib dekodlanadi (xato tashlanmaydi).
 enum TaskBoardColumn {
   todo('todo'),
@@ -7167,6 +8346,23 @@ final class UnattributedTasks {
         'label': label,
         'tokens': tokens.toJson(),
         'sessions': sessions,
+      };
+}
+
+final class UpdateMachineBody {
+  final String? displayName;
+
+  const UpdateMachineBody({this.displayName});
+
+  factory UpdateMachineBody.fromJson(Object? raw) {
+    final json = raw as Map<String, dynamic>;
+    return UpdateMachineBody(
+      displayName: json['displayName'] == null ? null : json['displayName'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'displayName': displayName,
       };
 }
 

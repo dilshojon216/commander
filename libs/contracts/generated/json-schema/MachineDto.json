@@ -77,6 +77,13 @@
           "type": "null"
         }
       ]
+    },
+    "archivedAt": {
+      "default": null,
+      "type": [
+        "string",
+        "null"
+      ]
     }
   },
   "required": [
@@ -93,7 +100,8 @@
     "claudeVersion",
     "identityStatus",
     "sessions",
-    "control"
+    "control",
+    "archivedAt"
   ],
   "additionalProperties": false
 }

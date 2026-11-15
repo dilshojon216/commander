@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CenterIncidentDto.json",
+  "title": "CenterIncidentDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "$ref": "CenterCheckKind.json"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "warn",
+        "critical"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "openedAt": {
+      "type": "string"
+    },
+    "resolvedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "severity",
+    "summary",
+    "openedAt",
+    "resolvedAt"
+  ],
+  "additionalProperties": false
+}

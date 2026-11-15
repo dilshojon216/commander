@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminEnrollCodeOutput.json",
+  "title": "AdminEnrollCodeOutput",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "code": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "const": "agentd"
+    },
+    "machine_name": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "code",
+    "kind",
+    "machine_name",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

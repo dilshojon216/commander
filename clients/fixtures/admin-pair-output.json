@@ -1,0 +1,11 @@
+{
+  "id": "dddddddd-0000-4000-8000-000000000001",
+  "code": "EXAMP-LE000",
+  "url": "commander://pair?c=https%3A%2F%2Fcenter.example.ts.net&code=EXAMP-LE000",
+  "expires_at": "2026-11-15T10:10:00.000Z",
+  "kind": "mobile",
+  "scopes": [
+    "read",
+    "approve"
+  ]
+}

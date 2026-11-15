@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { validateEnv } from '../config/env.validation.js';
 import { typeOrmOptions } from '../database/database.config.js';
+import { HealthThresholdsService } from '../health/health-thresholds.service.js';
 import { IdentityModule } from '../identity/identity.module.js';
 import { RetentionCoreModule } from '../retention/retention.module.js';
 import { TelegramAccessModule } from '../telegram/telegram.module.js';
@@ -18,5 +19,7 @@ import { TelegramAccessModule } from '../telegram/telegram.module.js';
     TelegramAccessModule,
     RetentionCoreModule,
   ],
+  // N3.8: faqat DataSource'ga tayanadi (MachineHealthModule'ning og'ir bog'liqliklarisiz).
+  providers: [HealthThresholdsService],
 })
 export class CliModule {}

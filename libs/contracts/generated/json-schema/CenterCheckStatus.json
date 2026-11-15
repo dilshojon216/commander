@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CenterCheckStatus.json",
+  "title": "CenterCheckStatus",
+  "type": "string",
+  "enum": [
+    "ok",
+    "warn",
+    "critical",
+    "unknown",
+    "disabled"
+  ]
+}

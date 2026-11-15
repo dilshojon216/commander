@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminCenterKeyShow.json",
+  "title": "AdminCenterKeyShow",
+  "type": "object",
+  "properties": {
+    "public_key": {
+      "type": "string"
+    },
+    "fingerprint": {
+      "type": "string"
+    },
+    "overlap": {
+      "type": "array",
+      "items": {
+        "$ref": "AdminCenterKeyOverlap.json"
+      }
+    }
+  },
+  "required": [
+    "public_key",
+    "fingerprint",
+    "overlap"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000032",
+  "type": "chat.items",
+  "ts": 1763092800000,
+  "payload": {
+    "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+    "older": true,
+    "cursor": "cur-0123",
+    "items": [
+      {
+        "id": "u0",
+        "ts": 1763092700000,
+        "kind": "user",
+        "text": "oldingi savol",
+        "variant": "prompt"
+      },
+      {
+        "id": "a0",
+        "ts": 1763092701000,
+        "kind": "assistant",
+        "text": "oldingi javob",
+        "requestId": "req_0",
+        "model": "sonnet"
+      }
+    ]
+  }
+}

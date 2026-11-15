@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminTelegramEntry.json",
+  "title": "AdminTelegramEntry",
+  "type": "object",
+  "properties": {
+    "chatId": {
+      "type": "string"
+    },
+    "source": {
+      "$ref": "AdminTelegramSource.json"
+    }
+  },
+  "required": [
+    "chatId",
+    "source"
+  ],
+  "additionalProperties": false
+}

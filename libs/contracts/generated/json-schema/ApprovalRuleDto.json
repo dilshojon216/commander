@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ApprovalRuleDto.json",
+  "title": "ApprovalRuleDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "scope": {
+      "$ref": "RuleScope.json"
+    },
+    "scopeRef": {
+      "type": "string"
+    },
+    "scopeLabel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pathGlobs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expiresAt": {
+      "type": "string"
+    },
+    "createdByDeviceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "revokedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "revoked"
+      ]
+    },
+    "autoCount": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "id",
+    "scope",
+    "scopeRef",
+    "scopeLabel",
+    "tools",
+    "pathGlobs",
+    "expiresAt",
+    "createdByDeviceId",
+    "createdAt",
+    "revokedAt",
+    "status",
+    "autoCount"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,30 @@
+{
+  "day": "2025-11-14",
+  "resetsAt": "2025-11-14T19:00:00.000Z",
+  "items": [
+    {
+      "scopeKind": "project",
+      "scopeKey": "commander",
+      "label": "commander",
+      "dailyTokens": 2000000,
+      "extraToday": 0,
+      "effectiveLimit": 2000000,
+      "usedToday": 820000,
+      "pct": 41,
+      "state": "ok",
+      "autoStop": false
+    },
+    {
+      "scopeKind": "machine",
+      "scopeKey": "srv-01",
+      "label": "srv-01",
+      "dailyTokens": 1000000,
+      "extraToday": 250000,
+      "effectiveLimit": 1250000,
+      "usedToday": 1180000,
+      "pct": 94.4,
+      "state": "soft",
+      "autoStop": true
+    }
+  ]
+}

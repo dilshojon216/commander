@@ -1,0 +1,10 @@
+{
+  "settings": {
+    "enabled": true,
+    "softPct": 85,
+    "hardPct": 100,
+    "enforce": false
+  },
+  "day": "2025-11-14",
+  "overriddenToday": false
+}

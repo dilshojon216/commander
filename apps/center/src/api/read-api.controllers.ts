@@ -1,13 +1,21 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import type { Request } from 'express';
 import { z } from 'zod';
 import {
+  ListMachinesQuerySchema,
   ListProjectsQuerySchema,
   ListSessionEventsQuerySchema,
   ListSessionsQuerySchema,
+  UpdateMachineBodySchema,
   UsageQuerySchema,
+  isQueryFlagTrue,
 } from '@commander/contracts';
 import type {
+  ListMachinesQuery,
   ListMachinesResponse,
+  MachineArchiveResponse,
+  MachineDto,
+  UpdateMachineBody,
   ListProjectsQuery,
   ListProjectsResponse,
   ListSessionEventsQuery,
@@ -19,8 +27,12 @@ import type {
   UsageResponse,
   UsageSummaryResponse,
 } from '@commander/contracts';
+import { AuditAction, NoAudit } from '../identity/audit/audit.decorators.js';
+import { requestIp } from '../identity/common/request-context.js';
+import type { Principal } from '../identity/common/request-context.js';
 import { ZodValidationPipe } from '../identity/common/zod.pipe.js';
-import { ClientAuth } from '../identity/devices/auth.decorators.js';
+import { ClientAuth, CurrentPrincipal, LockdownExempt } from '../identity/devices/auth.decorators.js';
+import { MachineAdminService } from './machine-admin.service.js';
 import { MachinesService } from './machines.service.js';
 import { SessionsV1Service } from './sessions-v1.service.js';
 import { UsageService } from './usage.service.js';
@@ -31,13 +43,56 @@ const IdParam = new ZodValidationPipe(z.uuid());
 
 @Controller('v1/machines')
 export class MachinesController {
-  constructor(private readonly machines: MachinesService) {}
+  constructor(
+    private readonly machines: MachinesService,
+    private readonly admin: MachineAdminService,
+  ) {}
 
-  /** online, last_seen, os, versiyalar, ochiq sessiyalar soni (holat bo'yicha). */
+  /** online, last_seen, os, versiyalar, ochiq sessiyalar soni (holat bo'yicha). `?archived=1` = faqat arxivlanganlar (default: faollar). */
   @Get()
   @ClientAuth('read')
-  list(): Promise<ListMachinesResponse> {
-    return this.machines.list();
+  list(@Query(new ZodValidationPipe(ListMachinesQuerySchema)) q: ListMachinesQuery): Promise<ListMachinesResponse> {
+    return this.machines.list(new Date(), isQueryFlagTrue(q.archived));
+  }
+
+  /**
+   * N2.13 Nomini o'zgartirish: `control` scope (dashboard proksisida elevation talab qilinadi). Audit `machine.renamed` yozuv bilan
+   * BIR tranzaksiyada (eski/yangi nom; shu sabab umumiy audit o'chirilgan). `@LockdownExempt`: masofaviy amal emas (mashinaga
+   * hech narsa bormaydi), lockdown uni to'smaydi.
+   */
+  @Patch(':id')
+  @ClientAuth('control')
+  @LockdownExempt()
+  @NoAudit()
+  rename(
+    @Param('id', IdParam) id: string,
+    @Body(new ZodValidationPipe(UpdateMachineBodySchema)) body: UpdateMachineBody,
+    @CurrentPrincipal() principal: Principal,
+    @Req() req: Request,
+  ): Promise<MachineDto> {
+    return this.admin.rename(id, body, { deviceId: principal.device.id, actorKind: principal.actorKind, ip: requestIp(req) });
+  }
+
+  /**
+   * N2.14 Arxivlash/qaytarish (projects 6.16 naqshi): `control` scope, audit `machine.archived|unarchived` (AuditInterceptor, amaldan
+   * OLDIN, fail-closed), `@LockdownExempt` (ro'yxatdan yashirish xolos: ma'lumot o'chmaydi, qurilma revoke qilinmaydi).
+   */
+  @Post(':id/archive')
+  @HttpCode(HttpStatus.OK)
+  @ClientAuth('control')
+  @LockdownExempt()
+  @AuditAction('machine.archived')
+  archive(@Param('id', IdParam) id: string): Promise<MachineArchiveResponse> {
+    return this.admin.setArchived(id, true);
+  }
+
+  @Post(':id/unarchive')
+  @HttpCode(HttpStatus.OK)
+  @ClientAuth('control')
+  @LockdownExempt()
+  @AuditAction('machine.unarchived')
+  unarchive(@Param('id', IdParam) id: string): Promise<MachineArchiveResponse> {
+    return this.admin.setArchived(id, false);
   }
 }
 

@@ -42,6 +42,42 @@ void main() {
     roundTrip('tasks', ListTasksResponse.fromJson, (v) => v.toJson());
   });
 
+  test('admin CLI chiqishlari, mashina arxivi/nomi, audit va salomatlik chegaralari (N1.12, N2.13-15, N3.8)', () {
+    roundTrip('admin-enroll-code-output', AdminEnrollCodeOutput.fromJson, (v) => v.toJson());
+    final codes = roundTrip('admin-enroll-code-list', AdminEnrollCodeList.fromJson, (v) => v.toJson());
+    expect(codes.items.map((c) => c.state), [AdminEnrollCodeState.pending, AdminEnrollCodeState.used, AdminEnrollCodeState.expired]);
+    roundTrip('admin-token-issued', AdminTokenIssued.fromJson, (v) => v.toJson());
+    final rotated = roundTrip('admin-token-rotated', AdminTokenRotated.fromJson, (v) => v.toJson());
+    expect(rotated.expiresAt, isNull);
+    final tokens = roundTrip('admin-token-list', AdminTokenList.fromJson, (v) => v.toJson());
+    expect(tokens.items.map((t) => t.state), [AdminTokenState.active, AdminTokenState.revoked, AdminTokenState.expired]);
+    final devices = roundTrip('admin-device-list', AdminDeviceList.fromJson, (v) => v.toJson());
+    expect(devices.items[0].machineId, '11111111-1111-4111-8111-111111111111');
+    expect(devices.items[1].machineId, isNull);
+    expect(devices.items[0].rotationRequired, isTrue);
+    final pair = roundTrip('admin-pair-output', AdminPairOutput.fromJson, (v) => v.toJson());
+    expect(pair.scopes, [ClientTokenScope.read, ClientTokenScope.approve]);
+    expect(roundTrip('admin-lockdown-status', AdminLockdownStatus.fromJson, (v) => v.toJson()).enabled, isTrue);
+    final tg = roundTrip('admin-telegram-list', AdminTelegramList.fromJson, (v) => v.toJson());
+    expect(tg.items.map((e) => e.source), [AdminTelegramSource.env, AdminTelegramSource.db]);
+    final pending = roundTrip('admin-telegram-pending', AdminTelegramPending.fromJson, (v) => v.toJson());
+    expect(pending.items[0].atMs, 1763200000000);
+    expect(pending.items[1].username, isNull);
+    expect(roundTrip('admin-center-key-show', AdminCenterKeyShow.fromJson, (v) => v.toJson()).overlap, hasLength(1));
+
+    final audit = roundTrip('audit-list', ListAuditResponse.fromJson, (v) => v.toJson());
+    expect(audit.nextBefore, '41');
+    expect(audit.items.map((e) => e.action), ['machine.renamed', 'lockdown.changed']);
+    expect(roundTrip('health-thresholds', HealthThresholdsResponse.fromJson, (v) => v.toJson()).defaults.diskWarnPct, 85);
+    roundTrip('ws/put-health-thresholds-body', PutHealthThresholdsBody.fromJson, (v) => v.toJson());
+
+    expect(roundTrip('machine-archived', MachineDto.fromJson, (v) => v.toJson()).archivedAt, '2026-11-15T10:00:00.000Z');
+    // Eski center javobi (archivedAt yo'q) ham dekodlanadi.
+    expect(roundTrip('machines', ListMachinesResponse.fromJson, (v) => v.toJson()).items.first.archivedAt, isNull);
+    expect(roundTrip('machine-archive-response', MachineArchiveResponse.fromJson, (v) => v.toJson()).archivedAt, '2026-11-15T10:00:00.000Z');
+    expect(roundTrip('ws/update-machine-body', UpdateMachineBody.fromJson, (v) => v.toJson()).displayName, 'Example Mac');
+  });
+
   test('sessiya maydonlari', () {
     final s = roundTrip('sessions', ListSessionsResponseV1.fromJson, (v) => v.toJson()).items.first;
     expect(s.status, SessionStatus.waiting);

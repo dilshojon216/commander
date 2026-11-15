@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminCenterKeyOverlap.json",
+  "title": "AdminCenterKeyOverlap",
+  "type": "object",
+  "properties": {
+    "fromFingerprint": {
+      "type": "string"
+    },
+    "toFingerprint": {
+      "type": "string"
+    },
+    "issuedAt": {
+      "type": "string"
+    },
+    "expiresAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "fromFingerprint",
+    "toFingerprint",
+    "issuedAt",
+    "expiresAt"
+  ],
+  "additionalProperties": false
+}

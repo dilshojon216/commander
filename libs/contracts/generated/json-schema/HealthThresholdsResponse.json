@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthThresholdsResponse.json",
+  "title": "HealthThresholdsResponse",
+  "type": "object",
+  "properties": {
+    "defaults": {
+      "$ref": "HealthThresholds.json"
+    },
+    "machines": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "additionalProperties": {
+        "$ref": "HealthThresholdsPatch.json"
+      }
+    }
+  },
+  "required": [
+    "defaults",
+    "machines"
+  ],
+  "additionalProperties": false
+}

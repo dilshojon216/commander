@@ -36,6 +36,8 @@ node clients/tools/capture-fixtures.mjs  # jonli center'dan (dashboard proksisi,
 - Konstantalar (`/ws/client` yo'li, subprotocol, close kodlari, kanallar, scope'lar): `CommanderContract.*`.
 - Qo'lda yozilgan yordamchilar faqat `Helpers.swift` / `helpers.dart`: `ContractDates`, `ClientWebSocketAuth.subprotocols`, `PairingURL` (`commander://pair?c=&code=&fp=`).
 
+> Fixture'lar ikki yo'l bilan paydo bo'ladi: `capture-fixtures.mjs` (jonli center, sanitizatsiya bilan) yoki qo'lda soxta (placeholder) ma'lumot bilan (`session-detail`, `commands`, `approval-rules`, `alerts-all`, `budgets`, `center-health`, `pace-settings`, `stepup-exemption`, yangi chat/command WS namunalari). Qo'lda yozilganlari ham `manifest.json` orqali Zod sxemaga qarshi tekshiriladi. Ochiq repoga haqiqiy loyiha/mashina nomlari tushmasligi uchun jonli captureni natijani ko'zdan kechirmay commit qilmang.
+
 ## Testlar
 
 ```bash

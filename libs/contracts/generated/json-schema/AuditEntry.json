@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AuditEntry.json",
+  "title": "AuditEntry",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "actor_device_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "actor_kind": {
+      "type": "string",
+      "enum": [
+        "agentd",
+        "web",
+        "menubar",
+        "mobile",
+        "telegram",
+        "system"
+      ]
+    },
+    "action": {
+      "type": "string"
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    },
+    "ip": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "prev_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hash": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "actor_device_id",
+    "actor_kind",
+    "action",
+    "target",
+    "details",
+    "ip",
+    "prev_hash",
+    "hash"
+  ],
+  "additionalProperties": false
+}

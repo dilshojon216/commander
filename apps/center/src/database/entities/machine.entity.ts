@@ -71,4 +71,8 @@ export class Machine {
 
   @Column({ type: 'timestamptz', name: 'control_reported_at', nullable: true })
   controlReportedAt: Date | null;
+
+  /** N2.14: arxivlangan vaqt (NULL = faol). Arxiv = standart ro'yxatdan yashirish; ma'lumot o'chmaydi. */
+  @Column({ type: 'timestamptz', name: 'archived_at', nullable: true })
+  archivedAt: Date | null;
 }

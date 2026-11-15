@@ -18,6 +18,7 @@ interface MachineRow {
   claude_version: string | null;
   identity_status: string;
   control: AgentControlState | null;
+  archived_at: Date | null;
   open: number;
   working: number;
   waiting: number;
@@ -43,6 +44,7 @@ export function toMachineDto(r: MachineRow): MachineDto {
     claudeVersion: r.claude_version,
     identityStatus: r.identity_status,
     control: r.control,
+    archivedAt: iso(r.archived_at),
     sessions: { open: r.open, working: r.working, waiting: r.waiting, awaitingApproval: r.awaiting_approval, idle: r.idle, done: r.done },
   };
 }
@@ -50,7 +52,7 @@ export function toMachineDto(r: MachineRow): MachineDto {
 /** `open` = tugamagan va `STALE_MINUTES` (default 12 soat) ichida ko'rilgan sessiyalar (v0 "active" bilan bir xil ta'rif). */
 const SELECT_MACHINES = `
   SELECT m.id, m.slug, m.display_name, m.hostname, m.os, m.online, m.last_seen_at, m.connected_at, m.disconnected_at,
-         m.agentd_version, m.claude_version, m.identity_status, m.control,
+         m.agentd_version, m.claude_version, m.identity_status, m.control, m.archived_at,
          COALESCE(c.open, 0)::int AS open, COALESCE(c.working, 0)::int AS working, COALESCE(c.waiting, 0)::int AS waiting,
          COALESCE(c.awaiting_approval, 0)::int AS awaiting_approval, COALESCE(c.idle, 0)::int AS idle, COALESCE(c.done, 0)::int AS done
     FROM machines m
@@ -78,13 +80,17 @@ export class MachinesService {
     return new Date(now.getTime() - minutes * 60_000);
   }
 
-  async list(now: Date = new Date()): Promise<ListMachinesResponse> {
-    const rows: MachineRow[] = await this.dataSource.query(`${SELECT_MACHINES} ORDER BY m.online DESC, m.slug`, [this.cutoff(now)]);
+  /** `archived`: false = faqat faollar (default), true = faqat arxivlanganlar (N2.14; projects 6.16 bilan bir xil). */
+  async list(now: Date = new Date(), archived = false): Promise<ListMachinesResponse> {
+    const rows: MachineRow[] = await this.dataSource.query(
+      `${SELECT_MACHINES} AND (m.archived_at IS NOT NULL) = $2::boolean ORDER BY m.online DESC, m.slug`,
+      [this.cutoff(now), archived],
+    );
     const items = rows.map(toMachineDto);
     return { items, onlineCount: items.filter((m) => m.online).length };
   }
 
-  /** `machine.updated` push'i uchun. Topilmasa (retired/merged) null. */
+  /** `machine.updated` push'i uchun. Topilmasa (retired/merged) null. Arxivlangan mashina ham qaytadi (`archivedAt` bilan: klient yashiradi). */
   async findById(id: string, now: Date = new Date()): Promise<MachineDto | null> {
     const rows: MachineRow[] = await this.dataSource.query(`${SELECT_MACHINES} AND m.id = $2`, [this.cutoff(now), id]);
     return rows[0] ? toMachineDto(rows[0]) : null;

@@ -7,7 +7,11 @@
 #   ops/remote-control.sh <ssh-alias> show                                         # holat
 # --home: ~/.ssh ~/.gnupg ~/.aws ~/.claude ~/.commander baribir yopiq qoladi (docs/remote-control.md). `disable` siyosatni o'chiradi (allowedRoots saqlanadi).
 # Papka `~/...` bo'lishi mumkin (serverdagi $HOME ga almashtiriladi). OS (Linux/Windows) avtomatik aniqlanadi.
+# COMMANDER_PROGRESS=1 bo'lsa progress markerlar chiqaradi: ##commander-step <k>/<N> <title> va ##commander-result <JSON>
 set -euo pipefail
+
+# Jarayon markerlari (COMMANDER_PROGRESS=1): ops/lib/progress.sh
+. "$(cd "$(dirname "$0")" && pwd)/lib/progress.sh"
 
 SSH_ALIAS="${1:-}"
 ACTION="${2:-}"
@@ -53,6 +57,7 @@ fi
 
 case "$ACTION" in
   enable)
+    commander_step 1 2 "Policy papkalar sozlash"
     for r in ${ROOTS[@]+"${ROOTS[@]}"}; do
       dir=$(expand "$r")
       echo "ruxsat etilgan papka: $dir"
@@ -62,10 +67,18 @@ case "$ACTION" in
       echo "butun \$HOME ildiz qilinmoqda (policy allow-home); ~/.ssh ~/.gnupg ~/.aws ~/.claude ~/.commander yopiq qoladi"
       run policy allow-home
     fi
+    commander_step 2 2 "Masofaviy boshqaruvni yoqish"
     run policy enable
+    commander_result "$(json_object sshAlias "$SSH_ALIAS" action enable status success)"
     ;;
-  disable) run policy disable ;;
-  show) ;;
+  disable)
+    commander_step 1 1 "Masofaviy boshqaruvni o'chirish"
+    run policy disable
+    commander_result "$(json_object sshAlias "$SSH_ALIAS" action disable status success)"
+    ;;
+  show)
+    commander_step 1 1 "Policy holatini ko'rish"
+    ;;
 esac
 
 echo ""

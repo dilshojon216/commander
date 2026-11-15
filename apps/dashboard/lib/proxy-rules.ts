@@ -341,3 +341,17 @@ export function elevationRequired(elevation: Elevation, body: unknown): boolean 
   if (elevation === "decision") return o.behavior !== "deny";
   return o.type !== "session.stop";
 }
+
+/**
+ * Native klient (apps/menubar) uchun elevation qoidalari manbasi: `apps/menubar/scripts/gen-elevation-rules.mjs` shu yerdan
+ * regex matnlarini o'qib, Swift jadvalini generatsiya qiladi (web va native bir xil qoidaga tayanadi; qo'lda nusxa yo'q).
+ * Mantiqqa ta'sir qilmaydi: faqat mavjud qoidalarning matn ko'rinishi.
+ */
+export const ELEVATION_RULE_SOURCES = {
+  decision: DECISION_RULE.source,
+  queueItem: QUEUE_ITEM.source,
+  templateItem: TEMPLATE_ITEM.source,
+  exempt: ELEVATION_EXEMPT.map((r) => r.source),
+  writes: MSG_WRITE_RULES.map((r) => ({ method: r.method, source: r.re.source })),
+  workPosts: WORK_POST_RULES.map((r) => r.source),
+};

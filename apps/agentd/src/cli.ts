@@ -15,7 +15,7 @@ import { AGENTD_VERSION } from './version.js';
 const USAGE = `agentd ${AGENTD_VERSION}
 
 Foydalanish:
-  agentd enroll --center <https url> --code <kod|-> [--force] [--claude-bin <yo'l>] [--statusline-cmd <buyruq>]
+  agentd enroll --center <https url> (--code <kod|->|--code-stdin) [--force] [--claude-bin <yo'l>] [--statusline-cmd <buyruq>]
   agentd run [--center <url>] [--otlp-port <port>] [--log-file <yo'l>] [--exit-with-parent]     (default buyruq; --log-file yoki AGENTD_LOG_FILE: aylanuvchi fayl logi;
                                                        --exit-with-parent: ota jarayon o'lsa to'xtaydi, Windows ishga tushiruvchisi uchun)
   agentd policy [show|enable|disable|allow-root <papka>|remove-root <papka>|allow-home|deny-home|allow-auto|deny-auto]   (masofaviy boshqaruv siyosati, default: O'CHIQ)
@@ -54,6 +54,7 @@ async function main(argv: string[]): Promise<number> {
     options: {
       center: { type: 'string' },
       code: { type: 'string' },
+      'code-stdin': { type: 'boolean' },
       force: { type: 'boolean' },
       'claude-bin': { type: 'string' },
       'statusline-cmd': { type: 'string' },
@@ -78,9 +79,17 @@ async function main(argv: string[]): Promise<number> {
     case 'enroll': {
       const center = str(values.center);
       const codeArg = str(values.code);
-      const code = codeArg === '-' ? (await readStdinLine()) : codeArg;
+      const useCodeStdin = values['code-stdin'] === true;
+
+      let code: string | undefined;
+      if (useCodeStdin) {
+        code = await readStdinLine();
+      } else if (codeArg) {
+        code = codeArg === '-' ? (await readStdinLine()) : codeArg;
+      }
+
       if (!center || !code) {
-        process.stderr.write('xato: --center va --code majburiy\n' + USAGE);
+        process.stderr.write('xato: --center va (--code <kod|-> yoki --code-stdin) majburiy\n' + USAGE);
         return 2;
       }
       const claudeBin = str(values['claude-bin']);

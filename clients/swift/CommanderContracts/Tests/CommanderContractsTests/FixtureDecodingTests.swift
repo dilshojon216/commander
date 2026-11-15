@@ -43,6 +43,109 @@ final class FixtureDecodingTests: XCTestCase {
         _ = try roundTrip(ListTasksResponse.self, "tasks")
     }
 
+    /// Native dashboard (docs/NATIVE-DASHBOARD.md, N0.4): qo'shimcha REST javoblari. Namunalar soxta (placeholder) ma'lumotli.
+    func testNativeDashboardRestFixturesDecode() throws {
+        let detail = try roundTrip(SessionDto.self, "session-detail")
+        XCTAssertEqual(detail.status, .waiting)
+
+        let commands = try roundTrip(ListCommandsResponse.self, "commands")
+        XCTAssertEqual(commands.items.count, 4)
+        XCTAssertTrue(commands.items[1].stepUp.required)
+        XCTAssertEqual(commands.items[1].review?.required, true)
+        XCTAssertEqual(commands.items[2].errorCode, "agent_offline")
+        XCTAssertNil(commands.items[0].review)
+
+        let rules = try roundTrip(ListApprovalRulesResponse.self, "approval-rules")
+        XCTAssertEqual(rules.rules.map(\.status), [.active, .revoked])
+
+        let alerts = try roundTrip(ListAlertsResponse.self, "alerts-all")
+        XCTAssertEqual(alerts.items.map(\.state), [.open, .resolved, .dismissed])
+
+        let budgets = try roundTrip(BudgetsResponse.self, "budgets")
+        XCTAssertEqual(budgets.items.map(\.state), [.ok, .soft])
+        XCTAssertEqual(budgets.items[1].effectiveLimit, 1_250_000)
+
+        let health = try roundTrip(CenterHealthResponse.self, "center-health")
+        XCTAssertEqual(health.status, .warn)
+        XCTAssertEqual(health.incidents.count, 1)
+        XCTAssertEqual(health.checks.last?.status, .disabled)
+
+        let pace = try roundTrip(PaceSettingsResponse.self, "pace-settings")
+        XCTAssertEqual(pace.settings.hardPct, 100)
+        XCTAssertFalse(pace.overriddenToday)
+
+        let exemption = try roundTrip(StepUpExemptionResponse.self, "stepup-exemption")
+        XCTAssertTrue(exemption.available)
+        XCTAssertFalse(exemption.exempt)
+    }
+
+    /// N1.12/N2.13-15/N3.8: admin CLI `--json` chiqishlari, mashina arxivi/nomi, audit va salomatlik chegaralari (soxta ma'lumot).
+    func testAdminCliAndMachineAdminFixturesDecode() throws {
+        let enroll = try roundTrip(AdminEnrollCodeOutput.self, "admin-enroll-code-output")
+        XCTAssertEqual(enroll.kind, "agentd")
+        let codes = try roundTrip(AdminEnrollCodeList.self, "admin-enroll-code-list")
+        XCTAssertEqual(codes.items.map(\.state), [.pending, .used, .expired])
+        _ = try roundTrip(AdminTokenIssued.self, "admin-token-issued")
+        let rotated = try roundTrip(AdminTokenRotated.self, "admin-token-rotated")
+        XCTAssertNil(rotated.expiresAt)
+        XCTAssertFalse(rotated.stepupExemptInherited)
+        let tokens = try roundTrip(AdminTokenList.self, "admin-token-list")
+        XCTAssertEqual(tokens.items.map(\.state), [.active, .revoked, .expired])
+        let devices = try roundTrip(AdminDeviceList.self, "admin-device-list")
+        XCTAssertEqual(devices.items[0].machineId, "11111111-1111-4111-8111-111111111111")
+        XCTAssertNil(devices.items[1].machineId)
+        XCTAssertTrue(devices.items[0].rotationRequired)
+        XCTAssertEqual(devices.items.map(\.state), [.active, .revoked])
+        let pair = try roundTrip(AdminPairOutput.self, "admin-pair-output")
+        XCTAssertEqual(pair.scopes, [.read, .approve])
+        let lock = try roundTrip(AdminLockdownStatus.self, "admin-lockdown-status")
+        XCTAssertTrue(lock.enabled)
+        let tg = try roundTrip(AdminTelegramList.self, "admin-telegram-list")
+        XCTAssertEqual(tg.items.map(\.source), [.env, .db])
+        let pending = try roundTrip(AdminTelegramPending.self, "admin-telegram-pending")
+        XCTAssertEqual(pending.items[0].atMs, 1_763_200_000_000)
+        XCTAssertNil(pending.items[1].username)
+        let key = try roundTrip(AdminCenterKeyShow.self, "admin-center-key-show")
+        XCTAssertEqual(key.overlap.count, 1)
+
+        let audit = try roundTrip(ListAuditResponse.self, "audit-list")
+        XCTAssertEqual(audit.nextBefore, "41")
+        XCTAssertEqual(audit.items.map(\.action), ["machine.renamed", "lockdown.changed"])
+        let thresholds = try roundTrip(HealthThresholdsResponse.self, "health-thresholds")
+        XCTAssertEqual(thresholds.defaults.diskWarnPct, 85)
+        _ = try roundTrip(PutHealthThresholdsBody.self, "ws/put-health-thresholds-body")
+
+        let archived = try roundTrip(MachineDto.self, "machine-archived")
+        XCTAssertEqual(archived.archivedAt, "2026-11-15T10:00:00.000Z")
+        // Eski center javobi (archivedAt yo'q) ham dekodlanadi.
+        let legacy = try roundTrip(ListMachinesResponse.self, "machines")
+        XCTAssertNil(legacy.items.first?.archivedAt)
+        let resp = try roundTrip(MachineArchiveResponse.self, "machine-archive-response")
+        XCTAssertEqual(resp.archivedAt, "2026-11-15T10:00:00.000Z")
+        let body = try roundTrip(UpdateMachineBody.self, "ws/update-machine-body")
+        XCTAssertEqual(body.displayName, "Example Mac")
+    }
+
+    func testNativeDashboardWsFixturesDecode() throws {
+        guard case .commandUpdated(let updated) = try roundTrip(ServerToClientMessage.self, "ws/server-command-updated") else { return XCTFail("command.updated") }
+        XCTAssertEqual(updated.payload.command.status, .running)
+
+        guard case .chatState(let state) = try roundTrip(ServerToClientMessage.self, "ws/server-chat-state") else { return XCTFail("chat.state") }
+        XCTAssertEqual(state.payload.state, .live)
+
+        guard case .chatItems(let older) = try roundTrip(ServerToClientMessage.self, "ws/server-chat-items-older") else { return XCTFail("chat.items") }
+        XCTAssertEqual(older.payload.older, true)
+        XCTAssertEqual(older.payload.cursor, "cur-0123")
+        XCTAssertEqual(older.payload.items.count, 2)
+
+        guard case .chatOpen(let open) = try roundTrip(ClientToServerMessage.self, "ws/client-chat-open") else { return XCTFail("chat.open") }
+        XCTAssertEqual(open.payload.limit, 50)
+        XCTAssertNil(open.payload.before)
+        guard case .chatOpen(let page) = try roundTrip(ClientToServerMessage.self, "ws/client-chat-open-older") else { return XCTFail("chat.open before") }
+        XCTAssertEqual(page.payload.before, "cur-0123")
+        guard case .chatClose = try roundTrip(ClientToServerMessage.self, "ws/client-chat-close") else { return XCTFail("chat.close") }
+    }
+
     func testSessionFields() throws {
         let list = try roundTrip(ListSessionsResponseV1.self, "sessions")
         let s = try XCTUnwrap(list.items.first)

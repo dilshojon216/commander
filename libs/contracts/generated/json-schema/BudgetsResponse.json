@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "BudgetsResponse.json",
+  "title": "BudgetsResponse",
+  "type": "object",
+  "properties": {
+    "day": {
+      "type": "string"
+    },
+    "resetsAt": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "BudgetStatus.json"
+      }
+    }
+  },
+  "required": [
+    "day",
+    "resetsAt",
+    "items"
+  ],
+  "additionalProperties": false
+}

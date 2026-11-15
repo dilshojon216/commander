@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CenterCheckDto.json",
+  "title": "CenterCheckDto",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "$ref": "CenterCheckKind.json"
+    },
+    "status": {
+      "$ref": "CenterCheckStatus.json"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "metrics": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "checkedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "status",
+    "summary",
+    "metrics",
+    "checkedAt"
+  ],
+  "additionalProperties": false
+}

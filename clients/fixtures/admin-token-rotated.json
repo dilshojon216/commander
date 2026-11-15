@@ -1,0 +1,14 @@
+{
+  "id": "bbbbbbbb-0000-4000-8000-000000000002",
+  "token": "cmdr_example-placeholder-not-a-real-token",
+  "kind": "mobile",
+  "name": "example-phone",
+  "scopes": [
+    "read",
+    "approve"
+  ],
+  "expires_at": null,
+  "rotated_from": "bbbbbbbb-0000-4000-8000-000000000001",
+  "grace_ends_at": "2026-11-16T10:00:00.000Z",
+  "stepup_exempt_inherited": false
+}

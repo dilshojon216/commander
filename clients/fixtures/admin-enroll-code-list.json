@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "aaaaaaaa-0000-4000-8000-000000000001",
+      "machineName": "example-mac",
+      "state": "pending",
+      "createdAt": "2026-11-15T10:00:00.000Z",
+      "expiresAt": "2026-11-15T10:15:00.000Z",
+      "usedAt": null
+    },
+    {
+      "id": "aaaaaaaa-0000-4000-8000-000000000002",
+      "machineName": "example-linux",
+      "state": "used",
+      "createdAt": "2026-11-14T09:00:00.000Z",
+      "expiresAt": "2026-11-14T09:15:00.000Z",
+      "usedAt": "2026-11-14T09:03:00.000Z"
+    },
+    {
+      "id": "aaaaaaaa-0000-4000-8000-000000000003",
+      "machineName": "example-old",
+      "state": "expired",
+      "createdAt": "2026-11-10T09:00:00.000Z",
+      "expiresAt": "2026-11-10T09:15:00.000Z",
+      "usedAt": null
+    }
+  ]
+}

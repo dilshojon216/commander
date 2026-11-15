@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AdminTokenIssued.json",
+  "title": "AdminTokenIssued",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "token": {
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "ClientDeviceKind.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "ClientTokenScope.json"
+      }
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "token",
+    "kind",
+    "name",
+    "scopes",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

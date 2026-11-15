@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "type": "session.prompt",
+      "status": "done",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "srv-01",
+      "projectId": null,
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "claudeSessionId": "005e43c5-ae9f-4f9f-84c2-808f3ce95955",
+      "cwd": "/home/dev/project",
+      "permissionMode": "default",
+      "model": "sonnet",
+      "promptLength": 42,
+      "promptPreview": "Testlarni ishga tushirib, xatolarni tuzat",
+      "requestedByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "stepUp": {
+        "required": false,
+        "via": null,
+        "expiresAt": null,
+        "confirmedAt": null,
+        "confirmedByDeviceId": null
+      },
+      "errorCode": null,
+      "errorMessage": null,
+      "result": null,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "sentAt": "2025-11-14T08:00:00.000Z",
+      "ackedAt": "2025-11-14T08:00:00.000Z",
+      "finishedAt": "2025-11-14T08:00:03.000Z",
+      "expiresAt": "2025-11-14T08:05:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000102",
+      "type": "session.start",
+      "status": "awaiting_confirmation",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "srv-01",
+      "projectId": null,
+      "sessionId": null,
+      "claudeSessionId": null,
+      "cwd": "/home/dev/project",
+      "permissionMode": "default",
+      "model": "sonnet",
+      "promptLength": 18,
+      "promptPreview": "Migratsiyani yoz",
+      "requestedByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "stepUp": {
+        "required": true,
+        "via": "telegram",
+        "expiresAt": "2025-11-14T08:02:00.000Z",
+        "confirmedAt": null,
+        "confirmedByDeviceId": null
+      },
+      "errorCode": null,
+      "errorMessage": null,
+      "result": null,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "sentAt": null,
+      "ackedAt": null,
+      "finishedAt": null,
+      "expiresAt": "2025-11-14T08:05:00.000Z",
+      "review": {
+        "required": true,
+        "reasons": [
+          "Bajariladigan konfiguratsiya mavjud"
+        ]
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000103",
+      "type": "session.stop",
+      "status": "failed",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "srv-01",
+      "projectId": null,
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "claudeSessionId": "005e43c5-ae9f-4f9f-84c2-808f3ce95955",
+      "cwd": "/home/dev/project",
+      "permissionMode": "default",
+      "model": "sonnet",
+      "promptLength": null,
+      "promptPreview": null,
+      "requestedByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "stepUp": {
+        "required": false,
+        "via": null,
+        "expiresAt": null,
+        "confirmedAt": null,
+        "confirmedByDeviceId": null
+      },
+      "errorCode": "agent_offline",
+      "errorMessage": "Mashina onlayn emas",
+      "result": null,
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "sentAt": "2025-11-14T08:00:00.000Z",
+      "ackedAt": null,
+      "finishedAt": "2025-11-14T08:00:00.000Z",
+      "expiresAt": "2025-11-14T08:05:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000104",
+      "type": "session.resume",
+      "status": "running",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "srv-01",
+      "projectId": null,
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "claudeSessionId": "005e43c5-ae9f-4f9f-84c2-808f3ce95955",
+      "cwd": "/home/dev/project",
+      "permissionMode": "default",
+      "model": "sonnet",
+      "promptLength": null,
+      "promptPreview": null,
+      "requestedByDeviceId": "00000000-0000-4000-8000-0000000000d1",
+      "stepUp": {
+        "required": false,
+        "via": null,
+        "expiresAt": null,
+        "confirmedAt": null,
+        "confirmedByDeviceId": null
+      },
+      "errorCode": null,
+      "errorMessage": null,
+      "result": {
+        "tmuxSession": "cmdr-1",
+        "shortId": "83552025"
+      },
+      "createdAt": "2025-11-14T08:00:00.000Z",
+      "sentAt": "2025-11-14T08:00:00.000Z",
+      "ackedAt": "2025-11-14T08:00:00.000Z",
+      "finishedAt": null,
+      "expiresAt": "2025-11-14T08:05:00.000Z"
+    }
+  ]
+}
