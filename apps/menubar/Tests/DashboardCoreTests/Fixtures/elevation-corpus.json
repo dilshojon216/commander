@@ -1,0 +1,3262 @@
+[
+ {
+  "method": "GET",
+  "path": "alerts/00000000-0000-4000-8000-000000000001/dismiss",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "alerts/00000000-0000-4000-8000-000000000001/dismiss",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "alerts/00000000-0000-4000-8000-000000000001/dismiss",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "alerts/00000000-0000-4000-8000-000000000001/dismiss",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "alerts/00000000-0000-4000-8000-000000000001/dismiss",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "approval-rules",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "approval-rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "approval-rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "approval-rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "approval-rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "approval-rules/12",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "approval-rules/12",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "approval-rules/12",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "approval-rules/12",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "approval-rules/12",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "GET",
+  "path": "approvals",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "approvals",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "approvals",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "approvals",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "approvals",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "allow"
+  },
+  "elevation": "decision",
+  "required": true,
+  "allowed": true,
+  "scope": "approve"
+ },
+ {
+  "method": "POST",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "deny"
+  },
+  "elevation": "decision",
+  "required": false,
+  "allowed": true,
+  "scope": "approve"
+ },
+ {
+  "method": "PUT",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "allow"
+  },
+  "elevation": "decision",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "deny"
+  },
+  "elevation": "decision",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "allow"
+  },
+  "elevation": "decision",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "deny"
+  },
+  "elevation": "decision",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "allow"
+  },
+  "elevation": "decision",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "approvals/00000000-0000-4000-8000-000000000001/decision",
+  "body": {
+   "behavior": "deny"
+  },
+  "elevation": "decision",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "assistant/ask",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "assistant/ask",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "assistant/ask",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "assistant/ask",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "assistant/ask",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "budgets",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "budgets",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "budgets",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "budgets",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "budgets",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "budgets/override",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "budgets/override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "budgets/override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "budgets/override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "budgets/override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "checkpoints/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "checkpoints/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "checkpoints/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "checkpoints/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "checkpoints/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "commands",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "commands",
+  "body": {
+   "type": "session.start"
+  },
+  "elevation": "command",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "POST",
+  "path": "commands",
+  "body": {
+   "type": "session.stop"
+  },
+  "elevation": "command",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "commands",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "commands",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "commands",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "commands/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "commands/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "commands/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "commands/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "commands/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "commands/00000000-0000-4000-8000-000000000001/confirm",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "commands/00000000-0000-4000-8000-000000000001/confirm",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "approve"
+ },
+ {
+  "method": "PUT",
+  "path": "commands/00000000-0000-4000-8000-000000000001/confirm",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "commands/00000000-0000-4000-8000-000000000001/confirm",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "commands/00000000-0000-4000-8000-000000000001/confirm",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/apply",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/apply",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/apply",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/apply",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/apply",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/rollback",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "config/machines/00000000-0000-4000-8000-000000000001/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "config/profiles/capture",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "config/profiles/capture",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "config/profiles/capture",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "config/profiles/capture",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "config/profiles/capture",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "config/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "config/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "config/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "config/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "config/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "decisions/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "decisions/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "decisions/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "decisions/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "decisions/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "investigations",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "investigations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "investigations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "investigations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "investigations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "investigations/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "investigations/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "investigations/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "investigations/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "investigations/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "limits/pace-override",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "limits/pace-override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "limits/pace-override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "limits/pace-override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "limits/pace-override",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "limits/pace-settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "limits/pace-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "limits/pace-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "limits/pace-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "limits/pace-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "logs/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "logs/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "logs/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "logs/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "logs/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "GET",
+  "path": "machines",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "machines",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "machines",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "machines",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "machines",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "machines/00000000-0000-4000-8000-000000000001/logs",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "machines/00000000-0000-4000-8000-000000000001/logs",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "machines/00000000-0000-4000-8000-000000000001/logs",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "machines/00000000-0000-4000-8000-000000000001/logs",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "machines/00000000-0000-4000-8000-000000000001/logs",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/groups",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "messaging/groups",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/groups",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/groups",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/groups",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/groups/context",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "messaging/groups/context",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/groups/context",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/groups/context",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/groups/context",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/groups/rules",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "messaging/groups/rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/groups/rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/groups/rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/groups/rules",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/links",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "messaging/links",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/links",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/links",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/links",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "GET",
+  "path": "messaging/messages",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "messaging/messages",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/messages",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/messages",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/messages",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/sessions/00000000-0000-4000-8000-000000000001/role",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "messaging/sessions/00000000-0000-4000-8000-000000000001/role",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/sessions/00000000-0000-4000-8000-000000000001/role",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/sessions/00000000-0000-4000-8000-000000000001/role",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/sessions/00000000-0000-4000-8000-000000000001/role",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "messaging/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "messaging/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "messaging/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "messaging/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "messaging/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "noma-lum/yol",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "noma-lum/yol",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "noma-lum/yol",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "noma-lum/yol",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "noma-lum/yol",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "orchestrations",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "orchestrations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "orchestrations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "orchestrations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "orchestrations",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "orchestrations/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "orchestrations/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "orchestrations/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "orchestrations/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "orchestrations/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/archive",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/archive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/archive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/archive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/archive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/list",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/list",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/list",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/list",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/list",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/restore",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/restore",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/restore",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/restore",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/checkpoints/restore",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/ci/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/ci/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/ci/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/ci/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/ci/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/daily/2025-11-14/summary",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/daily/2025-11-14/summary",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/daily/2025-11-14/summary",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/daily/2025-11-14/summary",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/daily/2025-11-14/summary",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/decisions",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/decisions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/decisions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/decisions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/decisions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/inspect",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/inspect",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/inspect",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/inspect",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/inspect",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/rollback",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/rollback",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/run",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/run",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/run",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/run",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/deploy/run",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/md-extract",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/md-extract",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/md-extract",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/md-extract",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/md-extract",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/pr",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/pr",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/pr",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/pr",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/pr",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/refresh",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/scan",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/scan",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/scan",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/scan",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/scan",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/append",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/append",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/append",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/append",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/append",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x%3A1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x%3A1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x%3A1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x%3A1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x%3A1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x:1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x:1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x:1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x:1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/tasks/part~x:1.2/board",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "projects/00000000-0000-4000-8000-000000000001/unarchive",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "projects/00000000-0000-4000-8000-000000000001/unarchive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "projects/00000000-0000-4000-8000-000000000001/unarchive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "projects/00000000-0000-4000-8000-000000000001/unarchive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "projects/00000000-0000-4000-8000-000000000001/unarchive",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "queue",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "queue",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "queue",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "queue",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "queue",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "queue/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "queue/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "queue/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "queue/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "queue/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "GET",
+  "path": "queue/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "queue/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "queue/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "queue/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "queue/00000000-0000-4000-8000-000000000001/cancel",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "queue/00000000-0000-4000-8000-000000000001/run-now",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "queue/00000000-0000-4000-8000-000000000001/run-now",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "queue/00000000-0000-4000-8000-000000000001/run-now",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "queue/00000000-0000-4000-8000-000000000001/run-now",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "queue/00000000-0000-4000-8000-000000000001/run-now",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "reports/generate",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "reports/generate",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "reports/generate",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "reports/generate",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "reports/generate",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "reports/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "reports/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "reports/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "reports/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "reports/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "scan-settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "scan-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "scan-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "scan-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "scan-settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "sessions",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "sessions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "sessions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "sessions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "sessions",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "sessions/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "sessions/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "sessions/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "sessions/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "sessions/00000000-0000-4000-8000-000000000001/diff",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "settings/stepup-exemption",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "settings/stepup-exemption",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "settings/stepup-exemption",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "settings/stepup-exemption",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "settings/stepup-exemption",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "summaries/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "summaries/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "summaries/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "summaries/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "summaries/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "templates",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "templates",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "templates",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "templates",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "templates",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "templates/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "templates/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "templates/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "templates/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "DELETE",
+  "path": "templates/00000000-0000-4000-8000-000000000001",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "GET",
+  "path": "templates/00000000-0000-4000-8000-000000000001/render",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "templates/00000000-0000-4000-8000-000000000001/render",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "PUT",
+  "path": "templates/00000000-0000-4000-8000-000000000001/render",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "templates/00000000-0000-4000-8000-000000000001/render",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "templates/00000000-0000-4000-8000-000000000001/render",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "templates/00000000-0000-4000-8000-000000000001/send-prompt",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "POST",
+  "path": "templates/00000000-0000-4000-8000-000000000001/send-prompt",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PUT",
+  "path": "templates/00000000-0000-4000-8000-000000000001/send-prompt",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PATCH",
+  "path": "templates/00000000-0000-4000-8000-000000000001/send-prompt",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "templates/00000000-0000-4000-8000-000000000001/send-prompt",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "GET",
+  "path": "watchdog/settings",
+  "body": null,
+  "elevation": "none",
+  "required": false,
+  "allowed": true,
+  "scope": "read"
+ },
+ {
+  "method": "POST",
+  "path": "watchdog/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "PUT",
+  "path": "watchdog/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": true,
+  "scope": "control"
+ },
+ {
+  "method": "PATCH",
+  "path": "watchdog/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ },
+ {
+  "method": "DELETE",
+  "path": "watchdog/settings",
+  "body": null,
+  "elevation": "required",
+  "required": true,
+  "allowed": false,
+  "scope": null
+ }
+]

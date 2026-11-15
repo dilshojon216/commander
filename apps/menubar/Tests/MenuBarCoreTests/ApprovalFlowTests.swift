@@ -2,47 +2,6 @@ import CommanderContracts
 import MenuBarCore
 import XCTest
 
-final class DecisionOutcomeTests: XCTestCase {
-    private func body(_ o: [String: Any]) -> Data { try! JSONSerialization.data(withJSONObject: o) }
-
-    func testAccepted() throws {
-        let a = try Fixtures.approval(status: "denied")
-        let resp = body(["approval": try Fixtures.json(a), "delivered": false, "idempotent": false])
-        let o = DecisionOutcome.from(status: 200, body: resp)
-        XCTAssertEqual(o, .accepted(a, delivered: false))
-        XCTAssertNotNil(o.message, "yetkazilmagan qaror haqida xabar")
-        XCTAssertTrue(o.removesCard)
-    }
-
-    func testLockdown403KeepsCard() {
-        let o = DecisionOutcome.from(status: 403, body: body(["error": "lockdown", "message": "Lockdown is active"]))
-        XCTAssertEqual(o, .lockdown)
-        XCTAssertFalse(o.removesCard, "lockdown'da approval pending qoladi: rad etish hamon mumkin")
-        XCTAssertEqual(o.message, "Lockdown: faqat rad etish mumkin")
-    }
-
-    func testScope403() {
-        XCTAssertEqual(DecisionOutcome.from(status: 403, body: body(["error": "insufficient_scope", "message": "Required scope: approve"])), .noScope)
-    }
-
-    func testConflict409() {
-        let conflict = DecisionOutcome.from(status: 409, body: body(["error": "approval_conflict", "message": "x", "status": "approved"]))
-        XCTAssertEqual(conflict, .alreadyResolved(status: "approved"))
-        XCTAssertTrue(conflict.removesCard)
-        XCTAssertEqual(conflict.message, "Allaqachon hal qilingan (terminalda javob berildi)")
-        XCTAssertEqual(DecisionOutcome.from(status: 409, body: body(["error": "approval_expired", "message": "x", "status": "expired"])), .expired)
-        XCTAssertEqual(DecisionOutcome.from(status: 409, body: body(["error": "approval_conflict", "message": "x", "status": "expired"])), .expired)
-    }
-
-    func testOtherStatuses() {
-        XCTAssertEqual(DecisionOutcome.from(status: 422, body: body(["error": "plan_approve_unsupported", "message": "x"])), .planApproveUnsupported)
-        XCTAssertEqual(DecisionOutcome.from(status: 401, body: body(["error": "unauthorized", "message": "x"])), .unauthorized)
-        XCTAssertEqual(DecisionOutcome.from(status: 404, body: Data()), .notFound)
-        XCTAssertEqual(DecisionOutcome.from(status: 500, body: Data()), .failed("Xato 500"))
-        XCTAssertEqual(DecisionOutcome.from(status: 200, body: Data("{}".utf8)), .failed("Javobni o'qib bo'lmadi"))
-    }
-}
-
 final class ApprovalFlowTests: XCTestCase {
     func testActionsByScopeKindAndLockdown() throws {
         let tool = try Fixtures.approval()

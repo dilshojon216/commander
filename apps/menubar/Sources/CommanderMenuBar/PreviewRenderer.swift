@@ -1,5 +1,7 @@
 import AppKit
 import CommanderContracts
+import DashboardCore
+import DashboardUI
 import MenuBarCore
 import SwiftUI
 
@@ -42,6 +44,14 @@ enum PreviewRenderer {
                                                  text: "srv-01 · Bash: docker compose up -d · 4:12 qoldi", autoHide: nil, approvalId: "x"),
                                  onOpen: {}, onClose: {})
                 .frame(width: 360, height: 128).background(bg), scheme: scheme, to: out.appendingPathComponent("popup-\(tag).png"))
+
+            if let fixtures, let model = previewModel(fixtures) {
+                let counters = SidebarCounters(summary: model.summary)
+                let limit = SidebarLimitSummary(limits: model.state.limits, now: Date())
+                save(ShellPreview(counters: counters, limit: limit).background(bg), scheme: scheme, to: out.appendingPathComponent("shell-\(tag).png"))
+            }
+
+            save(ComponentGallery().background(bg), scheme: scheme, to: out.appendingPathComponent("components-\(tag).png"))
 
             if let fixtures, let model = previewModel(fixtures) {
                 save(PanelContainer(model: model, maxBodyHeight: 2000, onResize: {}, staticRender: true).background(bg), scheme: scheme, to: out.appendingPathComponent("panel-\(tag).png"))

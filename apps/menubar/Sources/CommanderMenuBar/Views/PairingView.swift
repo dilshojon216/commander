@@ -1,5 +1,6 @@
 import AppKit
 import CoreImage
+import DashboardUI
 import MenuBarCore
 import SwiftUI
 import UniformTypeIdentifiers
@@ -72,7 +73,7 @@ struct PairingView: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                SectionLabel(text: "1. Kod yaratish")
+                SectionLabel("1. Kod yaratish")
                 HStack(alignment: .top) {
                     Text(Self.cli).font(Theme.mono).textSelection(.enabled)
                         .padding(8).frame(maxWidth: .infinity, alignment: .leading)
@@ -87,7 +88,7 @@ struct PairingView: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                SectionLabel(text: "2. Havola yoki QR")
+                SectionLabel("2. Havola yoki QR")
                 TextField("commander://pair?c=…&code=…", text: $form.link)
                     .textFieldStyle(.roundedBorder).font(Theme.mono)
                     .accessibilityLabel("Ulash havolasi")
@@ -99,7 +100,7 @@ struct PairingView: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                SectionLabel(text: "yoki qo'lda")
+                SectionLabel("yoki qo'lda")
                 TextField("https://<mac>.<tailnet>.ts.net", text: $form.center)
                     .textFieldStyle(.roundedBorder).accessibilityLabel("Center manzili")
                 TextField("XXXXX-XXXXX", text: $form.code)

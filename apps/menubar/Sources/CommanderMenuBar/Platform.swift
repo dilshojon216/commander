@@ -1,4 +1,5 @@
 import AppKit
+import DashboardCore
 import MenuBarCore
 import os
 import Security
@@ -106,6 +107,8 @@ final class AppSettings {
     var mascotPopupsEnabled: Bool { didSet { d.set(mascotPopupsEnabled, forKey: "mascotPopupsEnabled") } }
     /// Dashboard oynasi/brauzer manzili (sukut `http://127.0.0.1:4318`; dashboard faqat lokal).
     var dashboardURL: URL { didSet { d.set(dashboardURL.absoluteString, forKey: "dashboardURL") } }
+    /// Dashboard oynasi turi: sukut `web` (native ekranlar tayyor bo'lguncha, N1.15 da `native` bo'ladi).
+    var dashboardMode: DashboardMode { didSet { d.set(dashboardMode.rawValue, forKey: "dashboardMode") } }
 
     init() {
         centerURL = d.string(forKey: "centerURL").flatMap(URL.init(string:))
@@ -115,6 +118,7 @@ final class AppSettings {
         notificationsEnabled = d.object(forKey: "notificationsEnabled") as? Bool ?? true
         mascotPopupsEnabled = d.object(forKey: "mascotPopupsEnabled") as? Bool ?? true
         dashboardURL = d.string(forKey: "dashboardURL").flatMap(DashboardBaseURL.parse) ?? DashboardBaseURL.default
+        dashboardMode = d.string(forKey: "dashboardMode").flatMap(DashboardMode.init(rawValue:)) ?? .web
     }
 }
 

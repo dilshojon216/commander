@@ -1,4 +1,5 @@
 import AppKit
+import DashboardUI
 import MenuBarCore
 import SwiftUI
 

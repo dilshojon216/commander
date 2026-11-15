@@ -27,7 +27,7 @@ public enum DashboardTarget: Equatable, Sendable {
         }
     }
 
-    static func validID(_ s: String) -> Bool {
+    public static func validID(_ s: String) -> Bool {
         !s.isEmpty && s.count <= 128 && s.unicodeScalars.allSatisfy { c in
             (c.value >= 0x30 && c.value <= 0x39) || (c.value >= 0x41 && c.value <= 0x5A) || (c.value >= 0x61 && c.value <= 0x7A) || c == "-" || c == "_"
         }

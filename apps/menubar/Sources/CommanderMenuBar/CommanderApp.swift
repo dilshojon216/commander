@@ -1,4 +1,5 @@
 import AppKit
+import DashboardCore
 import MenuBarCore
 import SwiftUI
 
@@ -16,7 +17,7 @@ enum CommanderMain {
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     let model = AppModel()
     private var statusPanel: StatusPanelController?
 
@@ -70,6 +71,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         editItem.submenu = edit
         main.addItem(editItem)
 
+        main.addItem(makeViewMenuItem())
+
         let windowItem = NSMenuItem()
         let window = NSMenu(title: "Oyna")
         window.addItem(withTitle: "Kichraytirish", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
@@ -78,6 +81,53 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         main.addItem(windowItem)
         NSApp.windowsMenu = window
         return main
+    }
+
+    /// "Ko'rinish" menyusi: bo'limlar (⌘1...⌘9), tarix (⌘[ ⌘]), yangilash (⌘R), qidiruv (⌘F). Faqat native oyna faol bo'lganda yoqiq.
+    private func makeViewMenuItem() -> NSMenuItem {
+        let item = NSMenuItem()
+        let menu = NSMenu(title: "Ko'rinish")
+        for section in SidebarSection.allCases {
+            guard let digit = section.shortcutDigit else { continue }
+            let entry = NSMenuItem(title: section.title, action: #selector(openSection(_:)), keyEquivalent: String(digit))
+            entry.tag = digit
+            entry.target = self
+            menu.addItem(entry)
+        }
+        menu.addItem(.separator())
+        menu.addItem(viewItem("Orqaga", #selector(navigateBack), "["))
+        menu.addItem(viewItem("Oldinga", #selector(navigateForward), "]"))
+        menu.addItem(.separator())
+        menu.addItem(viewItem("Yangilash", #selector(refreshDashboard), "r"))
+        menu.addItem(viewItem("Qidirish", #selector(openSearch), "f"))
+        item.submenu = menu
+        return item
+    }
+
+    private func viewItem(_ title: String, _ action: Selector, _ key: String) -> NSMenuItem {
+        let entry = NSMenuItem(title: title, action: action, keyEquivalent: key)
+        entry.target = self
+        return entry
+    }
+
+    @objc private func openSection(_ sender: NSMenuItem) {
+        guard let section = SidebarSection.forShortcut(digit: sender.tag) else { return }
+        model.nativeDashboard.navigation.select(section)
+    }
+
+    @objc private func navigateBack() { model.nativeDashboard.navigation.goBack() }
+    @objc private func navigateForward() { model.nativeDashboard.navigation.goForward() }
+    @objc private func refreshDashboard() { model.refresh() }
+    @objc private func openSearch() { model.nativeDashboard.navigation.select(.search) }
+
+    /// Ko'rinish menyusi faqat native oyna kalit oyna bo'lganda ishlaydi (web oynasi o'z yorliqlarini o'zi boshqaradi).
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        let viewActions: [Selector] = [#selector(openSection(_:)), #selector(navigateBack), #selector(navigateForward), #selector(refreshDashboard), #selector(openSearch)]
+        guard let action = menuItem.action, viewActions.contains(action) else { return true }
+        guard model.nativeDashboard.isKey else { return false }
+        if action == #selector(navigateBack) { return model.nativeDashboard.navigation.canGoBack }
+        if action == #selector(navigateForward) { return model.nativeDashboard.navigation.canGoForward }
+        return true
     }
 
     @objc private func openSettings() {

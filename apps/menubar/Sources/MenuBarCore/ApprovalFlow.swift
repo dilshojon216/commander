@@ -43,34 +43,6 @@ public enum DecisionOutcome: Equatable, Sendable {
         default: return false
         }
     }
-
-    /// HTTP status + javob tanasi -> natija. `ApiError.error` kodi bo'yicha.
-    public static func from(status: Int, body: Data) -> DecisionOutcome {
-        let dec = JSONDecoder()
-        if (200..<300).contains(status) {
-            guard let r = try? dec.decode(ApprovalDecisionResponse.self, from: body) else {
-                return .failed("Javobni o'qib bo'lmadi")
-            }
-            return .accepted(r.approval, delivered: r.delivered)
-        }
-        let err = try? dec.decode(ApiError.self, from: body)
-        let code = err?.error ?? ""
-        switch (status, code) {
-        case (401, _): return .unauthorized
-        case (403, "lockdown"): return .lockdown
-        case (403, "insufficient_scope"): return .noScope
-        case (404, _): return .notFound
-        case (409, "approval_expired"): return .expired
-        case (409, _):
-            let st = (try? dec.decode(ConflictBody.self, from: body))?.status
-            return st == "expired" ? .expired : .alreadyResolved(status: st)
-        case (422, "plan_approve_unsupported"): return .planApproveUnsupported
-        case (429, _): return .failed("Juda ko'p so'rov: birozdan keyin urinib ko'ring")
-        default: return .failed("Xato \(status)\(code.isEmpty ? "" : ": \(code)")")
-        }
-    }
-
-    private struct ConflictBody: Decodable { let status: String? }
 }
 
 /// Approval kartasining lokal holati (panelda).

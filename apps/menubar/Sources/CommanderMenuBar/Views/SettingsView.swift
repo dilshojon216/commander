@@ -1,4 +1,6 @@
 import CommanderContracts
+import DashboardCore
+import DashboardUI
 import MenuBarCore
 import SwiftUI
 
@@ -69,6 +71,11 @@ struct SettingsView: View {
                         }
                 }
                 Section("Dashboard") {
+                    Picker("Oyna turi", selection: $settings.dashboardMode) {
+                        ForEach(DashboardMode.allCases, id: \.self) { Text($0.title).tag($0) }
+                    }
+                    Text("Native oynada hali tayyor bo'lmagan bo'limlar web ko'rinishda ochiladi.")
+                        .font(.system(size: 11)).foregroundStyle(Theme.muted)
                     HStack {
                         TextField("Manzil", text: $dashboardText, prompt: Text(DashboardBaseURL.default.absoluteString))
                             .onSubmit(saveDashboardURL)

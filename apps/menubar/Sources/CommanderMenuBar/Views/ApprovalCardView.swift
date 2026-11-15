@@ -1,4 +1,5 @@
 import CommanderContracts
+import DashboardUI
 import MenuBarCore
 import SwiftUI
 
