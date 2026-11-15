@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QueueRunDto.json",
+  "title": "QueueRunDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "firedAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "starting",
+        "started",
+        "failed",
+        "skipped"
+      ]
+    },
+    "commandId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "errorCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "firedAt",
+    "status",
+    "commandId",
+    "sessionId",
+    "errorCode"
+  ],
+  "additionalProperties": false
+}

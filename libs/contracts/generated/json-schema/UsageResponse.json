@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UsageResponse.json",
+  "title": "UsageResponse",
+  "type": "object",
+  "properties": {
+    "bucket": {
+      "$ref": "UsageBucket.json"
+    },
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "groupBy": {
+      "$ref": "UsageGroupBy.json"
+    },
+    "timezone": {
+      "type": "string",
+      "const": "Asia/Tashkent"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "usage_5m",
+        "usage_1h",
+        "daily_by_project",
+        "raw"
+      ]
+    },
+    "series": {
+      "type": "array",
+      "items": {
+        "$ref": "UsageSeries.json"
+      }
+    }
+  },
+  "required": [
+    "bucket",
+    "from",
+    "to",
+    "groupBy",
+    "timezone",
+    "source",
+    "series"
+  ],
+  "additionalProperties": false
+}

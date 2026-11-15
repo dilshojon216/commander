@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "StepStatus.json",
+  "title": "StepStatus",
+  "type": "string",
+  "enum": [
+    "pending",
+    "dispatched",
+    "running",
+    "done",
+    "failed",
+    "cancelled"
+  ]
+}

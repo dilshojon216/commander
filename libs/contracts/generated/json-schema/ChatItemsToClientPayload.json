@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatItemsToClientPayload.json",
+  "title": "ChatItemsToClientPayload",
+  "type": "object",
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "items": {
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "$ref": "ChatItem.json"
+      }
+    },
+    "replace": {
+      "type": "boolean"
+    },
+    "older": {
+      "type": "boolean"
+    },
+    "cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "sessionId",
+    "items"
+  ],
+  "additionalProperties": false
+}

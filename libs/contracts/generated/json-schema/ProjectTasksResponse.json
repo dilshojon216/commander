@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectTasksResponse.json",
+  "title": "ProjectTasksResponse",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "ProjectTaskDto.json"
+      }
+    },
+    "other": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "stats": {
+            "$ref": "TaskStats.json"
+          }
+        },
+        "required": [
+          "key",
+          "stats"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "unattributed": {
+      "$ref": "UnattributedTasks.json"
+    },
+    "summary": {
+      "$ref": "TasksSummary.json"
+    },
+    "tasksMd": {
+      "anyOf": [
+        {
+          "$ref": "TasksMdMeta.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tokensCoveredFrom": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "projectId",
+    "tasks",
+    "other",
+    "unattributed",
+    "summary",
+    "tasksMd",
+    "tokensCoveredFrom"
+  ],
+  "additionalProperties": false
+}

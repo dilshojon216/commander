@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ArchivedProjectsSummary.json",
+  "title": "ArchivedProjectsSummary",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "today": {
+      "$ref": "TokenTotals.json"
+    },
+    "allTime": {
+      "$ref": "TokenTotals.json"
+    },
+    "todayByMachine": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "machineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "totalTokens": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "machineId",
+          "totalTokens"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "count",
+    "today",
+    "allTime",
+    "todayByMachine"
+  ],
+  "additionalProperties": false
+}

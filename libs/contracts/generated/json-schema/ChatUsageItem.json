@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatUsageItem.json",
+  "title": "ChatUsageItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "kind": {
+      "type": "string",
+      "const": "usage"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "model": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "inputTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "outputTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "cacheReadTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "cacheCreationTokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "kind",
+    "requestId",
+    "inputTokens",
+    "outputTokens",
+    "cacheReadTokens",
+    "cacheCreationTokens"
+  ],
+  "additionalProperties": false
+}

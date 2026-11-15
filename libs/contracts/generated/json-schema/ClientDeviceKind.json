@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientDeviceKind.json",
+  "title": "ClientDeviceKind",
+  "type": "string",
+  "enum": [
+    "web",
+    "menubar",
+    "mobile",
+    "telegram"
+  ]
+}

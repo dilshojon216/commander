@@ -1,0 +1,15 @@
+{
+	"Path": "example.com/app",
+	"Main": true,
+	"GoMod": "go.mod"
+}
+{
+	"Path": "golang.org/x/text",
+	"Version": "v0.3.0",
+	"Update": {"Path": "golang.org/x/text", "Version": "v0.14.0"},
+	"Indirect": true
+}
+{
+	"Path": "github.com/pkg/errors",
+	"Version": "v0.9.1"
+}

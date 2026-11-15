@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ApprovalDecisionBody.json",
+  "title": "ApprovalDecisionBody",
+  "type": "object",
+  "properties": {
+    "behavior": {
+      "$ref": "ApprovalBehavior.json"
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "answers": {
+      "$ref": "AskAnswers.json"
+    }
+  },
+  "required": [
+    "behavior"
+  ],
+  "additionalProperties": false
+}

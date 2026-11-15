@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatThinkingItem.json",
+  "title": "ChatThinkingItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "kind": {
+      "type": "string",
+      "const": "thinking"
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "kind",
+    "text"
+  ],
+  "additionalProperties": false
+}

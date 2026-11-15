@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PaceSettingsResponse.json",
+  "title": "PaceSettingsResponse",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "$ref": "PaceSettings.json"
+    },
+    "day": {
+      "type": "string"
+    },
+    "overriddenToday": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "settings",
+    "day",
+    "overriddenToday"
+  ],
+  "additionalProperties": false
+}

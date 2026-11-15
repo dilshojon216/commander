@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000002",
+  "type": "subscribed",
+  "ts": 1763092800000,
+  "payload": {
+    "channels": [
+      "sessions",
+      "approvals"
+    ]
+  }
+}

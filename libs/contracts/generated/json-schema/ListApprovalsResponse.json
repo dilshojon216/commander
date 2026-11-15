@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ListApprovalsResponse.json",
+  "title": "ListApprovalsResponse",
+  "type": "object",
+  "properties": {
+    "pending": {
+      "type": "array",
+      "items": {
+        "$ref": "ApprovalDto.json"
+      }
+    },
+    "recent": {
+      "type": "array",
+      "items": {
+        "$ref": "ApprovalDto.json"
+      }
+    }
+  },
+  "required": [
+    "pending",
+    "recent"
+  ],
+  "additionalProperties": false
+}

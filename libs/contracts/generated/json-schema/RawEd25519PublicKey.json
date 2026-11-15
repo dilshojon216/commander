@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "RawEd25519PublicKey.json",
+  "title": "RawEd25519PublicKey",
+  "type": "string",
+  "pattern": "^(?:[A-Za-z0-9_-]{43}|[A-Za-z0-9+/]{43}=)$"
+}

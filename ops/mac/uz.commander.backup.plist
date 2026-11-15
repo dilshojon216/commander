@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>uz.commander.backup</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/Users/me/working/commander/ops/mac/backup.sh</string>
+	</array>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>3</integer>
+		<key>Minute</key>
+		<integer>30</integer>
+	</dict>
+	<key>StandardOutPath</key>
+	<string>/Users/me/Library/Logs/commander/backup.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/me/Library/Logs/commander/backup.log</string>
+	<key>Comment</key>
+	<string>Daily backup of Commander database via pg_dump. Runs at 03:30 AM every day.
+	Backups are stored in ~/commander-backups/ with 14-day retention.</string>
+</dict>
+</plist>

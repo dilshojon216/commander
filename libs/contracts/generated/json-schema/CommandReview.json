@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CommandReview.json",
+  "title": "CommandReview",
+  "type": "object",
+  "properties": {
+    "required": {
+      "type": "boolean"
+    },
+    "reasons": {
+      "maxItems": 16,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      }
+    }
+  },
+  "required": [
+    "required",
+    "reasons"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CreateCommandResponse.json",
+  "title": "CreateCommandResponse",
+  "type": "object",
+  "properties": {
+    "command": {
+      "$ref": "CommandDto.json"
+    },
+    "idempotent": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "command",
+    "idempotent"
+  ],
+  "additionalProperties": false
+}

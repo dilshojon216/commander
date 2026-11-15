@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CreateQueueItemBody.json",
+  "title": "CreateQueueItemBody",
+  "type": "object",
+  "properties": {
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "projectId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "cwd": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16000
+    },
+    "model": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+    },
+    "permissionMode": {
+      "$ref": "RemotePermissionMode.json"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._-]{0,59}$"
+    },
+    "taskKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "trigger": {
+      "$ref": "QueueTrigger.json"
+    }
+  },
+  "required": [
+    "machineId",
+    "cwd",
+    "prompt",
+    "permissionMode",
+    "trigger"
+  ],
+  "additionalProperties": false
+}

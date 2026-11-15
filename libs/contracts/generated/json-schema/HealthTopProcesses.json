@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthTopProcesses.json",
+  "title": "HealthTopProcesses",
+  "type": "object",
+  "properties": {
+    "byCpu": {
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+        "$ref": "HealthProcess.json"
+      }
+    },
+    "byMem": {
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+        "$ref": "HealthProcess.json"
+      }
+    }
+  },
+  "required": [
+    "byCpu",
+    "byMem"
+  ],
+  "additionalProperties": false
+}

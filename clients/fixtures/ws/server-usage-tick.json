@@ -1,0 +1,40 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000005",
+  "type": "usage.tick",
+  "ts": 1763092800000,
+  "payload": {
+    "from": 1763092798000,
+    "to": 1763092800000,
+    "total": {
+      "inputTokens": 1200,
+      "outputTokens": 340,
+      "cacheReadTokens": 90000,
+      "cacheCreationTokens": 4000,
+      "costUsd": 0.4321,
+      "requests": 3
+    },
+    "byMachine": [
+      {
+        "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+        "inputTokens": 1200,
+        "outputTokens": 340,
+        "cacheReadTokens": 90000,
+        "cacheCreationTokens": 4000,
+        "costUsd": 0.4321,
+        "requests": 3
+      }
+    ],
+    "byProject": [
+      {
+        "projectId": null,
+        "inputTokens": 1200,
+        "outputTokens": 340,
+        "cacheReadTokens": 90000,
+        "cacheCreationTokens": 4000,
+        "costUsd": 0.4321,
+        "requests": 3
+      }
+    ]
+  }
+}

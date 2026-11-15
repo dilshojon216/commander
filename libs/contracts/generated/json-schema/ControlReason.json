@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ControlReason.json",
+  "title": "ControlReason",
+  "type": "string",
+  "enum": [
+    "machine_offline",
+    "policy_disabled",
+    "interactive",
+    "session_ended",
+    "prompt_not_allowed",
+    "agent_not_ready",
+    "agent_outdated"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UnattributedTasks.json",
+  "title": "UnattributedTasks",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "const": "vazifasiz"
+    },
+    "tokens": {
+      "$ref": "TokenTotals.json"
+    },
+    "sessions": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "label",
+    "tokens",
+    "sessions"
+  ],
+  "additionalProperties": false
+}

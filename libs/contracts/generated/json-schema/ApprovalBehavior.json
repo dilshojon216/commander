@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ApprovalBehavior.json",
+  "title": "ApprovalBehavior",
+  "type": "string",
+  "enum": [
+    "allow",
+    "deny"
+  ]
+}

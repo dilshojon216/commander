@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UsageTickMessage.json",
+  "title": "UsageTickMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "usage.tick"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "EpochMs.json"
+        },
+        "to": {
+          "$ref": "EpochMs.json"
+        },
+        "total": {
+          "$ref": "UsageTickBucket.json"
+        },
+        "byMachine": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "machineId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "inputTokens": {
+                "type": "number"
+              },
+              "outputTokens": {
+                "type": "number"
+              },
+              "cacheReadTokens": {
+                "type": "number"
+              },
+              "cacheCreationTokens": {
+                "type": "number"
+              },
+              "costUsd": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "requests": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "machineId",
+              "inputTokens",
+              "outputTokens",
+              "cacheReadTokens",
+              "cacheCreationTokens",
+              "costUsd",
+              "requests"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "byProject": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "projectId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "inputTokens": {
+                "type": "number"
+              },
+              "outputTokens": {
+                "type": "number"
+              },
+              "cacheReadTokens": {
+                "type": "number"
+              },
+              "cacheCreationTokens": {
+                "type": "number"
+              },
+              "costUsd": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "requests": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "projectId",
+              "inputTokens",
+              "outputTokens",
+              "cacheReadTokens",
+              "cacheCreationTokens",
+              "costUsd",
+              "requests"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "total",
+        "byMachine",
+        "byProject"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

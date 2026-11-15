@@ -1,0 +1,69 @@
+{
+  "AGENT_PROTOCOL_VERSION": 1,
+  "CLIENT_WS_PATH": "/ws/client",
+  "CLIENT_WS_SUBPROTOCOL": "commander.v1",
+  "CLIENT_WS_TOKEN_SUBPROTOCOL_PREFIX": "cmdr-token.",
+  "CLIENT_WS_CLOSE": {
+    "goingAway": 1001,
+    "authFailed": 4001,
+    "authTimeout": 4002,
+    "protocolError": 4003,
+    "rateLimited": 4008,
+    "revoked": 4010
+  },
+  "CLIENT_LIMITS": {
+    "maxMessageBytes": 16384,
+    "maxMessagesPerMinute": 120,
+    "authTimeoutMs": 10000,
+    "usageTickMs": 2000,
+    "maxBufferedBytes": 1048576
+  },
+  "CLIENT_CHANNELS": [
+    "sessions",
+    "machines",
+    "usage",
+    "limits",
+    "approvals",
+    "commands",
+    "projects",
+    "messages",
+    "health",
+    "queue",
+    "alerts",
+    "orchestrations"
+  ],
+  "CLIENT_TOKEN_PREFIX": "cmdr_",
+  "CLIENT_TOKEN_SCOPES": [
+    "read",
+    "approve",
+    "control",
+    "admin"
+  ],
+  "CLIENT_DEVICE_KINDS": [
+    "web",
+    "menubar",
+    "mobile",
+    "telegram"
+  ],
+  "CLIENT_PAIRING_KINDS": [
+    "menubar",
+    "mobile"
+  ],
+  "PAIRING_SCOPES": [
+    "read",
+    "approve",
+    "control"
+  ],
+  "CLIENT_PAIRING_CODE_LENGTH": 10,
+  "CLIENT_PAIRING_DEFAULT_TTL_MINUTES": 10,
+  "CLIENT_PAIRING_TOKEN_DAYS": 90,
+  "PAIRING_URL_SCHEME": "commander:",
+  "SESSION_STATUSES": [
+    "idle",
+    "working",
+    "waiting",
+    "awaiting_approval",
+    "done",
+    "ended"
+  ]
+}

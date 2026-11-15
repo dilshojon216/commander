@@ -1,0 +1,15 @@
+{
+  "deviceId": "00000000-0000-4000-8000-0000000000aa",
+  "kind": "mobile",
+  "name": "Dev iPhone",
+  "platform": "ios",
+  "scopes": [
+    "read",
+    "approve"
+  ],
+  "createdAt": "2026-11-14T04:00:00.000Z",
+  "lastUsedAt": null,
+  "expiresAt": "2027-02-12T04:00:00.000Z",
+  "stepUpExempt": false,
+  "serverTime": "2026-11-14T04:00:00.000Z"
+}

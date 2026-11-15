@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "OrchConfirmation.json",
+  "title": "OrchConfirmation",
+  "type": "string",
+  "enum": [
+    "exempt_device",
+    "telegram_inline",
+    "telegram_step_up"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientToServerMessage.json",
+  "title": "ClientToServerMessage",
+  "oneOf": [
+    {
+      "$ref": "ClientAuthMessage.json"
+    },
+    {
+      "$ref": "ClientSubscribeMessage.json"
+    },
+    {
+      "$ref": "ClientUnsubscribeMessage.json"
+    },
+    {
+      "$ref": "ClientPingMessage.json"
+    },
+    {
+      "$ref": "ChatOpenMessage.json"
+    },
+    {
+      "$ref": "ChatCloseMessage.json"
+    }
+  ]
+}

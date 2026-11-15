@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TemplateDto.json",
+  "title": "TemplateDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "scope": {
+      "$ref": "TemplateScope.json"
+    },
+    "projectId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "projectName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "repoKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "body": {
+      "type": "string"
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "permissionMode": {
+      "anyOf": [
+        {
+          "$ref": "RemotePermissionMode.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "builtin": {
+      "type": "boolean"
+    },
+    "bigTask": {
+      "type": "boolean"
+    },
+    "createdByDeviceId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "scope",
+    "projectId",
+    "projectName",
+    "repoKey",
+    "name",
+    "description",
+    "body",
+    "variables",
+    "model",
+    "permissionMode",
+    "builtin",
+    "createdByDeviceId",
+    "createdAt",
+    "updatedAt"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectCommitDto.json",
+  "title": "ProjectCommitDto",
+  "type": "object",
+  "properties": {
+    "sha": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "sha",
+    "subject",
+    "author",
+    "ts"
+  ],
+  "additionalProperties": false
+}

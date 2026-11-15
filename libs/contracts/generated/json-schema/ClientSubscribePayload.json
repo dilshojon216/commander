@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientSubscribePayload.json",
+  "title": "ClientSubscribePayload",
+  "type": "object",
+  "properties": {
+    "channels": {
+      "minItems": 1,
+      "maxItems": 12,
+      "type": "array",
+      "items": {
+        "$ref": "ClientChannel.json"
+      }
+    }
+  },
+  "required": [
+    "channels"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientAuthErrorCode.json",
+  "title": "ClientAuthErrorCode",
+  "type": "string",
+  "enum": [
+    "unauthorized",
+    "insufficient_scope",
+    "bad_request",
+    "timeout"
+  ]
+}

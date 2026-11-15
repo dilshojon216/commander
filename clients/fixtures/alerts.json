@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "id": "a9502f69-5698-4ade-8e30-890276e07814",
+      "kind": "waiting",
+      "state": "open",
+      "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "projectId": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "sessionName": "cefc05d9",
+      "projectName": "commander",
+      "title": "Sessiya javob kutmoqda",
+      "detail": "232 daqiqadan beri sizning javobingiz kutilmoqda",
+      "metrics": {
+        "status": "waiting",
+        "minutes": 232,
+        "thresholdMinutes": 15
+      },
+      "remindersSent": 3,
+      "autoStopped": false,
+      "createdAt": "2026-11-13T18:39:50.662Z",
+      "updatedAt": "2026-11-13T21:40:33.656Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "e2800af9-ebe3-4c7e-84d2-4c213157e63e",
+      "kind": "waiting",
+      "state": "open",
+      "sessionId": "31d3c7b1-e9b5-4c02-8e59-34c2ee46fe12",
+      "machineId": "06b05039-792e-4781-83aa-1a96d745ceb7",
+      "projectId": null,
+      "sessionName": "tg-new-d",
+      "projectName": "zz-deploy-check",
+      "title": "Sessiya javob kutmoqda",
+      "detail": "219 daqiqadan beri sizning javobingiz kutilmoqda",
+      "metrics": {
+        "status": "waiting",
+        "minutes": 219,
+        "thresholdMinutes": 15
+      },
+      "remindersSent": 3,
+      "autoStopped": false,
+      "createdAt": "2026-11-13T18:39:50.662Z",
+      "updatedAt": "2026-11-13T21:40:33.656Z",
+      "resolvedAt": null
+    }
+  ]
+}

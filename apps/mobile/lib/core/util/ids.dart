@@ -1,0 +1,15 @@
+import 'dart:math';
+
+final _rng = Random.secure();
+
+/// RFC 4122 v4 uuid (envelope `id`; qo'shimcha paket kerak emas).
+String newUuid() {
+  final b = List<int>.generate(16, (_) => _rng.nextInt(256));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  String h(int i) => b[i].toRadixString(16).padLeft(2, '0');
+  return '${h(0)}${h(1)}${h(2)}${h(3)}-${h(4)}${h(5)}-${h(6)}${h(7)}-${h(8)}${h(9)}-${h(10)}${h(11)}${h(12)}${h(13)}${h(14)}${h(15)}';
+}
+
+/// `Idempotency-Key`: `[A-Za-z0-9_.:-]{8,128}`.
+String newIdempotencyKey() => 'mob-${newUuid()}';

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthSystemd.json",
+  "title": "HealthSystemd",
+  "type": "object",
+  "properties": {
+    "failed": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    }
+  },
+  "required": [
+    "failed"
+  ],
+  "additionalProperties": false
+}

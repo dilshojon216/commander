@@ -1,0 +1,12 @@
+{
+  "token": "cmdr_EXAMPLE_NOT_A_REAL_TOKEN",
+  "deviceId": "00000000-0000-4000-8000-0000000000aa",
+  "kind": "mobile",
+  "name": "Dev iPhone",
+  "scopes": [
+    "read",
+    "approve"
+  ],
+  "expiresAt": "2027-02-12T04:00:00.000Z",
+  "serverTime": "2026-11-14T04:00:00.000Z"
+}

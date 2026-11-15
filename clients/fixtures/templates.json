@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": "38e7c109-5be0-4b01-8939-a2bd52c4786e",
+      "scope": "global",
+      "projectId": null,
+      "projectName": null,
+      "repoKey": null,
+      "name": "CHANGELOG yangila",
+      "description": "So'nggi o'zgarishlardan CHANGELOG yozuvini tayyorlaydi",
+      "body": "{{date}} sanasi (sanitized sample text)",
+      "variables": [
+        "date",
+        "project"
+      ],
+      "model": null,
+      "permissionMode": "acceptEdits",
+      "builtin": true,
+      "createdByDeviceId": null,
+      "createdAt": "2026-11-13T19:31:38.764Z",
+      "updatedAt": "2026-11-13T19:31:38.764Z"
+    },
+    {
+      "id": "39d07c86-1119-45a3-8e64-8c03956b47f9",
+      "scope": "global",
+      "projectId": null,
+      "projectName": null,
+      "repoKey": null,
+      "name": "Deploy oldidan tekshiruv",
+      "description": "Build, lint, test (sanitized sample text)",
+      "body": "{{project}} (sanitized sample text)",
+      "variables": [
+        "project",
+        "branch"
+      ],
+      "model": null,
+      "permissionMode": "plan",
+      "builtin": true,
+      "createdByDeviceId": null,
+      "createdAt": "2026-11-13T19:31:38.764Z",
+      "updatedAt": "2026-11-13T19:31:38.764Z"
+    },
+    {
+      "id": "fc741a6e-e1e5-44da-8dc1-49b29faa4bfd",
+      "scope": "global",
+      "projectId": null,
+      "projectName": null,
+      "repoKey": null,
+      "name": "Kod review",
+      "description": "Joriy branch o'zgarishlarini ko'rib chiqadi (yozmaydi)",
+      "body": "{{project}} (sanitized sample text)",
+      "variables": [
+        "project",
+        "branch"
+      ],
+      "model": null,
+      "permissionMode": "plan",
+      "builtin": true,
+      "createdByDeviceId": null,
+      "createdAt": "2026-11-13T19:31:38.764Z",
+      "updatedAt": "2026-11-13T19:31:38.764Z"
+    }
+  ]
+}

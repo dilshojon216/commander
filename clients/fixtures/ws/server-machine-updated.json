@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000004",
+  "type": "machine.updated",
+  "ts": 1763092800000,
+  "payload": {
+    "machine": {
+      "id": "48dada0a-c388-4478-8149-5f7349de83b7",
+      "slug": "agent-94f591667733-d90eb8",
+      "displayName": "agent",
+      "hostname": "agent",
+      "os": "linux",
+      "online": true,
+      "lastSeenAt": "2026-11-14T04:00:58.452Z",
+      "connectedAt": "2026-11-14T03:41:13.287Z",
+      "disconnectedAt": "2026-11-14T03:06:19.995Z",
+      "agentdVersion": "0.1.0",
+      "claudeVersion": "2.1.195",
+      "identityStatus": "verified",
+      "control": {
+        "gitOps": true,
+        "enabled": false,
+        "allowStop": true,
+        "allowStart": true,
+        "configSync": true,
+        "projectOps": true,
+        "allowPrompt": true,
+        "allowSetMode": true,
+        "allowAutoMode": false,
+        "remoteControl": true,
+        "runningAsRoot": false,
+        "allowConfigRead": false,
+        "centerKeyPinned": true,
+        "allowConfigWrite": false,
+        "allowProjectRead": true,
+        "allowedRootCount": 0,
+        "allowProjectWrite": true,
+        "maxConcurrentStarted": 3
+      },
+      "sessions": {
+        "open": 0,
+        "working": 0,
+        "waiting": 0,
+        "awaitingApproval": 0,
+        "idle": 0,
+        "done": 0
+      }
+    }
+  }
+}

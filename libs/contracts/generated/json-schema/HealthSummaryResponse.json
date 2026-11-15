@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthSummaryResponse.json",
+  "title": "HealthSummaryResponse",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "HealthSummaryItem.json"
+      }
+    },
+    "worst": {
+      "$ref": "HealthStatus.json"
+    }
+  },
+  "required": [
+    "items",
+    "worst"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "WeeklyPace.json",
+  "title": "WeeklyPace",
+  "type": "object",
+  "properties": {
+    "dayStartPct": {
+      "type": "number"
+    },
+    "dayStartFrom": {
+      "$ref": "PaceDayStartSource.json"
+    },
+    "allowancePct": {
+      "type": "number"
+    },
+    "usedTodayPct": {
+      "type": "number"
+    },
+    "pctOfAllowance": {
+      "type": "number"
+    },
+    "expectedPct": {
+      "type": "number"
+    },
+    "currentPct": {
+      "type": "number"
+    },
+    "onTrack": {
+      "type": "boolean"
+    },
+    "status": {
+      "$ref": "PaceStatus.json"
+    },
+    "exhaustAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exhaustBeforeReset": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "resetsAt": {
+      "type": "string"
+    },
+    "windowStartsAt": {
+      "type": "string"
+    },
+    "dayStartsAt": {
+      "type": "string"
+    },
+    "remainingDays": {
+      "type": "number"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "official",
+        "estimate"
+      ]
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "softPct": {
+      "type": "number"
+    },
+    "hardPct": {
+      "type": "number"
+    },
+    "enforce": {
+      "type": "boolean"
+    },
+    "overriddenToday": {
+      "type": "boolean"
+    },
+    "blocked": {
+      "type": "boolean"
+    },
+    "alertsToday": {
+      "type": "object",
+      "properties": {
+        "soft": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hard": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "soft",
+        "hard"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "dayStartPct",
+    "dayStartFrom",
+    "allowancePct",
+    "usedTodayPct",
+    "pctOfAllowance",
+    "expectedPct",
+    "currentPct",
+    "onTrack",
+    "status",
+    "exhaustAt",
+    "exhaustBeforeReset",
+    "resetsAt",
+    "windowStartsAt",
+    "dayStartsAt",
+    "remainingDays",
+    "source",
+    "stale",
+    "enabled",
+    "softPct",
+    "hardPct",
+    "enforce",
+    "overriddenToday",
+    "blocked",
+    "alertsToday"
+  ],
+  "additionalProperties": false
+}

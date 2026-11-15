@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "OrchScope.json",
+  "title": "OrchScope",
+  "type": "object",
+  "properties": {
+    "machines": {
+      "maxItems": 64,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cwdRoots": {
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "machineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "path": {
+            "type": "string",
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "machineId",
+          "path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "modes": {
+      "maxItems": 2,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "default",
+          "plan"
+        ]
+      }
+    },
+    "maxNewSessions": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 8
+    }
+  },
+  "required": [
+    "machines",
+    "cwdRoots",
+    "modes",
+    "maxNewSessions"
+  ],
+  "additionalProperties": false
+}

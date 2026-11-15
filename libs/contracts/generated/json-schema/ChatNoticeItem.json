@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatNoticeItem.json",
+  "title": "ChatNoticeItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "kind": {
+      "type": "string",
+      "const": "notice"
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "compact",
+        "interrupted",
+        "error",
+        "denied",
+        "info"
+      ]
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "info",
+        "error"
+      ]
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 500
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "kind",
+    "code",
+    "level",
+    "text"
+  ],
+  "additionalProperties": false
+}

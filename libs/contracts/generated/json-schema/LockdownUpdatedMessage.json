@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "LockdownUpdatedMessage.json",
+  "title": "LockdownUpdatedMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "lockdown.updated"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "since": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "enabled",
+        "since"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

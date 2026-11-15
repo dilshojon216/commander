@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-00000000000c",
+  "type": "something.from.the.future",
+  "ts": 1763092800000,
+  "payload": {
+    "hello": "world",
+    "n": 1
+  }
+}

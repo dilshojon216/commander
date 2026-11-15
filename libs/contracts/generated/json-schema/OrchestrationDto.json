@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "OrchestrationDto.json",
+  "title": "OrchestrationDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "groupKey": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "OrchStatus.json"
+    },
+    "origin": {
+      "$ref": "OrchOrigin.json"
+    },
+    "taskKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "projectId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "leadSessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "leadLabel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "leadCommandId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "confirmation": {
+      "anyOf": [
+        {
+          "$ref": "OrchConfirmation.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scope": {
+      "anyOf": [
+        {
+          "$ref": "OrchScope.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "newSessionsUsed": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "tokenBudget": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "tokensUsed": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "budgetExceeded": {
+      "type": "boolean"
+    },
+    "maxConcurrent": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "cancelReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "counts": {
+      "$ref": "OrchCounts.json"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "OrchStepDto.json"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "goal",
+    "groupKey",
+    "status",
+    "origin",
+    "taskKey",
+    "projectId",
+    "leadSessionId",
+    "leadLabel",
+    "leadCommandId",
+    "confirmation",
+    "tokenBudget",
+    "tokensUsed",
+    "budgetExceeded",
+    "maxConcurrent",
+    "cancelReason",
+    "createdAt",
+    "updatedAt",
+    "finishedAt",
+    "counts",
+    "steps"
+  ],
+  "additionalProperties": false
+}

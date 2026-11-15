@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "types": ["node"],
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts"]
+}

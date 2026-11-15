@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "OrchStepDto.json",
+  "title": "OrchStepDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "key": {
+      "type": "string"
+    },
+    "position": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "title": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "machine": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cwd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dependsOn": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "$ref": "StepStatus.json"
+    },
+    "assignedSessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "assignedLabel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dispatchMode": {
+      "anyOf": [
+        {
+          "$ref": "OrchDispatchMode.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "queueItemId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "commandId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resultSummary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastError": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dispatchedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "key",
+    "position",
+    "title",
+    "role",
+    "machine",
+    "cwd",
+    "dependsOn",
+    "status",
+    "assignedSessionId",
+    "assignedLabel",
+    "dispatchMode",
+    "queueItemId",
+    "commandId",
+    "resultSummary",
+    "lastError",
+    "dispatchedAt",
+    "finishedAt"
+  ],
+  "additionalProperties": false
+}

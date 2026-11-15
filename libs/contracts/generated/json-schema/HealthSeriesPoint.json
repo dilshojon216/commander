@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthSeriesPoint.json",
+  "title": "HealthSeriesPoint",
+  "type": "object",
+  "properties": {
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "cpu": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "memPct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "diskMaxPct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "ts",
+    "cpu",
+    "memPct",
+    "diskMaxPct"
+  ],
+  "additionalProperties": false
+}

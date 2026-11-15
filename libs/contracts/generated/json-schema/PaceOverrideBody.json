@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PaceOverrideBody.json",
+  "title": "PaceOverrideBody",
+  "type": "object",
+  "properties": {
+    "reset": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

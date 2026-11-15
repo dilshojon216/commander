@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SessionEventDto.json",
+  "title": "SessionEventDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "event": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "message": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notificationType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "event",
+    "status",
+    "message",
+    "notificationType"
+  ],
+  "additionalProperties": false
+}

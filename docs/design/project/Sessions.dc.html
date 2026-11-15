@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Sessiyalar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--blueBg:rgba(91,155,255,.13);--yelBg:rgba(232,190,84,.13);--orgBg:rgba(255,138,76,.14);--grnBg:rgba(76,195,138,.13);--redBg:rgba(255,107,102,.13);--grayBg:rgba(154,163,176,.12);--onOk:#06150D}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--redBg:#FCE5E4;--grayBg:#ECEEF2;--onOk:#FFFFFF}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:7px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--s3);text-decoration:none}
+.btn-pri{background:var(--blue);border-color:transparent;color:#fff}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid currentColor;opacity:.75}
+.nav{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:7px;color:var(--mu);text-decoration:none;font-weight:500}
+.nav:hover{background:var(--s2);color:var(--tx);text-decoration:none}
+.nav.on{background:var(--s3);color:var(--tx)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:7px;border:1px solid var(--bd);background:var(--s1);color:var(--mu);font:500 12px Inter,system-ui,sans-serif;cursor:pointer}
+.chip.on{background:var(--s3);color:var(--tx);border-color:var(--mu)}
+.sel{height:30px;padding:0 10px;border-radius:7px;border:1px solid var(--bd);background:var(--s1);color:var(--tx);font:500 12px Inter,system-ui,sans-serif}
+table{border-collapse:collapse;width:100%}
+th{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);text-align:left;padding:10px 14px;border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:0;border-bottom:1px solid var(--bd)}
+td a.cell{display:block;padding:11px 14px;color:var(--tx);text-decoration:none;white-space:nowrap}
+tr:hover td{background:var(--s2)}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch">
+
+<aside style="flex: 1 1 220px; max-width: 240px; box-sizing: border-box; padding: 16px 12px; border-right: 1px solid var(--bd); background: var(--s1); display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#FF7A45"></rect><path d="M8 9l4 4-4 4M14 17h5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-weight: 700; font-size: 15px">Commander</span>
+</div>
+<a class="nav" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"></rect><rect x="9" y="2" width="5" height="5" rx="1"></rect><rect x="2" y="9" width="5" height="5" rx="1"></rect><rect x="9" y="9" width="5" height="5" rx="1"></rect></svg><span style="flex: 1">Umumiy</span></a>
+<a class="nav on" href="Sessions.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10"></path></svg><span style="flex: 1">Sessiyalar</span><span class="pill" style="height: 18px; padding: 0 6px; background: var(--org); color: #fff; font-size: 11px">2</span><span class="mono" style="font-size: 12px; color: var(--mu)">10</span></a>
+<a class="nav" href="Projects.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3H6l1.5 1.5h5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"></path></svg><span style="flex: 1">Loyihalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">14</span></a>
+<a class="nav" href="Tokens.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 13V8M6.5 13V4M10 13V7M13.5 13V2"></path></svg><span style="flex: 1">Tokenlar</span></a>
+<a class="nav" href="Machines.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2.5" width="12" height="4.5" rx="1"></rect><rect x="2" y="9" width="12" height="4.5" rx="1"></rect><path d="M4.5 4.75h.01M4.5 11.25h.01"></path></svg><span style="flex: 1">Mashinalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">6/7</span></a>
+<div style="flex: 1"></div>
+<button class="nav" type="button" onClick="{{toggleTheme}}" style="border: 0; background: transparent; font: inherit; cursor: pointer; width: 100%"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 9.5A5.5 5.5 0 016.5 3a5.5 5.5 0 106.5 6.5z"></path></svg><span>{{themeLabel}}</span></button>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px; border-bottom: 1px solid var(--bd)">
+<h1 style="margin: 0; font-size: 18px; font-weight: 600; flex: 1 1 auto">Sessiyalar <span style="color: var(--mu); font-weight: 400; font-size: 14px">{{count}} ta</span></h1>
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+<a class="btn btn-pri" href="NewSession.dc.html"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 3v10M3 8h10"></path></svg>Yangi sessiya</a>
+</header>
+
+<div style="padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box; width: 100%">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+<button class="chip {{c.on}}" type="button" onClick="{{c.pick}}"><span class="dot" style="color: {{c.color}}"></span>{{c.label}} <span class="mono" style="color: var(--mu)">{{c.n}}</span></button>
+</sc-for>
+<span style="flex: 1"></span>
+<label style="display: flex; align-items: center; gap: 6px; color: var(--mu); font-size: 12px">Mashina
+<select class="sel"><option>Hammasi</option><option>mac-mini</option><option>win-pc</option><option>srv-01</option><option>srv-02</option><option>srv-03</option><option>srv-04</option><option>srv-05</option></select></label>
+<label style="display: flex; align-items: center; gap: 6px; color: var(--mu); font-size: 12px">Loyiha
+<select class="sel"><option>Hammasi</option><option>commander</option><option>backend-services</option><option>demo_flow_ai</option></select></label>
+<label style="display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px; border: 1px solid var(--bd); border-radius: 7px; background: var(--s1); color: var(--mu); width: 220px">
+<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path></svg>
+<input type="search" aria-label="Qidiruv" placeholder="Qidiruv" style="flex: 1; min-width: 0; border: 0; background: transparent; color: var(--tx); font: inherit; outline: none">
+<span class="kbd">/</span>
+</label>
+<label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--mu)"><input type="checkbox" checked="{{showDone}}" onChange="{{toggleDone}}">Tugaganlarini ham ko'rsat</label>
+</div>
+
+<div class="card" style="overflow-x: auto">
+<table>
+<thead><tr><th>Holat</th><th>Loyiha</th><th>Mashina</th><th>Model</th><th>Holatda</th><th style="width: 40%">Oxirgi xabar</th><th>Ruxsat</th></tr></thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+<tr style="opacity: {{r.op}}">
+<td><a class="cell" href="Session.dc.html"><span class="pill" style="color: {{r.c}}; background: {{r.bg}}"><span class="dot {{r.anim}}"></span>{{r.label}}</span></a></td>
+<td><a class="cell" href="Session.dc.html" style="font-weight: 600">{{r.project}}</a></td>
+<td><a class="cell mono" href="Session.dc.html" style="color: var(--mu)">{{r.machine}} <span style="color: var(--org)">{{r.warn}}</span></a></td>
+<td><a class="cell mono" href="Session.dc.html" style="color: var(--mu); font-size: 12px">{{r.model}}</a></td>
+<td><a class="cell mono" href="Session.dc.html" style="color: var(--mu)">{{r.since}}</a></td>
+<td><a class="cell" href="Session.dc.html" style="color: var(--mu); max-width: 460px; overflow: hidden; text-overflow: ellipsis">{{r.msg}}</a></td>
+<td><a class="cell" href="Session.dc.html"><sc-if value="{{r.hasAp}}" hint-placeholder-val="{{ false }}"><span class="pill" style="background: var(--org); color: #fff; height: 20px">{{r.ap}}</span></sc-if></a></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<span style="font-size: 12px; color: var(--mu)">Qatorni bosing: sessiya sahifasi ochiladi. <span class="kbd">g</span> <span class="kbd">s</span> bilan istalgan joydan shu sahifaga o'tasiz.</span>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":1080}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { theme: null, filter: "all", showDone: true }; }
+  renderVals() {
+    const theme = this.state.theme || this.props.theme || "dark";
+    const S = {
+      working: ["Ishlamoqda", "var(--blue)", "var(--blueBg)", "live"],
+      waiting: ["Javob kutmoqda", "var(--yel)", "var(--yelBg)", ""],
+      awaiting_approval: ["Ruxsat kutmoqda", "var(--org)", "var(--orgBg)", ""],
+      idle: ["Bo'sh", "var(--mu)", "var(--grayBg)", ""],
+      done: ["Tugatdi", "var(--grn)", "var(--grnBg)", ""],
+      ended: ["Yopilgan", "var(--fa)", "transparent", ""],
+      stale: ["Aloqa yo'q", "var(--mu)", "var(--grayBg)", ""]
+    };
+    const all = [
+      ["awaiting_approval", "backend-services", "srv-01", "claude-opus-5-5", "1 daq", "Bash: docker compose -f deploy/prod.yml up -d --build api-gateway", 1],
+      ["awaiting_approval", "demo_flow_ai", "mac-mini", "claude-sonnet-5-5", "3 daq", "Edit: src/pipelines/sentinel/ndvi.py", 1],
+      ["waiting", "mobile-app", "win-pc", "claude-sonnet-5-5", "6 daq", "Qaysi branch'ga push qilay: main yoki release/1.4?", 0],
+      ["working", "commander", "mac-mini", "claude-opus-5-5", "12 daq", "Ruxsat kartasi uchun taymer komponentini yozyapman", 0],
+      ["working", "acme_app_ai", "srv-01", "claude-sonnet-5-5", "4 daq", "Anomaliya detektori testlari ishga tushdi (42/120)", 0],
+      ["working", "smart_well", "srv-02", "claude-opus-5-5", "38 daq", "TimescaleDB migratsiyasi: hypertable yaratilmoqda", 0],
+      ["idle", "backend-services", "srv-03", "claude-haiku-5-5", "1 s 20 daq", "—", 0],
+      ["stale", "web-app", "srv-05", "claude-sonnet-5-5", "3 s", "Oxirgi: build muvaffaqiyatli tugadi", 0],
+      ["done", "web-app", "mac-mini", "claude-opus-5-5", "22 daq", "Landing sahifa responsiv qilindi, 6 fayl o'zgardi", 0],
+      ["done", "smart_well", "srv-04", "claude-sonnet-5-5", "47 daq", "Hisobot eksporti tayyor: reports/2026-11.pdf", 0]
+    ];
+    const f = this.state.filter, sd = this.state.showDone;
+    const rows = all.filter(function (r) {
+      if (!sd && r[0] === "done") return false;
+      return f === "all" || r[0] === f;
+    }).map(function (r) {
+      const s = S[r[0]];
+      return { label: s[0], c: s[1], bg: s[2], anim: s[3], project: r[1], machine: r[2], model: r[3], since: r[4], msg: r[5], hasAp: r[6] > 0, ap: r[6], op: r[0] === "stale" ? 0.55 : 1, warn: r[0] === "stale" ? "⚠" : "" };
+    });
+    const cnt = function (k) { return all.filter(function (r) { return r[0] === k; }).length; };
+    const chips = [["all", "Hammasi", "var(--mu)", all.length], ["awaiting_approval", "Ruxsat kutmoqda", "var(--org)", cnt("awaiting_approval")], ["waiting", "Javob kutmoqda", "var(--yel)", cnt("waiting")], ["working", "Ishlamoqda", "var(--blue)", cnt("working")], ["idle", "Bo'sh", "var(--mu)", cnt("idle")], ["done", "Tugatdi", "var(--grn)", cnt("done")]]
+      .map((c) => ({ label: c[1], color: c[2], n: c[3], on: f === c[0] ? "on" : "", pick: () => this.setState({ filter: c[0] }) }));
+    return {
+      themeClass: "root t-" + theme,
+      themeLabel: theme === "dark" ? "Yorug' rejim" : "Qorong'i rejim",
+      toggleTheme: () => this.setState({ theme: theme === "dark" ? "light" : "dark" }),
+      chips: chips, rows: rows, count: rows.length,
+      showDone: sd, toggleDone: () => this.setState({ showDone: !sd })
+    };
+  }
+}
+</script>
+</body>
+</html>

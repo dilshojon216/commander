@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectUpdatedPayload.json",
+  "title": "ProjectUpdatedPayload",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "machineId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "repoKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "headSha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dirty": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "takenAt": {
+          "type": "string"
+        },
+        "tasks": {
+          "anyOf": [
+            {
+              "$ref": "TasksSummary.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "machineId",
+        "name",
+        "path",
+        "repoKey",
+        "branch",
+        "headSha",
+        "dirty",
+        "takenAt",
+        "tasks"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "project"
+  ],
+  "additionalProperties": false
+}

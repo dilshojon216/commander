@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientPairBody.json",
+  "title": "ClientPairBody",
+  "type": "object",
+  "properties": {
+    "code": {
+      "$ref": "EnrollmentCode.json"
+    },
+    "deviceName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "platform": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "publicKey": {
+      "$ref": "RawEd25519PublicKey.json"
+    }
+  },
+  "required": [
+    "code",
+    "deviceName",
+    "platform"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,85 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-00000000000b",
+  "type": "chat.items",
+  "ts": 1763092800000,
+  "payload": {
+    "sessionId": "83552025-a572-408a-8a97-2bc8d63e35cf",
+    "items": [
+      {
+        "id": "u1",
+        "ts": 1763092800000,
+        "kind": "user",
+        "text": "hello",
+        "variant": "prompt"
+      },
+      {
+        "id": "a1",
+        "ts": 1763092801000,
+        "kind": "assistant",
+        "text": "hi there",
+        "requestId": "req_1",
+        "model": "sonnet"
+      },
+      {
+        "id": "k1",
+        "ts": 1763092801500,
+        "kind": "thinking",
+        "text": "considering",
+        "requestId": "req_1"
+      },
+      {
+        "id": "t1",
+        "ts": 1763092802000,
+        "kind": "tool_use",
+        "toolUseId": "toolu_1",
+        "toolName": "Edit",
+        "summary": "Edit file",
+        "lines": {
+          "added": 3,
+          "removed": 1
+        }
+      },
+      {
+        "id": "r1",
+        "ts": 1763092803000,
+        "kind": "tool_result",
+        "toolUseId": "toolu_1",
+        "toolName": "Edit",
+        "ok": true,
+        "text": "done",
+        "truncated": false
+      },
+      {
+        "id": "n1",
+        "ts": 1763092804000,
+        "kind": "notice",
+        "code": "info",
+        "level": "info",
+        "text": "compact"
+      },
+      {
+        "id": "usage:req_1",
+        "ts": 1763092805000,
+        "kind": "usage",
+        "requestId": "req_1",
+        "inputTokens": 10,
+        "outputTokens": 20,
+        "cacheReadTokens": 300,
+        "cacheCreationTokens": 4
+      },
+      {
+        "id": "f1",
+        "ts": 1763092806000,
+        "kind": "future_kind_v9",
+        "anything": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "replace": true,
+    "cursor": null
+  }
+}

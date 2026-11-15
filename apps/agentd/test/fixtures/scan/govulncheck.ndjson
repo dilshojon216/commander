@@ -1,0 +1,5 @@
+{"config":{"protocol_version":"v1.0.0"}}
+{"osv":{"id":"GO-2021-0113","aliases":["CVE-2021-38561","GHSA-ppp9-7jff-5vj2"],"summary":"Out-of-bounds read in golang.org/x/text/language","affected":[{"package":{"name":"golang.org/x/text"}}]}}
+{"osv":{"id":"GO-2022-0001","aliases":[],"summary":"Not called vuln"}}
+{"finding":{"osv":"GO-2021-0113","fixed_version":"v0.3.7","trace":[{"module":"golang.org/x/text","version":"v0.3.0","package":"golang.org/x/text/language","function":"Parse"}]}}
+{"finding":{"osv":"GO-2022-0001","fixed_version":"v1.2.3","trace":[{"module":"example.org/mod","version":"v1.0.0"}]}}

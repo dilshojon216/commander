@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "EnrollmentCode.json",
+  "title": "EnrollmentCode",
+  "type": "string",
+  "minLength": 8,
+  "maxLength": 24,
+  "pattern": "^[0-9A-Za-z -]+$"
+}

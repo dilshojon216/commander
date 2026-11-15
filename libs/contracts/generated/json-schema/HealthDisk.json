@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthDisk.json",
+  "title": "HealthDisk",
+  "type": "object",
+  "properties": {
+    "mount": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "fs": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "totalBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    },
+    "usedBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    },
+    "pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "required": [
+    "mount",
+    "totalBytes",
+    "usedBytes",
+    "pct"
+  ],
+  "additionalProperties": false
+}

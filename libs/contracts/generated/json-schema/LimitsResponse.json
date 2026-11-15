@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "LimitsResponse.json",
+  "title": "LimitsResponse",
+  "type": "object",
+  "properties": {
+    "computedAt": {
+      "type": "string"
+    },
+    "freshSeconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "fiveHour": {
+      "anyOf": [
+        {
+          "$ref": "LimitWindowView.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sevenDay": {
+      "anyOf": [
+        {
+          "$ref": "LimitWindowView.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pace": {
+      "anyOf": [
+        {
+          "$ref": "WeeklyPace.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "computedAt",
+    "freshSeconds",
+    "fiveHour",
+    "sevenDay"
+  ],
+  "additionalProperties": false
+}

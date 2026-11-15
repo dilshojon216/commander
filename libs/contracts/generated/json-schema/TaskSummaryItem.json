@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TaskSummaryItem.json",
+  "title": "TaskSummaryItem",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "projectName": {
+      "type": "string"
+    },
+    "taskKey": {
+      "type": "string"
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "anyOf": [
+        {
+          "$ref": "ProjectTaskStatus.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stats": {
+      "$ref": "TaskStats.json"
+    }
+  },
+  "required": [
+    "projectId",
+    "projectName",
+    "taskKey",
+    "title",
+    "status",
+    "stats"
+  ],
+  "additionalProperties": false
+}

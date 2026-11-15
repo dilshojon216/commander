@@ -1,0 +1,52 @@
+{
+  "today": {
+    "from": "2026-11-13T19:00:00.000Z",
+    "totals": {
+      "inputTokens": 2757,
+      "outputTokens": 70864,
+      "cacheReadTokens": 17265355,
+      "cacheCreationTokens": 1733856,
+      "totalTokens": 19072832,
+      "costUsd": 4.280954,
+      "requests": 77
+    }
+  },
+  "last7d": {
+    "from": "2026-11-07T19:00:00.000Z",
+    "totals": {
+      "inputTokens": 100088,
+      "outputTokens": 1198372,
+      "cacheReadTokens": 928452009,
+      "cacheCreationTokens": 7696814,
+      "totalTokens": 937447283,
+      "costUsd": 113.415609,
+      "requests": 1838
+    }
+  },
+  "last30d": {
+    "from": "2026-10-15T19:00:00.000Z",
+    "totals": {
+      "inputTokens": 100088,
+      "outputTokens": 1198372,
+      "cacheReadTokens": 928452009,
+      "cacheCreationTokens": 7696814,
+      "totalTokens": 937447283,
+      "costUsd": 113.415609,
+      "requests": 1838
+    }
+  },
+  "allTime": {
+    "from": null,
+    "totals": {
+      "inputTokens": 100088,
+      "outputTokens": 1198372,
+      "cacheReadTokens": 928452009,
+      "cacheCreationTokens": 7696814,
+      "totalTokens": 937447283,
+      "costUsd": 113.415609,
+      "requests": 1838
+    }
+  },
+  "timezone": "Asia/Tashkent",
+  "costKind": "api_equivalent"
+}

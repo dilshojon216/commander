@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectGitInfo.json",
+  "title": "ProjectGitInfo",
+  "type": "object",
+  "properties": {
+    "branch": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "headSha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dirty": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "dirtyCount": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ahead": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "behind": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "takenAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "branch",
+    "headSha",
+    "dirty",
+    "dirtyCount",
+    "ahead",
+    "behind",
+    "takenAt"
+  ],
+  "additionalProperties": false
+}

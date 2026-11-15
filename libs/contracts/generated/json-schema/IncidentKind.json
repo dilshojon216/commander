@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "IncidentKind.json",
+  "title": "IncidentKind",
+  "type": "string",
+  "enum": [
+    "disk",
+    "memory",
+    "cpu",
+    "container",
+    "systemd",
+    "offline"
+  ]
+}

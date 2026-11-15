@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectDetailDto.json",
+  "title": "ProjectDetailDto",
+  "type": "object",
+  "properties": {
+    "project": {
+      "$ref": "ProjectDto.json"
+    },
+    "git": {
+      "anyOf": [
+        {
+          "$ref": "ProjectGitInfo.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "commits": {
+      "type": "array",
+      "items": {
+        "$ref": "ProjectCommitDto.json"
+      }
+    },
+    "todosMd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "changelogMd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tasksMd": {
+      "anyOf": [
+        {
+          "$ref": "TasksMdMeta.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "project",
+    "git",
+    "commits",
+    "todosMd",
+    "changelogMd",
+    "tasksMd"
+  ],
+  "additionalProperties": false
+}

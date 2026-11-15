@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AskOption.json",
+  "title": "AskOption",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "default": "",
+      "type": "string",
+      "maxLength": 500
+    },
+    "preview": {
+      "type": "string",
+      "maxLength": 2000
+    }
+  },
+  "required": [
+    "label",
+    "description"
+  ],
+  "additionalProperties": false
+}

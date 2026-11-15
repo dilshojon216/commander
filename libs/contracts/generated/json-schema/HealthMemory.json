@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthMemory.json",
+  "title": "HealthMemory",
+  "type": "object",
+  "properties": {
+    "totalBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    },
+    "usedBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    },
+    "swapTotalBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    },
+    "swapUsedBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    }
+  },
+  "required": [
+    "totalBytes",
+    "usedBytes",
+    "swapTotalBytes",
+    "swapUsedBytes"
+  ],
+  "additionalProperties": false
+}

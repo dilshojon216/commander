@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "RenderTemplateResponse.json",
+  "title": "RenderTemplateResponse",
+  "type": "object",
+  "properties": {
+    "templateId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "text": {
+      "type": "string"
+    },
+    "length": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "$ref": "TemplateRenderVariable.json"
+      }
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tooLong": {
+      "type": "boolean"
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "permissionMode": {
+      "anyOf": [
+        {
+          "$ref": "RemotePermissionMode.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "templateId",
+    "text",
+    "length",
+    "variables",
+    "missing",
+    "tooLong",
+    "model",
+    "permissionMode"
+  ],
+  "additionalProperties": false
+}

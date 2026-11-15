@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QueueDetailResponse.json",
+  "title": "QueueDetailResponse",
+  "type": "object",
+  "properties": {
+    "item": {
+      "$ref": "QueueItemDto.json"
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "$ref": "QueueRunDto.json"
+      }
+    }
+  },
+  "required": [
+    "item",
+    "runs"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-00000000000a",
+  "type": "error",
+  "ts": 1763092800000,
+  "payload": {
+    "code": "rate_limited",
+    "message": "Too many messages"
+  }
+}

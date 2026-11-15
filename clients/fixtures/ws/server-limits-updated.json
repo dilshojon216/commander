@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000006",
+  "type": "limits.updated",
+  "ts": 1763092800000,
+  "payload": {
+    "limits": {
+      "computedAt": "2026-11-14T04:01:00.259Z",
+      "freshSeconds": 180,
+      "fiveHour": {
+        "observedAt": "2026-11-13T10:20:54.230Z",
+        "ageSeconds": 63606,
+        "stale": true,
+        "observedByMachineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+        "anchor": {
+          "usedPct": 1,
+          "resetsAt": "2026-11-13T10:40:00.000Z",
+          "observedAt": "2026-11-13T10:20:54.230Z"
+        },
+        "calibration": {
+          "coefficient": null,
+          "samples": 0
+        },
+        "usedPct": 0,
+        "resetsAt": "2026-11-14T05:00:00.000Z",
+        "source": "estimate",
+        "reset": true,
+        "forecast": null
+      },
+      "sevenDay": {
+        "observedAt": "2026-11-14T03:57:58.165Z",
+        "ageSeconds": 182,
+        "stale": true,
+        "observedByMachineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+        "anchor": {
+          "usedPct": 23,
+          "resetsAt": "2026-11-15T13:00:00.000Z",
+          "observedAt": "2026-11-14T03:57:58.165Z"
+        },
+        "calibration": {
+          "coefficient": 3.620567108651439e-7,
+          "samples": 18
+        },
+        "usedPct": 23.06,
+        "resetsAt": "2026-11-15T13:00:00.000Z",
+        "source": "estimate",
+        "reset": false,
+        "forecast": {
+          "exhaustsAt": "2026-11-16T02:59:52.663Z",
+          "beforeReset": false,
+          "resetsAt": "2026-11-15T13:00:00.000Z",
+          "ratePctPerHour": 1.64,
+          "basisMinutes": 1440,
+          "basisWeightedTokens": 108558166,
+          "confidence": "medium",
+          "source": "estimate"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "MachineDto.json",
+  "title": "MachineDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hostname": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "os": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "online": {
+      "type": "boolean"
+    },
+    "lastSeenAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "connectedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disconnectedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "agentdVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "claudeVersion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identityStatus": {
+      "type": "string"
+    },
+    "sessions": {
+      "$ref": "MachineSessionCounts.json"
+    },
+    "control": {
+      "anyOf": [
+        {
+          "$ref": "AgentControlState.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "slug",
+    "displayName",
+    "hostname",
+    "os",
+    "online",
+    "lastSeenAt",
+    "connectedAt",
+    "disconnectedAt",
+    "agentdVersion",
+    "claudeVersion",
+    "identityStatus",
+    "sessions",
+    "control"
+  ],
+  "additionalProperties": false
+}

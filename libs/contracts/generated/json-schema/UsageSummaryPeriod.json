@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UsageSummaryPeriod.json",
+  "title": "UsageSummaryPeriod",
+  "type": "object",
+  "properties": {
+    "from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "totals": {
+      "$ref": "TokenTotals.json"
+    }
+  },
+  "required": [
+    "from",
+    "totals"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatState.json",
+  "title": "ChatState",
+  "type": "string",
+  "enum": [
+    "connecting",
+    "live",
+    "offline",
+    "unavailable",
+    "error"
+  ]
+}

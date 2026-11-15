@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "LimitsUpdatedMessage.json",
+  "title": "LimitsUpdatedMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "limits.updated"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "limits": {
+          "$ref": "LimitsResponse.json"
+        }
+      },
+      "required": [
+        "limits"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

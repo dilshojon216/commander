@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QueueItemDto.json",
+  "title": "QueueItemDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "projectId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineSlug": {
+      "type": "string"
+    },
+    "cwd": {
+      "type": "string"
+    },
+    "promptPreview": {
+      "type": "string"
+    },
+    "promptLength": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "permissionMode": {
+      "$ref": "RemotePermissionMode.json"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "taskKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trigger": {
+      "$ref": "QueueTrigger.json"
+    },
+    "status": {
+      "$ref": "QueueStatus.json"
+    },
+    "attempts": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "lastError": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastErrorCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdByDeviceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "confirmation": {
+      "type": "string",
+      "enum": [
+        "exempt_device",
+        "telegram_inline"
+      ]
+    },
+    "confirmedAt": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "nextRunAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastSessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastCommandId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runCount": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "lastRunAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "projectId",
+    "machineId",
+    "machineSlug",
+    "cwd",
+    "promptPreview",
+    "promptLength",
+    "model",
+    "permissionMode",
+    "name",
+    "taskKey",
+    "trigger",
+    "status",
+    "attempts",
+    "lastError",
+    "lastErrorCode",
+    "createdByDeviceId",
+    "confirmation",
+    "confirmedAt",
+    "createdAt",
+    "updatedAt",
+    "nextRunAt",
+    "lastSessionId",
+    "lastCommandId",
+    "runCount",
+    "lastRunAt"
+  ],
+  "additionalProperties": false
+}

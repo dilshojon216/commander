@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TasksMdMeta.json",
+  "title": "TasksMdMeta",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string"
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "summary": {
+      "$ref": "TasksSummary.json"
+    },
+    "updatedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "path",
+    "bytes",
+    "summary",
+    "updatedAt"
+  ],
+  "additionalProperties": false
+}

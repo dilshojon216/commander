@@ -1,0 +1,179 @@
+{
+  "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+  "range": "24h",
+  "status": "ok",
+  "latest": {
+    "collectedAt": 1794628849824,
+    "platform": "linux",
+    "cpu": {
+      "pct": 26.6,
+      "load1": 1.9,
+      "load5": 2,
+      "load15": 1.9,
+      "cores": 6,
+      "perCore": [
+        11.1,
+        12.1,
+        99.8
+      ]
+    },
+    "memory": {
+      "totalBytes": 6212313088,
+      "usedBytes": 3390783488,
+      "swapTotalBytes": 4294963200,
+      "swapUsedBytes": 1416904704
+    },
+    "uptimeSec": 3954929,
+    "disks": [
+      {
+        "mount": "/",
+        "fs": "ext4",
+        "totalBytes": 103374536704,
+        "usedBytes": 56368562176,
+        "pct": 57
+      },
+      {
+        "mount": "/boot",
+        "fs": "ext4",
+        "totalBytes": 2040373248,
+        "usedBytes": 209559552,
+        "pct": 10.9
+      }
+    ],
+    "topProcesses": {
+      "byCpu": [
+        {
+          "name": "bun",
+          "cpuPct": 100,
+          "memPct": 2.9
+        },
+        {
+          "name": "runc",
+          "cpuPct": 50,
+          "memPct": 0.2
+        },
+        {
+          "name": "dev_",
+          "cpuPct": 27.7,
+          "memPct": 20.2
+        }
+      ],
+      "byMem": [
+        {
+          "name": "dev_",
+          "cpuPct": 27.7,
+          "memPct": 20.2
+        },
+        {
+          "name": "postgres",
+          "cpuPct": 0,
+          "memPct": 13.1
+        },
+        {
+          "name": "java",
+          "cpuPct": 1.5,
+          "memPct": 10.2
+        }
+      ]
+    },
+    "docker": {
+      "available": true,
+      "containers": [
+        {
+          "name": "kanalpasport-web",
+          "image": "kanal-pasport-web",
+          "state": "running",
+          "status": "Up 3 weeks",
+          "restartCount": 0,
+          "health": "none"
+        },
+        {
+          "name": "kanalpasport-app",
+          "image": "kanal-pasport-app",
+          "state": "running",
+          "status": "Up 3 weeks",
+          "restartCount": 0,
+          "health": "none"
+        },
+        {
+          "name": "flowguard_kafka",
+          "image": "confluentinc/cp-kafka:7.5.0",
+          "state": "running",
+          "status": "Up 6 weeks (healthy)",
+          "restartCount": 0,
+          "health": "healthy"
+        }
+      ]
+    },
+    "systemd": {
+      "failed": []
+    }
+  },
+  "receivedAt": "2026-11-14T04:00:49.819Z",
+  "series": [
+    {
+      "ts": 1794595200000,
+      "cpu": 28.1,
+      "memPct": 53.5,
+      "diskMaxPct": 56.9
+    },
+    {
+      "ts": 1794595500000,
+      "cpu": 25.4,
+      "memPct": 54.3,
+      "diskMaxPct": 56.9
+    },
+    {
+      "ts": 1794595800000,
+      "cpu": 26,
+      "memPct": 54.2,
+      "diskMaxPct": 56.9
+    }
+  ],
+  "incidents": [
+    {
+      "id": "31d75350-e58b-4da5-8949-b9e8b880e808",
+      "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+      "machineName": "agent",
+      "kind": "offline",
+      "subject": "",
+      "severity": "critical",
+      "summary": "agentd 32 daqiqadan beri ulanmagan",
+      "openedAt": "2026-11-14T03:38:34.993Z",
+      "resolvedAt": "2026-11-14T03:41:31.934Z"
+    },
+    {
+      "id": "f20d168a-1245-4b84-88b6-6b2fbf0682b5",
+      "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+      "machineName": "agent",
+      "kind": "container",
+      "subject": "flowguard_redis_commander",
+      "severity": "critical",
+      "summary": "Konteyner flowguard_redis_commander: to'xtadi (kod 143)",
+      "openedAt": "2026-11-13T18:43:48.389Z",
+      "resolvedAt": "2026-11-13T18:45:09.389Z"
+    },
+    {
+      "id": "52f0f3f7-c701-4e94-85b9-265ba02c660e",
+      "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+      "machineName": "agent",
+      "kind": "container",
+      "subject": "flowguard_kafka_ui",
+      "severity": "critical",
+      "summary": "Konteyner flowguard_kafka_ui: to'xtadi (kod 137)",
+      "openedAt": "2026-11-13T18:43:48.177Z",
+      "resolvedAt": "2026-11-13T18:45:09.021Z"
+    }
+  ],
+  "thresholds": {
+    "diskWarnPct": 85,
+    "diskCriticalPct": 95,
+    "memPct": 90,
+    "memForMin": 5,
+    "cpuPct": 95,
+    "cpuForMin": 10,
+    "restartLoopCount": 3,
+    "restartLoopWindowMin": 10,
+    "offlineAfterMin": 10
+  }
+}

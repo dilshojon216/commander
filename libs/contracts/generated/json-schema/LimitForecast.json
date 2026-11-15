@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "LimitForecast.json",
+  "title": "LimitForecast",
+  "type": "object",
+  "properties": {
+    "exhaustsAt": {
+      "type": "string"
+    },
+    "beforeReset": {
+      "type": "boolean"
+    },
+    "resetsAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ratePctPerHour": {
+      "type": "number"
+    },
+    "basisMinutes": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "basisWeightedTokens": {
+      "type": "number"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "official",
+        "estimate"
+      ]
+    }
+  },
+  "required": [
+    "exhaustsAt",
+    "beforeReset",
+    "resetsAt",
+    "ratePctPerHour",
+    "basisMinutes",
+    "basisWeightedTokens",
+    "confidence",
+    "source"
+  ],
+  "additionalProperties": false
+}

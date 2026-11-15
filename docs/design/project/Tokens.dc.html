@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Tokenlar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--org:#FF8A4C;--grn:#4CC38A;--grnBg:rgba(76,195,138,.13);--c1:#5B9BFF;--c2:#FF8A4C;--c3:#2FB8B0;--c4:#B69BFF;--c5:#6E7684}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--org:#B23C08;--grn:#13733F;--grnBg:#E1F3E8;--c1:#1D5FD6;--c2:#E8732F;--c3:#0E8C85;--c4:#7C5CD6;--c5:#A3AAB5}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:7px;color:var(--mu);text-decoration:none;font-weight:500}
+.nav:hover{background:var(--s2);color:var(--tx);text-decoration:none}
+.nav.on{background:var(--s3);color:var(--tx)}
+.segs{display:inline-flex;gap:2px;padding:3px;border-radius:8px;background:var(--s3)}
+.seg{height:28px;padding:0 12px;border:0;border-radius:6px;background:transparent;color:var(--mu);font:500 12px Inter,system-ui,sans-serif;cursor:pointer}
+.seg.on{background:var(--s1);color:var(--tx);box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.tchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:7px;border:1px solid var(--bd);background:transparent;color:var(--mu);font:500 12px 'JetBrains Mono',monospace;cursor:pointer}
+.tchip.on{background:var(--s3);color:var(--tx);border-color:var(--mu)}
+.seg-col{display:flex;flex-direction:column-reverse;flex:1;min-width:0;height:100%;justify-content:flex-start;gap:1px}
+.seg-col:hover{opacity:.8}
+table{border-collapse:collapse;width:100%}
+th{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);text-align:right;padding:10px 14px;border-bottom:1px solid var(--bd);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:10px 14px;border-bottom:1px solid var(--bd);text-align:right;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+a{color:var(--blue);text-decoration:none}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch">
+<aside style="flex: 1 1 220px; max-width: 240px; box-sizing: border-box; padding: 16px 12px; border-right: 1px solid var(--bd); background: var(--s1); display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#FF7A45"></rect><path d="M8 9l4 4-4 4M14 17h5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-weight: 700; font-size: 15px">Commander</span>
+</div>
+<a class="nav" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"></rect><rect x="9" y="2" width="5" height="5" rx="1"></rect><rect x="2" y="9" width="5" height="5" rx="1"></rect><rect x="9" y="9" width="5" height="5" rx="1"></rect></svg><span style="flex: 1">Umumiy</span></a>
+<a class="nav" href="Sessions.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10"></path></svg><span style="flex: 1">Sessiyalar</span><span class="pill" style="height: 18px; padding: 0 6px; background: var(--org); color: #fff; font-size: 11px">2</span><span class="mono" style="font-size: 12px; color: var(--mu)">10</span></a>
+<a class="nav" href="Projects.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3H6l1.5 1.5h5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"></path></svg><span style="flex: 1">Loyihalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">14</span></a>
+<a class="nav on" href="Tokens.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 13V8M6.5 13V4M10 13V7M13.5 13V2"></path></svg><span style="flex: 1">Tokenlar</span></a>
+<a class="nav" href="Machines.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2.5" width="12" height="4.5" rx="1"></rect><rect x="2" y="9" width="12" height="4.5" rx="1"></rect><path d="M4.5 4.75h.01M4.5 11.25h.01"></path></svg><span style="flex: 1">Mashinalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">6/7</span></a>
+<div style="flex: 1"></div>
+<button class="nav" type="button" onClick="{{toggleTheme}}" style="border: 0; background: transparent; font: inherit; cursor: pointer; width: 100%"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 9.5A5.5 5.5 0 016.5 3a5.5 5.5 0 106.5 6.5z"></path></svg><span>{{themeLabel}}</span></button>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px; border-bottom: 1px solid var(--bd)">
+<h1 style="margin: 0; font-size: 18px; font-weight: 600; flex: 1 1 auto">Tokenlar</h1>
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+</header>
+<div style="padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+<div style="display: flex; align-items: center; gap: 8px"><span class="lbl">Davr</span><div class="segs"><sc-for list="{{periods}}" as="o" hint-placeholder-count="3"><button class="seg {{o.on}}" type="button" onClick="{{o.pick}}">{{o.l}}</button></sc-for></div></div>
+<div style="display: flex; align-items: center; gap: 8px"><span class="lbl">Guruh</span><div class="segs"><sc-for list="{{groups}}" as="o" hint-placeholder-count="3"><button class="seg {{o.on}}" type="button" onClick="{{o.pick}}">{{o.l}}</button></sc-for></div></div>
+<div style="display: flex; align-items: center; gap: 8px"><span class="lbl">Oraliq</span><div class="segs"><button class="seg on" type="button">{{rangeLabel}}</button></div></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<span class="lbl" style="margin-right: 4px">Token turi</span>
+<sc-for list="{{types}}" as="t" hint-placeholder-count="4"><button class="tchip {{t.on}}" type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}"><span aria-hidden="true">{{t.mark}}</span>{{t.l}}</button></sc-for>
+<span style="font-size: 12px; color: var(--mu); margin-left: 8px">cache read jami tokenning ≈99% ini tashkil qiladi. Boshqa turlarni ko'rish uchun uni o'chiring.</span>
+</div>
+
+<section class="card" style="padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px">
+<span class="mono" style="font-size: 24px; font-weight: 600">{{total}}</span>
+<span style="color: var(--mu)">{{subtitle}}</span>
+<span style="flex: 1"></span>
+<sc-for list="{{legend}}" as="g" hint-placeholder-count="5"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{g.c}}"></span>{{g.l}}</span></sc-for>
+</div>
+<div style="display: flex; gap: 10px">
+<div class="mono" style="display: flex; flex-direction: column; justify-content: space-between; font-size: 10px; color: var(--fa); height: 280px; text-align: right; width: 40px"><span>{{yMax}}</span><span>{{yMid}}</span><span>0</span></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div style="height: 280px; display: flex; align-items: flex-end; gap: {{gap}}; border-bottom: 1px solid var(--bd); background-image: linear-gradient(var(--bd) 1px, transparent 1px); background-size: 100% 140px">
+<sc-for list="{{cols}}" as="c" hint-placeholder-count="14">
+<div class="seg-col" title="{{c.t}}">
+<sc-for list="{{c.parts}}" as="p" hint-placeholder-count="5"><div style="height: {{p.h}}; background: {{p.c}}; flex: none"></div></sc-for>
+</div>
+</sc-for>
+</div>
+<div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--fa)"><sc-for list="{{xl}}" as="x" hint-placeholder-count="5"><span>{{x}}</span></sc-for></div>
+</div>
+</div>
+</section>
+
+<section class="card" style="overflow-x: auto">
+<table>
+<thead><tr><th>{{groupLabel}}</th><th>input</th><th>output</th><th>cache read</th><th>cache write</th><th>jami</th><th>so'rov</th><th>≈ API ekv.</th></tr></thead>
+<tbody>
+<sc-for list="{{table}}" as="r" hint-placeholder-count="5">
+<tr><td><span style="display: inline-flex; align-items: center; gap: 8px; font-family: Inter, sans-serif; font-weight: 600"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{r.c}}"></span>{{r.l}}</span></td><td style="color: var(--mu)">{{r.i}}</td><td>{{r.o}}</td><td style="color: var(--mu)">{{r.cr}}</td><td style="color: var(--mu)">{{r.cw}}</td><td style="font-weight: 600">{{r.t}}</td><td style="color: var(--mu)">{{r.q}}</td><td style="color: var(--mu)">{{r.usd}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</section>
+<span style="font-size: 12px; color: var(--fa)">Obunada bu haqiqiy to'lov emas: "API ekvivalenti" bir xil tokenlar API orqali qancha turishini ko'rsatadi.</span>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { theme: null, period: "1d", group: "project", types: { input: true, output: true, cread: true, cwrite: true } }; }
+  renderVals() {
+    const theme = this.state.theme || this.props.theme || "dark";
+    const st = this.state;
+    const P = { "5m": [36, "5 daqiqa", "Oxirgi 3 soat", ["12:00", "12:45", "13:30", "14:15", "15:00"]], "1h": [24, "1 soat", "Bugun", ["00:00", "06:00", "12:00", "18:00", "24:00"]], "1d": [14, "1 kun", "14 kun", ["31 okt", "3 noy", "6 noy", "9 noy", "Bugun"]] }[st.period];
+    const G = { project: ["Loyiha", ["commander", "demo_flow_ai", "backend-services", "acme_app_ai", "boshqalar"]], machine: ["Mashina", ["mac-mini", "srv-01", "srv-02", "win-pc", "boshqalar"]], model: ["Model", ["claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-5", "—", "—"]] }[st.group];
+    const colors = ["var(--c1)", "var(--c2)", "var(--c3)", "var(--c4)", "var(--c5)"];
+    const share = st.group === "model" ? [0.55, 0.38, 0.07, 0, 0] : [0.36, 0.22, 0.18, 0.13, 0.11];
+    const T = st.types;
+    const ratio = (T.cread ? 0.9926 : 0) + (T.cwrite ? 0.0052 : 0) + (T.output ? 0.0021 : 0) + (T.input ? 0.0001 : 0);
+    const scale = st.period === "1d" ? 60 : st.period === "1h" ? 6 : 0.7;
+    const raw = [];
+    for (let i = 0; i < P[0]; i++) {
+      const base = (0.45 + 0.4 * Math.abs(Math.sin(i * 1.7 + 0.3)) + (i === P[0] - 1 ? 0.25 : 0)) * scale;
+      raw.push(share.map(function (s, k) { return base * s * (0.8 + 0.4 * Math.abs(Math.cos(i + k))) * ratio; }));
+    }
+    const sums = raw.map(function (r) { return r.reduce(function (a, b) { return a + b; }, 0); });
+    let max = Math.max.apply(null, sums) || 1;
+    const fmt = function (m) { if (m >= 1000) return (m / 1000).toFixed(2) + "B"; if (m >= 1) return m.toFixed(1) + "M"; if (m >= 0.001) return (m * 1000).toFixed(0) + "K"; return Math.round(m * 1e6) + ""; };
+    const nice = max * 1.1;
+    const cols = raw.map(function (r, i) {
+      return { t: fmt(sums[i]) + " token", parts: r.map(function (v, k) { return { h: (v / nice * 280).toFixed(1) + "px", c: colors[k] }; }).filter(function (p, k) { return share[k] > 0; }) };
+    });
+    const totals = share.map(function (s, k) { return raw.reduce(function (a, r) { return a + r[k]; }, 0); });
+    const grand = totals.reduce(function (a, b) { return a + b; }, 0);
+    const tbl = G[1].map(function (l, k) {
+      const tAll = totals[k] / (ratio || 1);
+      return { l: l, c: colors[k], i: fmt(tAll * 0.0001), o: fmt(tAll * 0.0021), cr: fmt(tAll * 0.9926), cw: fmt(tAll * 0.0052), t: fmt(totals[k]), q: Math.round(tAll * 2.6), usd: "$" + Math.round(tAll * 0.36) };
+    }).filter(function (r, k) { return share[k] > 0; });
+    const typeDefs = [["input", "input"], ["output", "output"], ["cread", "cache read"], ["cwrite", "cache write"]];
+    return {
+      themeClass: "root t-" + theme,
+      themeLabel: theme === "dark" ? "Yorug' rejim" : "Qorong'i rejim",
+      toggleTheme: () => this.setState({ theme: theme === "dark" ? "light" : "dark" }),
+      periods: [["5m", "5 daq"], ["1h", "1 soat"], ["1d", "1 kun"]].map((o) => ({ l: o[1], on: st.period === o[0] ? "on" : "", pick: () => this.setState({ period: o[0] }) })),
+      groups: [["project", "Loyiha"], ["machine", "Mashina"], ["model", "Model"]].map((o) => ({ l: o[1], on: st.group === o[0] ? "on" : "", pick: () => this.setState({ group: o[0] }) })),
+      types: typeDefs.map((o) => ({ l: o[1], on: T[o[0]] ? "on" : "", pressed: T[o[0]] ? "true" : "false", mark: T[o[0]] ? "✓" : "○", pick: () => { const n = Object.assign({}, T); n[o[0]] = !n[o[0]]; this.setState({ types: n }); } })),
+      rangeLabel: P[2],
+      total: fmt(grand),
+      subtitle: "jami · " + P[2] + " · " + P[1] + " oraliq bilan",
+      yMax: fmt(nice), yMid: fmt(nice / 2),
+      gap: P[0] > 24 ? "2px" : "6px",
+      cols: cols, xl: P[3],
+      legend: G[1].map(function (l, k) { return { l: l, c: colors[k] }; }).filter(function (g, k) { return share[k] > 0; }),
+      groupLabel: G[0], table: tbl
+    };
+  }
+}
+</script>
+</body>
+</html>

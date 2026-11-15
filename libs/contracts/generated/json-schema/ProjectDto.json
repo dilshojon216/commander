@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectDto.json",
+  "title": "ProjectDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineSlug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "repoKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "git",
+        "dir"
+      ]
+    },
+    "today": {
+      "$ref": "TokenTotals.json"
+    },
+    "allTime": {
+      "$ref": "TokenTotals.json"
+    },
+    "firstUsedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastUsedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "openSessions": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "archivedAt": {
+      "default": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "machineId",
+    "machineSlug",
+    "name",
+    "path",
+    "repoKey",
+    "kind",
+    "today",
+    "allTime",
+    "firstUsedAt",
+    "lastUsedAt",
+    "openSessions",
+    "archivedAt"
+  ],
+  "additionalProperties": false
+}

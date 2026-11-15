@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "LimitWindowView.json",
+  "title": "LimitWindowView",
+  "type": "object",
+  "properties": {
+    "usedPct": {
+      "type": "number"
+    },
+    "resetsAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "$ref": "LimitSource.json"
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "ageSeconds": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reset": {
+      "type": "boolean"
+    },
+    "observedByMachineId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "anchor": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "usedPct": {
+              "type": "number"
+            },
+            "resetsAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "observedAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "usedPct",
+            "resetsAt",
+            "observedAt"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "calibration": {
+      "anyOf": [
+        {
+          "$ref": "LimitCalibration.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "forecast": {
+      "anyOf": [
+        {
+          "$ref": "LimitForecast.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "usedPct",
+    "resetsAt",
+    "observedAt",
+    "source",
+    "stale",
+    "ageSeconds",
+    "reset",
+    "observedByMachineId",
+    "anchor",
+    "calibration"
+  ],
+  "additionalProperties": false
+}

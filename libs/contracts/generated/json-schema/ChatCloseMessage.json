@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatCloseMessage.json",
+  "title": "ChatCloseMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "chat.close"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "$ref": "ChatClosePayload.json"
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

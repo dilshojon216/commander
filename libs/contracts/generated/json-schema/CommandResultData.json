@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CommandResultData.json",
+  "title": "CommandResultData",
+  "type": "object",
+  "properties": {
+    "claudeSessionId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "tmuxSession": {
+      "type": "string",
+      "pattern": "^cmdr-[A-Za-z0-9]{1,16}(-[0-9a-f]{3})?$"
+    },
+    "shortId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "detail": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "md": {
+      "$ref": "ReadMdResult.json"
+    },
+    "append": {
+      "$ref": "AppendResult.json"
+    },
+    "summary": {},
+    "remoteControl": {
+      "$ref": "RemoteControlResult.json"
+    },
+    "config": {},
+    "diff": {},
+    "pr": {},
+    "ci": {},
+    "assistant": {},
+    "deploy": {},
+    "checkpoint": {},
+    "scan": {}
+  },
+  "additionalProperties": false
+}

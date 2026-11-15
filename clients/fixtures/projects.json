@@ -1,0 +1,116 @@
+{
+  "items": [
+    {
+      "id": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "dev-mbp-sss-128ed7ad7244-ce764f",
+      "name": "commander",
+      "path": "/Users/dev/working/commander",
+      "repoKey": null,
+      "kind": "dir",
+      "today": {
+        "inputTokens": 40,
+        "outputTokens": 11322,
+        "cacheReadTokens": 9800975,
+        "cacheCreationTokens": 710010,
+        "totalTokens": 10522347,
+        "costUsd": null,
+        "requests": 15
+      },
+      "allTime": {
+        "inputTokens": 2014,
+        "outputTokens": 239107,
+        "cacheReadTokens": 151636214,
+        "cacheCreationTokens": 1228099,
+        "totalTokens": 153105434,
+        "costUsd": 0.384386,
+        "requests": 331
+      },
+      "firstUsedAt": "2026-11-12T19:00:00.000Z",
+      "lastUsedAt": "2026-11-13T19:00:00.000Z",
+      "openSessions": 2
+    },
+    {
+      "id": "9a7a3b1f-02cb-404d-8551-ddec418e33c7",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "dev-mbp-sss-128ed7ad7244-ce764f",
+      "name": "Brain",
+      "path": "/Users/dev/working/Brain",
+      "repoKey": "github.com/dilshojon216/brain",
+      "kind": "git",
+      "today": {
+        "inputTokens": 48,
+        "outputTokens": 37015,
+        "cacheReadTokens": 3252267,
+        "cacheCreationTokens": 331666,
+        "totalTokens": 3620996,
+        "costUsd": 2.944879,
+        "requests": 24
+      },
+      "allTime": {
+        "inputTokens": 48,
+        "outputTokens": 37015,
+        "cacheReadTokens": 3252267,
+        "cacheCreationTokens": 331666,
+        "totalTokens": 3620996,
+        "costUsd": 2.944879,
+        "requests": 24
+      },
+      "firstUsedAt": "2026-11-13T19:00:00.000Z",
+      "lastUsedAt": "2026-11-13T19:00:00.000Z",
+      "openSessions": 0
+    },
+    {
+      "id": "642cad86-0d5f-4bbf-8473-49b1db43e616",
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "machineSlug": "dev-mbp-sss-128ed7ad7244-ce764f",
+      "name": "_rc_spike",
+      "path": "/Users/dev/working/_rc_spike",
+      "repoKey": null,
+      "kind": "dir",
+      "today": {
+        "inputTokens": 1042,
+        "outputTokens": 2407,
+        "cacheReadTokens": 1351185,
+        "cacheCreationTokens": 255687,
+        "totalTokens": 1610321,
+        "costUsd": 0.665665,
+        "requests": 13
+      },
+      "allTime": {
+        "inputTokens": 2212,
+        "outputTokens": 2428,
+        "cacheReadTokens": 1381207,
+        "cacheCreationTokens": 314345,
+        "totalTokens": 1700192,
+        "costUsd": 0.677824,
+        "requests": 15
+      },
+      "firstUsedAt": "2026-11-12T19:00:00.000Z",
+      "lastUsedAt": "2026-11-13T19:00:00.000Z",
+      "openSessions": 0
+    }
+  ],
+  "unattributed": {
+    "today": {
+      "inputTokens": 44,
+      "outputTokens": 3308,
+      "cacheReadTokens": 1282674,
+      "cacheCreationTokens": 314915,
+      "totalTokens": 1600941,
+      "costUsd": 0.151782,
+      "requests": 22
+    },
+    "allTime": {
+      "inputTokens": 50,
+      "outputTokens": 3747,
+      "cacheReadTokens": 1354115,
+      "cacheCreationTokens": 475628,
+      "totalTokens": 1833540,
+      "costUsd": 0.493072,
+      "requests": 25
+    }
+  },
+  "todayStart": "2026-11-13T19:00:00.000Z",
+  "timezone": "Asia/Tashkent"
+}

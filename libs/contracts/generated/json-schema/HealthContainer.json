@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthContainer.json",
+  "title": "HealthContainer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "image": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "status": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "restartCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "health": {
+      "$ref": "ContainerHealth.json"
+    }
+  },
+  "required": [
+    "name",
+    "image",
+    "state",
+    "status",
+    "restartCount",
+    "health"
+  ],
+  "additionalProperties": false
+}

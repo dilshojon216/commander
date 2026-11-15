@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatStateMessage.json",
+  "title": "ChatStateMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "chat.state"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "state": {
+          "$ref": "ChatState.json"
+        },
+        "code": {
+          "$ref": "ChatErrorCode.json"
+        }
+      },
+      "required": [
+        "sessionId",
+        "state"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

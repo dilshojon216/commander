@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SessionDto.json",
+  "title": "SessionDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "claudeSessionId": {
+      "type": "string"
+    },
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineSlug": {
+      "type": "string"
+    },
+    "machineName": {
+      "type": "string"
+    },
+    "projectId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "projectName": {
+      "type": "string"
+    },
+    "cwd": {
+      "type": "string"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kind": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "SessionStatus.json"
+    },
+    "message": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notificationType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "permissionMode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "statusSince": {
+      "type": "string"
+    },
+    "lastSeenAt": {
+      "type": "string"
+    },
+    "endedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "endReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "staleSince": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pendingApprovals": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "controllable": {
+      "type": "boolean"
+    },
+    "controlReason": {
+      "anyOf": [
+        {
+          "$ref": "ControlReason.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "controls": {
+      "$ref": "SessionControls.json"
+    },
+    "resume": {
+      "$ref": "SessionResume.json"
+    },
+    "remoteControl": {
+      "anyOf": [
+        {
+          "$ref": "RemoteControlState.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "taskKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "taskSource": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "branch"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "claudeSessionId",
+    "machineId",
+    "machineSlug",
+    "machineName",
+    "projectId",
+    "projectName",
+    "cwd",
+    "name",
+    "kind",
+    "status",
+    "message",
+    "notificationType",
+    "model",
+    "permissionMode",
+    "startedAt",
+    "statusSince",
+    "lastSeenAt",
+    "endedAt",
+    "endReason",
+    "staleSince",
+    "pendingApprovals",
+    "controllable",
+    "controlReason",
+    "controls"
+  ],
+  "additionalProperties": false
+}

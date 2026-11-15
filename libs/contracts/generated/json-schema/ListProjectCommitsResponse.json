@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ListProjectCommitsResponse.json",
+  "title": "ListProjectCommitsResponse",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "ProjectCommitDto.json"
+      }
+    },
+    "takenAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "takenAt"
+  ],
+  "additionalProperties": false
+}

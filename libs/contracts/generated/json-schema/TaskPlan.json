@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TaskPlan.json",
+  "title": "TaskPlan",
+  "type": "object",
+  "properties": {
+    "estimateHours": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "estimateSource": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "size"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "actualHours": {
+      "type": "number"
+    },
+    "ratio": {
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "estimateHours",
+    "estimateSource",
+    "actualHours",
+    "ratio"
+  ],
+  "additionalProperties": false
+}

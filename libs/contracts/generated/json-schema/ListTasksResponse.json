@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ListTasksResponse.json",
+  "title": "ListTasksResponse",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "TaskSummaryItem.json"
+      }
+    },
+    "unattributed": {
+      "$ref": "UnattributedTasks.json"
+    },
+    "tokensCoveredFrom": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "items",
+    "unattributed",
+    "tokensCoveredFrom"
+  ],
+  "additionalProperties": false
+}

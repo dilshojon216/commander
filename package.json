@@ -1,0 +1,18 @@
+{
+  "name": "commander",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "description": "Commander — Claude Code sessiyalarini bitta markazdan kuzatish va boshqarish",
+  "workspaces": ["apps/*", "libs/*"],
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "build": "nx run-many -t build",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
+    "typecheck": "nx run-many -t typecheck"
+  },
+  "devDependencies": {
+    "nx": "^24.0.6"
+  }
+}

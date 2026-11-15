@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Mac menu bar ilova</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--s1:rgba(30,33,40,.92);--s2:rgba(255,255,255,.06);--s3:rgba(255,255,255,.1);--bd:rgba(255,255,255,.12);--tx:#ECEEF1;--mu:#A3ABB8;--fa:#7A8390;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--blueBg:rgba(91,155,255,.16);--yelBg:rgba(232,190,84,.16);--orgBg:rgba(255,138,76,.18);--grnBg:rgba(76,195,138,.16);--grayBg:rgba(154,163,176,.14);--onOk:#06150D;--bar:rgba(20,22,28,.55);--desk:linear-gradient(150deg,#1D2747 0%,#2C2350 45%,#0F1426 100%)}
+.t-light{--s1:rgba(250,250,252,.94);--s2:rgba(0,0,0,.04);--s3:rgba(0,0,0,.07);--bd:rgba(0,0,0,.1);--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--grayBg:#ECEEF2;--onOk:#FFFFFF;--bar:rgba(255,255,255,.6);--desk:linear-gradient(150deg,#C9D6F2 0%,#E3D7F2 45%,#F2EEE6 100%)}
+.root{color:var(--tx);font-family:Inter,-apple-system,system-ui,sans-serif;font-size:13px;line-height:1.4;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.pill{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 7px;border-radius:999px;font-size:11px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.lbl{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.mb{height:24px;padding:0 8px;border:0;border-radius:5px;background:transparent;color:var(--tx);font:500 13px Inter,-apple-system,sans-serif;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.mb.on{background:var(--s3)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:26px;padding:0 10px;border-radius:6px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:500 12px Inter,sans-serif;cursor:pointer}
+.btn-ok{background:var(--grn);border-color:transparent;color:var(--onOk)}
+.btn-no{background:transparent;border-color:var(--red);color:var(--red)}
+.mrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;color:var(--tx);text-decoration:none}
+.mrow:hover{background:var(--s3)}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.blink{animation:blink 1s steps(2,start) infinite}
+@keyframes blink{to{opacity:.25}}
+.wave{transform-origin:96px 62px;animation:wave .9s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-28deg)}}
+.peek{animation:peek .9s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes peek{from{transform:translate(180px,40px) rotate(12deg)}to{transform:translate(0,0) rotate(0)}}
+.pop{animation:pop .35s .55s cubic-bezier(.2,1.5,.4,1) both;transform-origin:100% 100%}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.glass{background:var(--s1);border:1px solid var(--bd);box-shadow:0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(24px)}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 1440px; height: 900px; position: relative; overflow: hidden; background: var(--desk)">
+
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 30px; display: flex; align-items: center; gap: 2px; padding: 0 10px; background: var(--bar); backdrop-filter: blur(20px)">
+<span class="mb" style="font-weight: 700">Terminal</span><span class="mb">Shell</span><span class="mb">Edit</span><span class="mb">View</span><span class="mb">Window</span>
+<span style="flex: 1"></span>
+<button class="mb {{iconOn}}" type="button" onClick="{{togglePanel}}" aria-label="Commander: 2 ta ruxsat so'rovi, 1 ta javob kutmoqda" aria-expanded="{{panelOpen}}">
+<svg width="18" height="18" viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="22" x2="60" y2="8" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line><circle cx="60" cy="8" r="9" fill="#FF8A4C"></circle><rect x="14" y="24" width="92" height="80" rx="26" fill="currentColor"></rect><rect x="28" y="38" width="64" height="44" rx="12" fill="var(--bar)"></rect><rect x="42" y="50" width="10" height="16" rx="3" fill="currentColor"></rect><rect x="68" y="50" width="10" height="16" rx="3" fill="currentColor"></rect></svg>
+<span class="mono" style="font-size: 12px; font-weight: 600; color: var(--org)">2</span>
+</button>
+<span class="mb mono" style="font-size: 12px">8%</span>
+<span class="mb">Jum 13 noy 12:10</span>
+</div>
+
+<div style="position: absolute; left: 40px; top: 70px; width: 300px; display: flex; flex-direction: column; gap: 12px">
+<div class="glass" style="border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<span class="lbl">Menu bar ikonkasi holatlari</span>
+<div style="display: flex; align-items: center; gap: 10px"><span class="mono" style="width: 64px; padding: 3px 6px; border-radius: 5px; background: var(--s3); font-size: 12px">◉</span><span style="color: var(--mu)">Hammasi tinch: kulrang chiroq</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span class="mono" style="width: 64px; padding: 3px 6px; border-radius: 5px; background: var(--s3); font-size: 12px; color: var(--blue)">◉ 3</span><span style="color: var(--mu)">Ishlamoqda: ko'k chiroq, soni</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span class="mono" style="width: 64px; padding: 3px 6px; border-radius: 5px; background: var(--s3); font-size: 12px; color: var(--org)">◉ 2</span><span style="color: var(--mu)">Diqqat kerak: to'q sariq, miltillaydi</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><span class="mono" style="width: 64px; padding: 3px 6px; border-radius: 5px; background: var(--s3); font-size: 12px; color: var(--red)">◉ ⚠</span><span style="color: var(--mu)">Markaz bilan aloqa yo'q</span></div>
+<span style="font-size: 12px; color: var(--fa)">Ikonka yonida haftalik limit foizi (ixtiyoriy).</span>
+</div>
+<div class="glass" style="border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">Maskot ogohlantirishini sinash</span>
+<button class="btn" type="button" onClick="{{showApproval}}">Ruxsat so'rovi</button>
+<button class="btn" type="button" onClick="{{showWaiting}}">Javob kutmoqda</button>
+<button class="btn" type="button" onClick="{{showDone}}">Ishini tugatdi</button>
+<span style="font-size: 12px; color: var(--fa)">Sozlamalar: qaysi holatda chiqsin, ovoz, "Bezovta qilmang" vaqti.</span>
+</div>
+</div>
+
+<sc-if value="{{panelOpen}}" hint-placeholder-val="{{ true }}">
+<div class="glass" role="menu" aria-label="Commander paneli" style="position: absolute; top: 36px; right: 150px; width: 380px; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px 8px">
+<b style="flex: 1; font-size: 14px">Commander</b>
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+<span class="pill mono" style="color: var(--mu); background: var(--grayBg)">6/7 mashina</span>
+</div>
+
+<div style="border-radius: 9px; background: var(--orgBg); padding: 10px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 6px"><span class="dot live" style="color: var(--org)"></span><b style="flex: 1">backend-services · srv-01</b><span class="mono" style="font-weight: 600">4:12</span></div>
+<code class="mono" style="font-size: 11px; padding: 6px 8px; border-radius: 6px; background: var(--s2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bash: docker compose -f deploy/prod.yml up -d --build</code>
+<div style="display: flex; gap: 6px; justify-content: flex-end"><button class="btn btn-no" type="button">Rad</button><button class="btn btn-ok" type="button">Ruxsat…</button></div>
+</div>
+<div style="border-radius: 9px; background: var(--orgBg); padding: 8px 10px; display: flex; align-items: center; gap: 6px"><span class="dot" style="color: var(--org)"></span><span style="flex: 1">demo_flow_ai · Edit ndvi.py</span><span class="mono" style="color: var(--red); font-weight: 600">0:48</span></div>
+
+<span class="lbl" style="padding: 8px 10px 2px">Loyihalar bo'yicha</span>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<a class="mrow" href="Main.dc.html">
+<span style="font-weight: 600; flex: 1">{{g.name}}</span>
+<sc-for list="{{g.dots}}" as="d" hint-placeholder-count="2"><span class="pill" style="color: {{d.c}}; background: {{d.bg}}"><span class="dot {{d.anim}}"></span>{{d.l}}</span></sc-for>
+</a>
+</sc-for>
+
+<div style="height: 1px; background: var(--bd); margin: 6px 4px"></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 4px 6px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span class="lbl">5 soat</span><span class="mono" style="color: var(--mu); font-weight: 600">≈0%</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span class="lbl">Haftalik</span><span class="mono" style="font-weight: 600">8%</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span class="lbl">Bugun</span><span class="mono" style="font-weight: 600">67.6M</span></div>
+</div>
+<div style="height: 1px; background: var(--bd); margin: 6px 4px"></div>
+<a class="mrow" href="Main.dc.html"><span style="flex: 1">Dashboard'ni ochish</span><span class="mono" style="color: var(--mu); font-size: 11px">⌘D</span></a>
+<a class="mrow" href="NewSession.dc.html"><span style="flex: 1">Yangi sessiya…</span><span class="mono" style="color: var(--mu); font-size: 11px">⌘N</span></a>
+<div class="mrow"><span style="flex: 1">Maskot ogohlantirishlari</span><span style="width: 30px; height: 18px; border-radius: 9px; background: var(--grn); position: relative"><span style="position: absolute; right: 2px; top: 2px; width: 14px; height: 14px; border-radius: 7px; background: #fff"></span></span></div>
+<div class="mrow"><span style="flex: 1">Lockdown</span><span style="width: 30px; height: 18px; border-radius: 9px; background: var(--s3); position: relative"><span style="position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; border-radius: 7px; background: #fff"></span></span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{toastOn}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; right: 24px; bottom: 0; display: flex; align-items: flex-end; gap: 6px">
+<div class="glass pop" style="width: 290px; margin-bottom: 96px; border-radius: 14px; padding: 12px 14px">
+<div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px"><span style="width: 8px; height: 8px; border-radius: 4px; background: {{demo.bulb}}"></span><b>{{demo.title}}</b></div>
+<div style="font-size: 12px; color: var(--mu)">{{demo.text}}</div>
+<div style="display: flex; gap: 6px; margin-top: 10px">
+<button class="btn" type="button" onClick="{{hide}}" style="flex: 1">{{demo.b1}}</button>
+<button class="btn" type="button" onClick="{{hide}}" style="flex: 1; background: {{demo.bulb}}; color: #0B0D10; border-color: transparent; font-weight: 600">{{demo.b2}}</button>
+</div>
+</div>
+<div class="peek">
+<svg class="bob" width="120" height="140" viewBox="0 0 120 140" role="img" aria-label="Navbatchi maskoti">
+<line x1="60" y1="24" x2="60" y2="10" stroke="#3E4F86" stroke-width="4" stroke-linecap="round"></line>
+<circle class="blink" cx="60" cy="8" r="7" fill="{{demo.bulb}}"></circle>
+<rect x="8" y="54" width="14" height="22" rx="7" fill="#3E4F86"></rect>
+<g class="wave"><rect x="98" y="40" width="14" height="24" rx="7" fill="#3E4F86"></rect></g>
+<rect x="18" y="24" width="84" height="78" rx="24" fill="#2B3A67"></rect>
+<rect x="28" y="36" width="64" height="42" rx="13" fill="#0E1424"></rect>
+<rect x="{{demo.ex1}}" y="{{demo.ey}}" width="{{demo.ew}}" height="{{demo.eh}}" rx="3" fill="{{demo.eye}}"></rect>
+<rect x="{{demo.ex2}}" y="{{demo.ey}}" width="{{demo.ew}}" height="{{demo.eh}}" rx="3" fill="{{demo.eye}}"></rect>
+<circle cx="34" cy="86" r="4" fill="#FF8FA3" opacity=".5"></circle>
+<circle cx="86" cy="86" r="4" fill="#FF8FA3" opacity=".5"></circle>
+<rect x="34" y="100" width="18" height="12" rx="6" fill="#3E4F86"></rect>
+<rect x="68" y="100" width="18" height="12" rx="6" fill="#3E4F86"></rect>
+</svg>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { panel: true, toast: true, kind: "approval" }; }
+  trigger(kind) { this.setState({ toast: false }); setTimeout(() => this.setState({ toast: true, kind: kind }), 40); }
+  renderVals() {
+    const theme = this.props.theme || "dark";
+    const S = { w: ["ishlamoqda", "var(--blue)", "var(--blueBg)", "live"], wt: ["kutmoqda", "var(--yel)", "var(--yelBg)", ""], ap: ["ruxsat", "var(--org)", "var(--orgBg)", ""], i: ["bo'sh", "var(--mu)", "var(--grayBg)", ""], d: ["tugatdi", "var(--grn)", "var(--grnBg)", ""] };
+    const g = function (name, list) { return { name: name, dots: list.map(function (x) { const s = S[x[0]]; return { l: x[1] + " " + s[0], c: s[1], bg: s[2], anim: s[3] }; }) }; };
+    const eyes = {
+      normal: { ex1: 42, ex2: 68, ey: 48, ew: 10, eh: 14, eye: "#6FE3FF" },
+      alert: { ex1: 40, ex2: 68, ey: 44, ew: 12, eh: 18, eye: "#FFB27A" },
+      happy: { ex1: 42, ex2: 68, ey: 52, ew: 10, eh: 4, eye: "#7DF0B0" }
+    };
+    const D = {
+      waiting: Object.assign({}, eyes.normal, { bulb: "#E8BE54", title: "mobile-app javob kutyapti", text: "win-pc: \"Qaysi branch'ga push qilay?\"", b1: "Keyinroq", b2: "Javob berish" }),
+      approval: Object.assign({}, eyes.alert, { bulb: "#FF8A4C", title: "backend-services ruxsat so'rayapti", text: "srv-01 · Bash: docker compose … up -d · 4:12 qoldi", b1: "Rad", b2: "Ruxsat…" }),
+      done: Object.assign({}, eyes.happy, { bulb: "#4CC38A", title: "web-app ishini tugatdi", text: "mac-mini · 22 daq · 6 fayl · 3.1M token", b1: "Yopish", b2: "Ko'rish" })
+    };
+    return {
+      themeClass: "root t-" + theme,
+      panelOpen: this.state.panel, iconOn: this.state.panel ? "on" : "",
+      togglePanel: () => this.setState({ panel: !this.state.panel }),
+      toastOn: this.state.toast, demo: D[this.state.kind],
+      showApproval: () => this.trigger("approval"), showWaiting: () => this.trigger("waiting"), showDone: () => this.trigger("done"),
+      hide: () => this.setState({ toast: false }),
+      groups: [g("backend-services", [["ap", 1], ["i", 1]]), g("demo_flow_ai", [["ap", 1]]), g("mobile-app", [["wt", 1]]), g("commander", [["w", 1]]), g("acme_app_ai", [["w", 1]]), g("web-app", [["d", 1]])]
+    };
+  }
+}
+</script>
+</body>
+</html>

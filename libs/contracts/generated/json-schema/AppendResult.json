@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AppendResult.json",
+  "title": "AppendResult",
+  "type": "object",
+  "properties": {
+    "added": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "skippedKeys": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 32
+      }
+    },
+    "createdPhase": {
+      "type": "boolean"
+    },
+    "newHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "added",
+    "skippedKeys",
+    "createdPhase",
+    "newHash"
+  ],
+  "additionalProperties": false
+}

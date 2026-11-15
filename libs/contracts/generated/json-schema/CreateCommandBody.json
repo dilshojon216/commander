@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CreateCommandBody.json",
+  "title": "CreateCommandBody",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.start"
+        },
+        "machineId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "model": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+        },
+        "permissionMode": {
+          "$ref": "RemotePermissionMode.json"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._-]{0,59}$"
+        },
+        "remoteControl": {
+          "type": "boolean"
+        },
+        "checkpoint": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "machineId",
+        "cwd",
+        "prompt",
+        "permissionMode"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.prompt"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        }
+      },
+      "required": [
+        "type",
+        "sessionId",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.stop"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "type",
+        "sessionId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.set_mode"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "permissionMode": {
+          "$ref": "RemotePermissionMode.json"
+        }
+      },
+      "required": [
+        "type",
+        "sessionId",
+        "permissionMode"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.remote_control"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._-]{0,59}$"
+        }
+      },
+      "required": [
+        "type",
+        "sessionId",
+        "enable"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.resume"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "type",
+        "sessionId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session.close"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "type",
+        "sessionId"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SessionResume.json",
+  "title": "SessionResume",
+  "type": "object",
+  "properties": {
+    "available": {
+      "type": "boolean"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "$ref": "ResumeReason.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "available",
+    "reason"
+  ],
+  "additionalProperties": false
+}

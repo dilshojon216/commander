@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AgentControlState.json",
+  "title": "AgentControlState",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "allowStart": {
+      "type": "boolean"
+    },
+    "allowPrompt": {
+      "type": "boolean"
+    },
+    "allowStop": {
+      "type": "boolean"
+    },
+    "allowSetMode": {
+      "type": "boolean"
+    },
+    "allowAutoMode": {
+      "type": "boolean"
+    },
+    "maxConcurrentStarted": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "allowedRootCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "centerKeyPinned": {
+      "type": "boolean"
+    },
+    "runningAsRoot": {
+      "type": "boolean"
+    },
+    "projectOps": {
+      "type": "boolean"
+    },
+    "remoteControl": {
+      "type": "boolean"
+    },
+    "allowProjectRead": {
+      "type": "boolean"
+    },
+    "allowProjectWrite": {
+      "type": "boolean"
+    },
+    "gitOps": {
+      "type": "boolean"
+    },
+    "configSync": {
+      "type": "boolean"
+    },
+    "allowConfigRead": {
+      "type": "boolean"
+    },
+    "allowConfigWrite": {
+      "type": "boolean"
+    },
+    "logs": {
+      "type": "boolean"
+    },
+    "allowLogs": {
+      "type": "boolean"
+    },
+    "allowedLogRootCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "assistant": {
+      "type": "boolean"
+    },
+    "deploy": {
+      "type": "boolean"
+    },
+    "allowDeploy": {
+      "type": "boolean"
+    },
+    "allowDeployShell": {
+      "type": "boolean"
+    },
+    "checkpoints": {
+      "type": "boolean"
+    },
+    "scan": {
+      "type": "boolean"
+    },
+    "allowScan": {
+      "type": "boolean"
+    },
+    "resume": {
+      "type": "boolean"
+    },
+    "close": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "enabled",
+    "allowStart",
+    "allowPrompt",
+    "allowStop",
+    "allowSetMode",
+    "allowAutoMode",
+    "maxConcurrentStarted",
+    "allowedRootCount",
+    "centerKeyPinned",
+    "runningAsRoot"
+  ],
+  "additionalProperties": false
+}

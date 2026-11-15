@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UsagePoint.json",
+  "title": "UsagePoint",
+  "type": "object",
+  "properties": {
+    "t": {
+      "type": "string"
+    },
+    "inputTokens": {
+      "type": "number"
+    },
+    "outputTokens": {
+      "type": "number"
+    },
+    "cacheReadTokens": {
+      "type": "number"
+    },
+    "cacheCreationTokens": {
+      "type": "number"
+    },
+    "costUsd": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "requests": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "t",
+    "inputTokens",
+    "outputTokens",
+    "cacheReadTokens",
+    "cacheCreationTokens",
+    "costUsd",
+    "requests"
+  ],
+  "additionalProperties": false
+}

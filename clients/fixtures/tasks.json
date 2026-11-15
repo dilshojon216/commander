@@ -1,0 +1,17 @@
+{
+  "items": [],
+  "unattributed": {
+    "label": "vazifasiz",
+    "tokens": {
+      "inputTokens": 100088,
+      "outputTokens": 1198372,
+      "cacheReadTokens": 928452009,
+      "cacheCreationTokens": 7696814,
+      "totalTokens": 937447283,
+      "costUsd": 113.415609,
+      "requests": 1838
+    },
+    "sessions": 34
+  },
+  "tokensCoveredFrom": "2026-10-15T04:01:00.321Z"
+}

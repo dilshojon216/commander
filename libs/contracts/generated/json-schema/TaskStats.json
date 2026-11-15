@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TaskStats.json",
+  "title": "TaskStats",
+  "type": "object",
+  "properties": {
+    "tokens": {
+      "$ref": "TokenTotals.json"
+    },
+    "sessions": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "activeSeconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "firstActivityAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lastActivityAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "branch",
+            "mixed"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "tokens",
+    "sessions",
+    "activeSeconds",
+    "firstActivityAt",
+    "lastActivityAt",
+    "source"
+  ],
+  "additionalProperties": false
+}

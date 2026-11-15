@@ -1,0 +1,56 @@
+{
+  "project": {
+    "id": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+    "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+    "machineSlug": "dev-mbp-sss-128ed7ad7244-ce764f",
+    "name": "commander",
+    "path": "/Users/dev/working/commander",
+    "repoKey": null,
+    "kind": "dir",
+    "today": {
+      "inputTokens": 40,
+      "outputTokens": 11322,
+      "cacheReadTokens": 9800975,
+      "cacheCreationTokens": 710010,
+      "totalTokens": 10522347,
+      "costUsd": null,
+      "requests": 15
+    },
+    "allTime": {
+      "inputTokens": 2014,
+      "outputTokens": 239107,
+      "cacheReadTokens": 151636214,
+      "cacheCreationTokens": 1228099,
+      "totalTokens": 153105434,
+      "costUsd": 0.384386,
+      "requests": 331
+    },
+    "firstUsedAt": "2026-11-12T19:00:00.000Z",
+    "lastUsedAt": "2026-11-13T19:00:00.000Z",
+    "openSessions": 2
+  },
+  "git": {
+    "branch": null,
+    "headSha": null,
+    "dirty": null,
+    "dirtyCount": null,
+    "ahead": null,
+    "behind": null,
+    "takenAt": "2026-11-13T19:36:57.715Z"
+  },
+  "commits": [],
+  "todosMd": null,
+  "changelogMd": null,
+  "tasksMd": {
+    "path": "docs/TASKS.md",
+    "bytes": 21704,
+    "summary": {
+      "done": 42,
+      "doing": 0,
+      "todo": 13,
+      "unknown": 0,
+      "total": 55
+    },
+    "updatedAt": "2026-11-13T19:36:57.715Z"
+  }
+}

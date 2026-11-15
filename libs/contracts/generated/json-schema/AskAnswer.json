@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AskAnswer.json",
+  "title": "AskAnswer",
+  "type": "object",
+  "properties": {
+    "q": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "picks": {
+      "maxItems": 8,
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 7
+      }
+    },
+    "other": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "q",
+    "picks"
+  ],
+  "additionalProperties": false
+}

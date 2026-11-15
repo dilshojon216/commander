@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ProjectTaskDto.json",
+  "title": "ProjectTaskDto",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "part": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "phase": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "$ref": "ProjectTaskStatus.json"
+    },
+    "rawStatus": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "order": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "size": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stats": {
+      "$ref": "TaskStats.json"
+    },
+    "column": {
+      "$ref": "TaskBoardColumn.json"
+    },
+    "columnSource": {
+      "$ref": "TaskColumnSource.json"
+    },
+    "plan": {
+      "$ref": "TaskPlan.json"
+    },
+    "score": {
+      "anyOf": [
+        {
+          "$ref": "TaskScoreRef.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "key",
+    "part",
+    "title",
+    "phase",
+    "status",
+    "rawStatus",
+    "order",
+    "size",
+    "stats",
+    "column",
+    "columnSource",
+    "plan",
+    "score"
+  ],
+  "additionalProperties": false
+}

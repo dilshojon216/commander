@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ListProjectsResponse.json",
+  "title": "ListProjectsResponse",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "ProjectDto.json"
+      }
+    },
+    "unattributed": {
+      "type": "object",
+      "properties": {
+        "today": {
+          "$ref": "TokenTotals.json"
+        },
+        "allTime": {
+          "$ref": "TokenTotals.json"
+        }
+      },
+      "required": [
+        "today",
+        "allTime"
+      ],
+      "additionalProperties": false
+    },
+    "archived": {
+      "default": {
+        "count": 0,
+        "today": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheReadTokens": 0,
+          "cacheCreationTokens": 0,
+          "totalTokens": 0,
+          "costUsd": null,
+          "requests": 0
+        },
+        "allTime": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheReadTokens": 0,
+          "cacheCreationTokens": 0,
+          "totalTokens": 0,
+          "costUsd": null,
+          "requests": 0
+        },
+        "todayByMachine": []
+      },
+      "$ref": "ArchivedProjectsSummary.json"
+    },
+    "todayStart": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string",
+      "const": "Asia/Tashkent"
+    }
+  },
+  "required": [
+    "items",
+    "unattributed",
+    "archived",
+    "todayStart",
+    "timezone"
+  ],
+  "additionalProperties": false
+}

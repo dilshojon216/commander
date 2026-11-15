@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "RemoteControlResult.json",
+  "title": "RemoteControlResult",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._-]{0,59}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "url": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^https:\\/\\/claude\\.ai\\/code\\/session_[A-Za-z0-9]{8,64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "enabled"
+  ],
+  "additionalProperties": false
+}

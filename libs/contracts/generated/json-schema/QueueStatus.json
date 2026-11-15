@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QueueStatus.json",
+  "title": "QueueStatus",
+  "type": "string",
+  "enum": [
+    "queued",
+    "waiting_trigger",
+    "starting",
+    "started",
+    "failed",
+    "cancelled"
+  ]
+}

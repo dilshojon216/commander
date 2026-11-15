@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AskQuestions.json",
+  "title": "AskQuestions",
+  "minItems": 1,
+  "maxItems": 4,
+  "type": "array",
+  "items": {
+    "$ref": "AskQuestion.json"
+  }
+}

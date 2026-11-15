@@ -1,0 +1,26 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000001",
+  "type": "auth.ok",
+  "ts": 1763092800000,
+  "payload": {
+    "deviceId": "00000000-0000-4000-8000-0000000000aa",
+    "kind": "menubar",
+    "scopes": [
+      "read",
+      "approve"
+    ],
+    "serverTime": 1763092800000,
+    "channels": [
+      "sessions",
+      "machines",
+      "usage",
+      "limits",
+      "approvals"
+    ],
+    "lockdown": {
+      "enabled": false,
+      "since": null
+    }
+  }
+}

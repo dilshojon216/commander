@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ResumeReason.json",
+  "title": "ResumeReason",
+  "type": "string",
+  "enum": [
+    "not_ended",
+    "not_terminal",
+    "machine_offline",
+    "policy_disabled",
+    "agent_not_ready",
+    "agent_outdated",
+    "start_not_allowed",
+    "unsupported_os",
+    "no_cwd"
+  ]
+}

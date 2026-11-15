@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Web dashboard (Next.js production server) doimiy xizmat sifatida: faqat 127.0.0.1:4318.
+  Tokenlar BU YERDA YO'Q: Next o'zi WorkingDirectory'dagi .env.local ni o'qiydi.
+  Shablon: ops/mac/dashboard-install.sh __NODE__/__NEXT__/__CWD__/__HOME__/__PATH__ ni almashtiradi.
+-->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>uz.commander.dashboard</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>__NODE__</string>
+		<string>__NEXT__</string>
+		<string>start</string>
+		<string>-H</string>
+		<string>127.0.0.1</string>
+		<string>-p</string>
+		<string>4318</string>
+	</array>
+	<key>WorkingDirectory</key>
+	<string>__CWD__</string>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ThrottleInterval</key>
+	<integer>10</integer>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>NODE_ENV</key>
+		<string>production</string>
+		<key>COMMANDER_DASHBOARD_DIST</key>
+		<string>.next-release</string>
+		<key>NEXT_TELEMETRY_DISABLED</key>
+		<string>1</string>
+		<key>PATH</key>
+		<string>__PATH__</string>
+		<key>HOME</key>
+		<string>__HOME__</string>
+	</dict>
+	<key>StandardOutPath</key>
+	<string>__HOME__/Library/Logs/commander/dashboard.log</string>
+	<key>StandardErrorPath</key>
+	<string>__HOME__/Library/Logs/commander/dashboard.log</string>
+	<key>ProcessType</key>
+	<string>Interactive</string>
+</dict>
+</plist>

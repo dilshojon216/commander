@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ApprovalDto.json",
+  "title": "ApprovalDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineSlug": {
+      "type": "string"
+    },
+    "sessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "claudeSessionId": {
+      "type": "string"
+    },
+    "projectName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cwd": {
+      "type": "string"
+    },
+    "toolName": {
+      "type": "string"
+    },
+    "toolInputRedacted": {
+      "type": "string"
+    },
+    "toolInputFullHash": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "ApprovalStatus.json"
+    },
+    "behavior": {
+      "anyOf": [
+        {
+          "$ref": "ApprovalBehavior.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decisionMessage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "decidedByDeviceId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decidedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "delivered": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "requestedAt": {
+      "type": "string"
+    },
+    "deadline": {
+      "type": "string"
+    },
+    "resolvedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kind": {
+      "default": "tool",
+      "$ref": "ApprovalKind.json"
+    },
+    "plan": {
+      "default": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "autoRuleId": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "questions": {
+      "default": null,
+      "anyOf": [
+        {
+          "$ref": "AskQuestions.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "answers": {
+      "default": null,
+      "anyOf": [
+        {
+          "$ref": "AskAnswers.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "machineId",
+    "machineSlug",
+    "sessionId",
+    "claudeSessionId",
+    "projectName",
+    "cwd",
+    "toolName",
+    "toolInputRedacted",
+    "toolInputFullHash",
+    "status",
+    "behavior",
+    "decisionMessage",
+    "decidedByDeviceId",
+    "decidedAt",
+    "delivered",
+    "requestedAt",
+    "deadline",
+    "resolvedAt",
+    "kind",
+    "plan",
+    "autoRuleId",
+    "questions",
+    "answers"
+  ],
+  "additionalProperties": false
+}

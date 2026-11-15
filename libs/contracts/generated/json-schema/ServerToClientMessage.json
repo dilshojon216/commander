@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ServerToClientMessage.json",
+  "title": "ServerToClientMessage",
+  "oneOf": [
+    {
+      "$ref": "ServerAuthOkMessage.json"
+    },
+    {
+      "$ref": "ServerAuthErrorMessage.json"
+    },
+    {
+      "$ref": "ServerSubscribedMessage.json"
+    },
+    {
+      "$ref": "ServerPongMessage.json"
+    },
+    {
+      "$ref": "ServerErrorMessage.json"
+    },
+    {
+      "$ref": "SessionUpdatedMessage.json"
+    },
+    {
+      "$ref": "MachineUpdatedMessage.json"
+    },
+    {
+      "$ref": "UsageTickMessage.json"
+    },
+    {
+      "$ref": "LimitsUpdatedMessage.json"
+    },
+    {
+      "$ref": "ApprovalCreatedMessage.json"
+    },
+    {
+      "$ref": "ApprovalResolvedMessage.json"
+    },
+    {
+      "$ref": "LockdownUpdatedMessage.json"
+    },
+    {
+      "$ref": "CommandUpdatedMessage.json"
+    },
+    {
+      "$ref": "ProjectUpdatedMessage.json"
+    },
+    {
+      "$ref": "ChatItemsToClientMessage.json"
+    },
+    {
+      "$ref": "ChatStateMessage.json"
+    },
+    {
+      "$ref": "MessageCreatedMessage.json"
+    },
+    {
+      "$ref": "MessageUpdatedMessage.json"
+    },
+    {
+      "$ref": "AlertCreatedMessage.json"
+    },
+    {
+      "$ref": "AlertUpdatedMessage.json"
+    },
+    {
+      "$ref": "MachineHealthUpdatedMessage.json"
+    },
+    {
+      "$ref": "QueueUpdatedMessage.json"
+    },
+    {
+      "$ref": "OrchestrationUpdatedMessage.json"
+    }
+  ]
+}

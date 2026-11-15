@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ServerAuthOkMessage.json",
+  "title": "ServerAuthOkMessage",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "const": "auth.ok"
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "$ref": "ClientTokenScope.json"
+          }
+        },
+        "serverTime": {
+          "$ref": "EpochMs.json"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "ClientChannel.json"
+          }
+        },
+        "lockdown": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "since": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "enabled",
+            "since"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "deviceId",
+        "kind",
+        "scopes",
+        "serverTime",
+        "channels",
+        "lockdown"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "id",
+    "type",
+    "ts",
+    "payload"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatItem.json",
+  "title": "ChatItem",
+  "oneOf": [
+    {
+      "$ref": "ChatUserItem.json"
+    },
+    {
+      "$ref": "ChatAssistantItem.json"
+    },
+    {
+      "$ref": "ChatThinkingItem.json"
+    },
+    {
+      "$ref": "ChatToolUseItem.json"
+    },
+    {
+      "$ref": "ChatToolResultItem.json"
+    },
+    {
+      "$ref": "ChatNoticeItem.json"
+    },
+    {
+      "$ref": "ChatUsageItem.json"
+    }
+  ]
+}

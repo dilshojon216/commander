@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PaceDayStartSource.json",
+  "title": "PaceDayStartSource",
+  "type": "string",
+  "enum": [
+    "prev_sample",
+    "first_sample_today",
+    "window_start"
+  ]
+}

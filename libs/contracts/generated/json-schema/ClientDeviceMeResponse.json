@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientDeviceMeResponse.json",
+  "title": "ClientDeviceMeResponse",
+  "type": "object",
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "$ref": "ClientDeviceKind.json"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "platform": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "ClientTokenScope.json"
+      }
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "lastUsedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expiresAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stepUpExempt": {
+      "type": "boolean"
+    },
+    "serverTime": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "deviceId",
+    "kind",
+    "name",
+    "platform",
+    "scopes",
+    "createdAt",
+    "lastUsedAt",
+    "expiresAt",
+    "stepUpExempt",
+    "serverTime"
+  ],
+  "additionalProperties": false
+}

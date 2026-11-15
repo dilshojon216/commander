@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>uz.commander.caffeinate</string>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/caffeinate</string>
+		<string>-s</string>
+		<string>-i</string>
+	</array>
+	<key>StandardOutPath</key>
+	<string>/Users/me/Library/Logs/commander/caffeinate.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/me/Library/Logs/commander/caffeinate.log</string>
+	<key>Comment</key>
+	<string>
+		Keeps Mac awake while on AC power.
+		- caffeinate -s: Prevents sleep while plugged in
+		- caffeinate -i: Prevents idle sleep (display can sleep)
+		KeepAlive: Restart automatically if it dies
+
+		NOTE: Does NOT prevent sleep when:
+		- Lid is closed without external display (clamshell mode)
+		- Running on battery power
+
+		For additional control, manually run:
+		- sudo pmset -c sleep 0           (AC: never sleep)
+		- sudo pmset -c displaysleep 0    (AC: display never sleep)
+		- sudo pmset -b sleep 5           (battery: sleep after 5 min)
+		- sudo pmset -a hibernatemode 3   (disable hibernation)
+
+		To check current settings: pmset -g
+	</string>
+</dict>
+</plist>

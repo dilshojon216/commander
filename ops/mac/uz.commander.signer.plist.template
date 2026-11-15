@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Commander imzolovchi (TASKS 5.7, H-02): markaz buyruq-imzo kaliti macOS Keychain'da; faqat 127.0.0.1:4320 tinglaydi.
+  KeepAlive: o'lsa qayta ishga tushadi (auth.secret yangilanadi, markaz har so'rovda qayta o'qiydi).
+  Sirlar BU YERDA YO'Q. Shablon: ops/mac/signer-install.sh __BIN__/__STATE__/__HOME__ ni almashtiradi.
+  Foydalanuvchi (GUI) sessiyasida ishlaydi: login keychain shu sessiyada ochiq.
+-->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>uz.commander.signer</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>__BIN__</string>
+		<string>serve</string>
+		<string>--state-dir</string>
+		<string>__STATE__</string>
+		<string>--tcp-port</string>
+		<string>4320</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ThrottleInterval</key>
+	<integer>5</integer>
+	<key>StandardOutPath</key>
+	<string>__HOME__/Library/Logs/commander/signer.log</string>
+	<key>StandardErrorPath</key>
+	<string>__HOME__/Library/Logs/commander/signer.log</string>
+	<key>ProcessType</key>
+	<string>Interactive</string>
+</dict>
+</plist>

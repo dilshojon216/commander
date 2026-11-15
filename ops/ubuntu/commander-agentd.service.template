@@ -1,0 +1,16 @@
+[Unit]
+Description=Commander agentd (Claude Code sessiya agenti)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=__NODE__ %h/.commander/bin/agentd.mjs run
+Restart=always
+RestartSec=10
+Environment=PATH=__PATH__
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

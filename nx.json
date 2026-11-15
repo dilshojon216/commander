@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "{workspaceRoot}/tsconfig.base.json"],
+    "production": ["default", "!{projectRoot}/**/*.spec.ts", "!{projectRoot}/test/**/*", "!{projectRoot}/**/*.test.ts"]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/.next"],
+      "cache": true
+    },
+    "test": { "dependsOn": ["^build"], "inputs": ["default", "^production"], "cache": true },
+    "test:e2e": { "dependsOn": ["^build"], "inputs": ["default", "^production"], "cache": true },
+    "lint": { "dependsOn": ["^build"], "inputs": ["default", "^production"], "cache": true },
+    "typecheck": { "dependsOn": ["^build"], "inputs": ["default", "^production"], "cache": true }
+  },
+  "analytics": false
+}

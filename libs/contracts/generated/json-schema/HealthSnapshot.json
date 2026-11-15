@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthSnapshot.json",
+  "title": "HealthSnapshot",
+  "type": "object",
+  "properties": {
+    "collectedAt": {
+      "$ref": "EpochMs.json"
+    },
+    "platform": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "cpu": {
+      "$ref": "HealthCpu.json"
+    },
+    "memory": {
+      "$ref": "HealthMemory.json"
+    },
+    "uptimeSec": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000000
+    },
+    "disks": {
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "$ref": "HealthDisk.json"
+      }
+    },
+    "topProcesses": {
+      "$ref": "HealthTopProcesses.json"
+    },
+    "docker": {
+      "$ref": "HealthDocker.json"
+    },
+    "systemd": {
+      "$ref": "HealthSystemd.json"
+    }
+  },
+  "required": [
+    "collectedAt",
+    "platform",
+    "cpu",
+    "memory",
+    "uptimeSec",
+    "disks",
+    "topProcesses"
+  ],
+  "additionalProperties": false
+}

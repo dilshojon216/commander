@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatToolUseItem.json",
+  "title": "ChatToolUseItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "kind": {
+      "type": "string",
+      "const": "tool_use"
+    },
+    "toolUseId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "toolName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "lines": {
+      "type": "object",
+      "properties": {
+        "added": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "removed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "added",
+        "removed"
+      ],
+      "additionalProperties": false
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "kind",
+    "toolUseId",
+    "toolName",
+    "summary"
+  ],
+  "additionalProperties": false
+}

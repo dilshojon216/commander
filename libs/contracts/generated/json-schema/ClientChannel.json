@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientChannel.json",
+  "title": "ClientChannel",
+  "type": "string",
+  "enum": [
+    "sessions",
+    "machines",
+    "usage",
+    "limits",
+    "approvals",
+    "commands",
+    "projects",
+    "messages",
+    "health",
+    "queue",
+    "alerts",
+    "orchestrations"
+  ]
+}

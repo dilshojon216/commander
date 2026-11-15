@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ClientPairResponse.json",
+  "title": "ClientPairResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "deviceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "$ref": "ClientDeviceKind.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "ClientTokenScope.json"
+      }
+    },
+    "expiresAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "serverTime": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "deviceId",
+    "kind",
+    "name",
+    "scopes",
+    "expiresAt",
+    "serverTime"
+  ],
+  "additionalProperties": false
+}

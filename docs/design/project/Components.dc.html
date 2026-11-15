@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Komponentlar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--blueBg:rgba(91,155,255,.13);--yelBg:rgba(232,190,84,.13);--orgBg:rgba(255,138,76,.14);--grnBg:rgba(76,195,138,.13);--redBg:rgba(255,107,102,.13);--grayBg:rgba(154,163,176,.12);--onOk:#06150D}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--redBg:#FCE5E4;--grayBg:#ECEEF2;--onOk:#FFFFFF}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.sk{border-radius:6px;background:linear-gradient(90deg,var(--s2),var(--s3),var(--s2));background-size:400px 100%;animation:shimmer 1.4s linear infinite}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:7px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.btn-ok{background:var(--grn);border-color:transparent;color:var(--onOk)}
+.btn-no{background:transparent;border-color:var(--red);color:var(--red)}
+.btn-pri{background:var(--blue);border-color:transparent;color:#fff}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid currentColor;opacity:.75}
+.hatch{background-image:repeating-linear-gradient(135deg,var(--mu) 0 2px,transparent 2px 6px);opacity:.55}
+.sec{display:flex;flex-direction:column;gap:14px}
+.sec h2{margin:0;font-size:16px;font-weight:600}
+.sec p{margin:0;color:var(--mu)}
+.cap{font-size:11px;color:var(--fa);font-family:'JetBrains Mono',monospace}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 1440px; min-height: 2240px; box-sizing: border-box; padding: 48px 56px; display: flex; flex-direction: column; gap: 44px">
+<div style="display: flex; align-items: flex-end; gap: 16px">
+<div style="flex: 1"><h1 style="margin: 0; font-size: 28px; font-weight: 700">Komponentlar va holatlar</h1><p style="margin: 6px 0 0; color: var(--mu)">Commander dizayn tokenlari, holat belgilari va har bir komponentning barcha holatlari. Mavzu: {{themeName}}.</p></div>
+<button class="btn" type="button" onClick="{{toggleTheme}}">{{themeLabel}}</button>
+</div>
+
+<section class="sec">
+<h2>Rang tokenlari</h2>
+<div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{swatches}}" as="s" hint-placeholder-count="16">
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 56px; border-radius: 8px; border: 1px solid var(--bd); background: {{s.v}}"></div><span class="mono" style="font-size: 12px; font-weight: 600">{{s.n}}</span><span class="cap">{{s.use}}</span></div>
+</sc-for>
+</div>
+</section>
+
+<section class="sec">
+<h2>Tipografiya, oraliq, radius</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">display 28/700</span><span style="font-size: 28px; font-weight: 700">Umumiy</span></div>
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">h1 18/600</span><span style="font-size: 18px; font-weight: 600">Sessiyalar</span></div>
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">h2 14/600</span><span style="font-size: 14px; font-weight: 600">Diqqat talab qiladi</span></div>
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">body 13/400</span><span>Claude ishlayapti, 4 daqiqadan beri</span></div>
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">label 11/600</span><span class="lbl">Haftalik limit</span></div>
+<div style="display: flex; align-items: baseline; gap: 16px"><span class="cap" style="width: 90px">mono 13/500</span><span class="mono">srv-01 · 67.6M · claude-opus-5-5</span></div>
+<span class="cap">Inter: UI matni. JetBrains Mono: raqamlar, mashina, model, fayl yo'li, buyruq.</span>
+</div>
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 14px">
+<span class="lbl">Oraliq (4 px qadam)</span>
+<div style="display: flex; align-items: flex-end; gap: 14px"><sc-for list="{{spaces}}" as="s" hint-placeholder-count="7"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: {{s.px}}; height: {{s.px}}; background: var(--blueBg); border: 1px solid var(--blue)"></div><span class="cap">{{s.n}}</span></div></sc-for></div>
+<span class="lbl">Radius</span>
+<div style="display: flex; gap: 14px"><sc-for list="{{radii}}" as="r" hint-placeholder-count="4"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 56px; height: 40px; border: 1px solid var(--mu); border-radius: {{r.v}}"></div><span class="cap">{{r.n}}</span></div></sc-for></div>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<h2>Sessiya holati</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<sc-for list="{{statuses}}" as="s" hint-placeholder-count="7">
+<div class="card" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 150px; opacity: {{s.op}}">
+<span class="pill" style="color: {{s.c}}; background: {{s.bg}}; align-self: flex-start"><span class="dot {{s.anim}}"></span>{{s.l}}{{s.warn}}</span>
+<span class="mono" style="font-size: 11px; color: var(--mu)">{{s.k}}</span>
+<span style="font-size: 12px; color: var(--mu)">{{s.d}}</span>
+</div>
+</sc-for>
+</div>
+<p>"Ruxsat kutmoqda" eng kuchli rang. "Ishlamoqda" nuqtasi pulslab turadi. Ranglar yorug'lik bo'yicha ham farqlanadi, faqat tusga tayanmaydi.</p>
+</section>
+
+<section class="sec">
+<h2>Limit kartasi: 4 holat va chegaralar</h2>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{limits}}" as="l" hint-placeholder-count="6">
+<div class="card" style="padding: 14px; display: flex; flex-direction: column; gap: 8px; opacity: {{l.op}}">
+<div style="display: flex; align-items: center; gap: 6px"><span class="lbl">{{l.win}}</span><span class="pill" style="height: 18px; font-size: 11px; color: {{l.tagC}}; background: {{l.tagBg}}; border: 1px {{l.tagBs}} {{l.tagC}}">{{l.tag}}</span></div>
+<div style="display: flex; align-items: baseline; gap: 6px"><span class="mono" style="font-size: 24px; font-weight: 600; color: {{l.vc}}">{{l.v}}</span><span style="color: var(--grn); font-size: 12px; font-weight: 500">{{l.extra}}</span></div>
+<div style="height: 6px; border-radius: 6px; background: var(--s3); overflow: hidden"><div class="{{l.barCls}}" style="width: {{l.w}}; height: 6px; background-color: {{l.bc}}"></div></div>
+<span style="font-size: 12px; color: var(--mu)">{{l.reset}}</span>
+<span style="font-size: 11px; color: var(--fa)">{{l.obs}}</span>
+<span class="cap">{{l.key}}</span>
+</div>
+</sc-for>
+</div>
+<p>Taxmin hech qachon rasmiy raqamdek ko'rinmaydi: doim "≈", kulrang raqam, shtrixli chiziq va punktir "taxmin" yorlig'i bo'ladi.</p>
+</section>
+
+<section class="sec">
+<h2>Ruxsat kartasi: barcha holatlar</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{approvals}}" as="a" hint-placeholder-count="8">
+<div class="card" style="overflow: hidden; border-color: {{a.bc}}; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: {{a.hb}}"><span class="dot {{a.anim}}" style="color: {{a.c}}"></span><span style="font-weight: 600; flex: 1">{{a.t}}</span><span class="mono" style="font-weight: 600; color: {{a.tc}}">{{a.timer}}</span></div>
+<div style="padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; opacity: {{a.op}}">
+<code class="mono" style="padding: 7px 9px; border-radius: 6px; background: var(--s2); border: 1px solid var(--bd); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{a.cmd}}</code>
+<sc-if value="{{a.msg}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: {{a.mc}}">{{a.msg}}</span></sc-if>
+<div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: auto">
+<sc-if value="{{a.btns}}" hint-placeholder-val="{{ true }}"><button class="btn btn-no" type="button" style="height: 28px">Rad</button><button class="btn btn-ok" type="button" disabled="{{a.okDis}}" style="height: 28px">{{a.okLabel}}</button></sc-if>
+</div>
+</div>
+<span class="cap" style="padding: 0 12px 8px">{{a.k}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+<section class="sec">
+<h2>Mashina kartasi</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div class="card" style="padding: 12px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span class="dot" style="color: var(--grn)"></span><span class="mono" style="font-weight: 600; flex: 1">srv-01</span><span class="pill mono" style="height: 18px; font-size: 10px; background: var(--s3); color: var(--mu)">linux</span></div><span style="font-size: 12px; color: var(--org)">1 ishlamoqda · 1 ruxsat</span><span class="cap">online</span></div>
+<div class="card" style="padding: 12px; display: flex; flex-direction: column; gap: 8px; border-style: dashed; opacity: .6"><div style="display: flex; align-items: center; gap: 8px"><span class="dot" style="color: var(--fa)"></span><span class="mono" style="font-weight: 600; flex: 1">srv-05</span><span class="pill mono" style="height: 18px; font-size: 10px; background: var(--s3); color: var(--mu)">linux</span></div><span style="font-size: 12px; color: var(--mu)">Oflayn · 3 soat oldin ko'rilgan</span><span class="cap">offline</span></div>
+</div>
+</section>
+<section class="sec">
+<h2>Ulanish holati</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+<span class="pill" style="color: var(--yel); background: var(--yelBg)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="animation: spin 1s linear infinite"><path d="M14 8a6 6 0 11-2-4.5"></path></svg>Qayta ulanmoqda…</span>
+<span class="pill" style="color: #fff; background: var(--red)">Lockdown yoqiq</span>
+<span class="pill" style="color: var(--mu); background: var(--grayBg)">Lockdown o'chiq</span>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<div role="alert" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; background: var(--red); color: #fff; font-weight: 600"><span style="flex: 1">Lockdown yoqiq: masofadan faqat rad etish mumkin</span><span class="cap" style="color: #fff; opacity: .8">sticky banner</span></div>
+</section>
+</div>
+
+<section class="sec">
+<h2>Chat xabarlari</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 14px">
+<div style="align-self: flex-end; max-width: 80%; padding: 10px 14px; border-radius: 12px 12px 4px 12px; background: var(--blueBg); border: 1px solid var(--bd)"><div class="lbl" style="margin-bottom: 4px">Siz · 09:42</div>Testlarni ishga tushir va yiqilganlarini tuzat.</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 20px; height: 20px; border-radius: 6px; background: #D97757"></span><b>Claude</b><span class="cap">09:42</span></div><p style="margin: 0">Avval testlarni ishga tushiraman. <code class="mono" style="padding: 1px 5px; border-radius: 4px; background: var(--s3)">markdown</code> qo'llab-quvvatlanadi.</p><span class="cap">↳ 1.2M token · output 3.4K · 41 s</span></div>
+<div style="display: flex; gap: 10px; padding: 10px 12px; border-radius: 8px; background: var(--redBg); color: var(--red)"><b>Xato:</b><span class="mono" style="font-size: 12px">git push → rejected (non-fast-forward)</span></div>
+</div>
+<div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">Tool bloklari: yig'ilgan / ochilgan</span>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 8px; background: var(--s2); font: 500 12px 'JetBrains Mono',monospace"><span style="color: var(--mu)">▸</span><span style="color: var(--yel); font-weight: 600">Bash</span><span style="flex: 1">npm test</span><span style="color: var(--grn)">48 o'tdi</span></div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 8px; background: var(--s2); font: 500 12px 'JetBrains Mono',monospace"><span style="color: var(--mu)">▸</span><span style="color: var(--grn); font-weight: 600">Edit</span><span style="flex: 1">src/app.ts</span><span style="color: var(--mu)">+12 −3</span></div>
+<div style="display: flex; flex-direction: column"><div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 8px 8px 0 0; background: var(--s2); font: 500 12px 'JetBrains Mono',monospace"><span style="color: var(--mu)">▾</span><span style="color: var(--blue); font-weight: 600">Read</span><span style="flex: 1">.env.production</span><span style="color: var(--mu)">12 qator</span></div><pre class="mono" style="margin: 0; padding: 10px 12px; border: 1px solid var(--bd); border-top: 0; border-radius: 0 0 8px 8px; background: var(--bg); font-size: 12px; color: var(--mu)">DATABASE_URL=[REDACTED]
+REDIS_URL=[REDACTED]
+PORT=3000</pre></div>
+<span class="cap">[REDACTED] joylarni ochish tugmasi yo'q</span>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<h2>Prompt maydoni</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="position: relative"><textarea rows="2" aria-label="Prompt" placeholder="Claude'ga yozing…" style="display: block; width: 100%; box-sizing: border-box; resize: none; padding: 12px 100px 12px 14px; border-radius: 10px; border: 1px solid var(--blue); background: var(--s1); color: var(--tx); font: 13px Inter,sans-serif"></textarea><button class="btn btn-pri" type="button" style="position: absolute; right: 8px; bottom: 8px">Yuborish</button></div><span class="cap">faol</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="padding: 14px; border-radius: 10px; border: 1px dashed var(--bd); background: var(--s2); color: var(--mu)">Terminal sessiyasi: faqat ko'rish</div><span class="cap">o'chiq · readonly</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="padding: 14px; border-radius: 10px; border: 1px dashed var(--bd); background: var(--s2); color: var(--mu)">Chat mavjud emas: mashina oflayn</div><span class="cap">o'chiq · offline</span></div>
+</div>
+</section>
+
+<section class="sec">
+<h2>Bo'sh, yuklanish va xato holatlari</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+<div class="card" style="padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center"><svg width="36" height="36" viewBox="0 0 16 16" fill="none" stroke="var(--fa)" stroke-width="1" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10M8.5 10h2.5"></path></svg><b>Sessiya yo'q</b><span style="color: var(--mu)">Hozir hech bir mashinada Claude ishlamayapti.</span><button class="btn btn-pri" type="button">Yangi sessiya</button></div>
+<div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px" aria-busy="true"><div class="sk" style="height: 14px; width: 40%"></div><div class="sk" style="height: 36px"></div><div class="sk" style="height: 36px"></div><div class="sk" style="height: 36px; width: 80%"></div><span class="cap">yuklanmoqda (skeleton)</span></div>
+<div class="card" style="padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; border-color: var(--red)"><svg width="32" height="32" viewBox="0 0 16 16" fill="none" stroke="var(--red)" stroke-width="1.3" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 5v3.5M8 11h.01"></path></svg><b>Markazga ulanib bo'lmadi</b><span style="color: var(--mu)">mac-mini:4700 javob bermayapti. Avtomatik qayta urinish 8 s dan keyin.</span><button class="btn" type="button">Hozir urinish</button></div>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":2240}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { theme: null }; }
+  renderVals() {
+    const theme = this.state.theme || this.props.theme || "dark";
+    const sw = [["--bg", "fon"], ["--s1", "karta"], ["--s2", "ichki yuza"], ["--s3", "hover, trek"], ["--bd", "chegara"], ["--tx", "asosiy matn"], ["--mu", "ikkilamchi matn"], ["--fa", "eng xira"], ["--blue", "working, havola"], ["--yel", "waiting, 80%"], ["--org", "awaiting_approval"], ["--grn", "done, Ruxsat"], ["--red", "xato, Rad, 95%"], ["--blueBg", "working fon"], ["--orgBg", "ruxsat fon"], ["--grnBg", "done fon"]];
+    const S = [
+      ["working", "Ishlamoqda", "var(--blue)", "var(--blueBg)", "live", "Claude ishlayapti", 1, ""],
+      ["waiting", "Javob kutmoqda", "var(--yel)", "var(--yelBg)", "", "Sizdan javob kerak", 1, ""],
+      ["awaiting_approval", "Ruxsat kutmoqda", "var(--org)", "var(--orgBg)", "", "Ruxsat so'rovi navbatda", 1, ""],
+      ["idle", "Bo'sh", "var(--mu)", "var(--grayBg)", "", "Ochiq, ish yo'q", 1, ""],
+      ["done", "Tugatdi", "var(--grn)", "var(--grnBg)", "", "Javob berib bo'ldi", 1, ""],
+      ["ended", "Yopilgan", "var(--fa)", "transparent", "", "Sessiya yopilgan", 0.7, ""],
+      ["staleSince", "Aloqa yo'q", "var(--mu)", "var(--grayBg)", "", "Mashina oflayn", 0.55, " ⚠"]
+    ];
+    const L = [
+      ["5 soat", "rasmiy", "var(--blue)", "var(--blueBg)", "solid", "42%", "var(--tx)", "", "42%", "var(--blue)", "", "15:40 da yangilanadi · 2 s 05 daq", "2 daqiqa oldin kuzatilgan", "official", 1],
+      ["5 soat", "taxmin", "var(--mu)", "transparent", "dashed", "≈12%", "var(--mu)", "", "12%", "transparent", "hatch", "15:40 da yangilanadi", "Token hisobidan", "estimate", 1],
+      ["Haftalik", "rasmiy", "var(--blue)", "var(--blueBg)", "solid", "31%", "var(--mu)", "", "31%", "var(--mu)", "", "Yak 06:00 da yangilanadi", "3 soat oldin kuzatilgan", "stale", 0.6],
+      ["5 soat", "taxmin", "var(--mu)", "transparent", "dashed", "≈0%", "var(--mu)", "· yangilandi", "1%", "transparent", "hatch", "Oyna qayta boshlandi", "14:02 da", "reset", 1],
+      ["Haftalik", "rasmiy", "var(--blue)", "var(--blueBg)", "solid", "84%", "var(--yel)", "", "84%", "var(--yel)", "", "Yak 06:00 da yangilanadi", "1 daqiqa oldin", "≥ 80%", 1],
+      ["5 soat", "rasmiy", "var(--blue)", "var(--blueBg)", "solid", "97%", "var(--red)", "", "97%", "var(--red)", "", "15:40 da yangilanadi · 18 daq", "hozir", "≥ 95%", 1]
+    ];
+    const A = [
+      ["Ruxsat so'rovi", "var(--org)", "var(--orgBg)", "var(--org)", "live", "4:12", "var(--tx)", 1, "", "", true, false, "Ruxsat", "pending"],
+      ["Tasdiqlang", "var(--org)", "var(--orgBg)", "var(--org)", "live", "4:05", "var(--tx)", 1, "Prod'da konteyner qayta quriladi. Rostdanmi?", "var(--tx)", true, false, "Ha, ruxsat", "confirm"],
+      ["Ruxsat so'rovi", "var(--red)", "var(--redBg)", "var(--red)", "live", "0:18", "var(--red)", 1, "Vaqt tugayapti", "var(--red)", true, false, "Ruxsat", "pending · < 1 daq"],
+      ["Ruxsat berildi", "var(--bd)", "var(--grnBg)", "var(--grn)", "", "09:51", "var(--mu)", 0.6, "Dashboard'dan ruxsat berildi", "var(--mu)", false, false, "", "approved"],
+      ["Rad etildi", "var(--bd)", "var(--redBg)", "var(--red)", "", "09:51", "var(--mu)", 0.6, "Dashboard'dan rad etildi", "var(--mu)", false, false, "", "denied"],
+      ["Muddati o'tdi", "var(--bd)", "var(--grayBg)", "var(--mu)", "", "0:00", "var(--mu)", 0.6, "5 daqiqada javob berilmadi", "var(--mu)", false, false, "", "expired"],
+      ["Allaqachon hal qilingan", "var(--bd)", "var(--grayBg)", "var(--mu)", "", "", "var(--mu)", 0.8, "Terminalda javob berildi", "var(--mu)", false, false, "", "cancelled / xato"],
+      ["Ruxsat so'rovi", "var(--red)", "var(--orgBg)", "var(--org)", "live", "3:40", "var(--tx)", 1, "Lockdown: faqat rad etish mumkin", "var(--red)", true, true, "Ruxsat", "pending · lockdown"]
+    ];
+    return {
+      themeClass: "root t-" + theme,
+      themeName: theme === "dark" ? "qorong'i" : "yorug'",
+      themeLabel: theme === "dark" ? "Yorug' rejimni ko'rish" : "Qorong'i rejimni ko'rish",
+      toggleTheme: () => this.setState({ theme: theme === "dark" ? "light" : "dark" }),
+      swatches: sw.map(function (s) { return { n: s[0], v: "var(" + s[0] + ")", use: s[1] }; }),
+      spaces: [4, 8, 12, 16, 20, 24, 32].map(function (n) { return { n: n, px: n + "px" }; }),
+      radii: [["6", "6px"], ["8", "8px"], ["10 karta", "10px"], ["pill", "999px"]].map(function (r) { return { n: r[0], v: r[1] }; }),
+      statuses: S.map(function (s) { return { k: s[0], l: s[1], c: s[2], bg: s[3], anim: s[4], d: s[5], op: s[6], warn: s[7] }; }),
+      limits: L.map(function (l) { return { win: l[0], tag: l[1], tagC: l[2], tagBg: l[3], tagBs: l[4], v: l[5], vc: l[6], extra: l[7], w: l[8], bc: l[9], barCls: l[10], reset: l[11], obs: l[12], key: l[13], op: l[14] }; }),
+      approvals: A.map(function (a) { return { t: a[0], bc: a[1], hb: a[2], c: a[3], anim: a[4], timer: a[5], tc: a[6], op: a[7], msg: a[8], mc: a[9], btns: a[10], okDis: a[11], okLabel: a[12], k: a[13], cmd: "docker compose -f deploy/prod.yml up -d" }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

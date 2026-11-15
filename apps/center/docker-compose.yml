@@ -1,0 +1,73 @@
+name: commander
+
+services:
+  db:
+    # TimescaleDB on PG 16 (Alpine/musl). Tegni qat'iy pin qiling; yangilash: docs/infra/mac-center.md.
+    # Eski postgres:16 (Debian/glibc) hajmi `commander_pgdata` ATAYLAB ulanmagan (collation farqi,
+    # logik ko'chirish qilingan); u foydalanuvchi o'chirguncha saqlanadi.
+    image: timescale/timescaledb:2.32.0-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: commander
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-commander}
+      POSTGRES_DB: commander
+    volumes:
+      - pgdata_ts:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U commander -d commander"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build:
+      context: ../..
+      dockerfile: apps/center/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 4317
+      DATABASE_URL: postgres://commander:${POSTGRES_PASSWORD:-commander}@db:5432/commander
+      STALE_MINUTES: ${STALE_MINUTES:-720}
+      # Telegram bot (1.8): token yo'q bo'lsa bot o'chiq. Chat id'lar: `telegram pending` / `telegram allow` (CLI).
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_ALLOWED_CHAT_IDS: ${TELEGRAM_ALLOWED_CHAT_IDS:-}
+      # Buyruq-imzo kaliti (Ed25519, 0600): maxfiy volume'da, DB'da emas. Yo'qolsa agentd'lar qayta pin qilinadi (agentd center-key reset).
+      # Klient pairing QR'i uchun (admin CLI `client pair`): https://<mac>.<tailnet>.ts.net; fingerprint ixtiyoriy.
+      CENTER_PUBLIC_URL: ${CENTER_PUBLIC_URL:-}
+      CENTER_PUBLIC_FINGERPRINT: ${CENTER_PUBLIC_FINGERPRINT:-}
+      # Imzo kaliti HOST imzolovchisida (5.7, H-02: macOS Keychain, ops/mac/signer-install.sh); markaz faqat imzo so'raydi.
+      # SIGNER_SOCKET sozlangan bo'lsa CENTER_KEY_FILE'dagi kalit fayli HECH QACHON o'qilmaydi va fallback yo'q (imzolovchi
+      # yetib bo'lmasa buyruqlar yuborilmaydi: fail-closed). SIGNER_REQUIRED=1: imzolovchi sozlanmasa markaz ishga tushmaydi.
+      # Unix soket bind-mount Docker Desktop (virtiofs) da ishlamaydi (ENOTSUP, sinalgan): loopback TCP + auth.secret (0600, ro mount).
+      SIGNER_SOCKET: ${SIGNER_SOCKET:-tcp://host.docker.internal:4320}
+      SIGNER_AUTH_FILE: /run/commander-signer/auth.secret
+      SIGNER_REQUIRED: ${SIGNER_REQUIRED:-1}
+      # Faqat queue-prompt.key uchun joy-belgi (shu katalogda saqlanadi); imzo kaliti fayli ishlatilmaydi (yuqoridagi izoh).
+      CENTER_KEY_FILE: /var/lib/commander-secrets/command-signing.key
+      # Markaz o'z-o'zini kuzatishi (5.5). Dashboard Mac'da (launchd, 127.0.0.1:4318): konteynerdan host.docker.internal orqali
+      # tekshiriladi; bo'sh qiymat = o'chiq. Tailscale serve tekshiruvi CENTER_PUBLIC_URL + /health. Disk: maxfiy volume turgan
+      # fayl tizimi (Docker VM diski, pgdata shu yerda). CENTER_HEALTH_DISABLED=1 butun kuzatuvni o'chiradi.
+      DASHBOARD_PROBE_URL: ${DASHBOARD_PROBE_URL-http://host.docker.internal:4318/}
+      TAILSCALE_PROBE_URL: ${TAILSCALE_PROBE_URL:-}
+      CENTER_DISK_PATH: ${CENTER_DISK_PATH:-/var/lib/commander-secrets}
+      CENTER_HEALTH_DISABLED: ${CENTER_HEALTH_DISABLED:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - center_secrets:/var/lib/commander-secrets
+      # Imzolovchi `run/` katalogi (faqat auth.secret), faqat o'qish. Katalog bind-mount: imzolovchi qayta ishga tushganda yangilanadi.
+      - ${SIGNER_RUN_DIR:-${HOME}/.commander-signer/run}:/run/commander-signer:ro
+    ports:
+      - "127.0.0.1:${PORT:-4317}:4317"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4317/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  pgdata_ts:
+  center_secrets:

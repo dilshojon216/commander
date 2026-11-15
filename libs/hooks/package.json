@@ -1,0 +1,42 @@
+{
+  "name": "@commander/hooks",
+  "version": "0.1.0",
+  "description": "Claude Code hook skriptlari: cc-hook, cc-statusline (agentd lokal socket'iga gapiradi)",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "bin": {
+    "cc-hook": "./dist/cc-hook.js",
+    "cc-mcp": "./dist/cc-mcp.js",
+    "cc-statusline": "./dist/cc-statusline.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.5",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^4.1.2"
+  },
+  "nx": {
+    "targets": {
+      "test": {
+        "dependsOn": [
+          "build",
+          "^build"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "@commander/contracts": "*"
+  }
+}

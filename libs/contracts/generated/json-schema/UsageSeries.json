@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "UsageSeries.json",
+  "title": "UsageSeries",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "points": {
+      "type": "array",
+      "items": {
+        "$ref": "UsagePoint.json"
+      }
+    },
+    "total": {
+      "$ref": "TokenTotals.json"
+    }
+  },
+  "required": [
+    "key",
+    "label",
+    "points",
+    "total"
+  ],
+  "additionalProperties": false
+}

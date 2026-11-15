@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "317",
+      "ts": "2026-11-13T14:47:43.007Z",
+      "event": "Notification",
+      "status": "waiting",
+      "message": "Claude needs your permission",
+      "notificationType": "permission_prompt"
+    },
+    {
+      "id": "316",
+      "ts": "2026-11-13T14:47:37.200Z",
+      "event": "PermissionRequest",
+      "status": "awaiting_approval",
+      "message": null,
+      "notificationType": null
+    },
+    {
+      "id": "315",
+      "ts": "2026-11-13T14:47:29.064Z",
+      "event": "UserPromptSubmit",
+      "status": "working",
+      "message": null,
+      "notificationType": null
+    }
+  ],
+  "nextCursor": "WyIyMDI2LTExLTEzVDE0OjQ3OjA2Ljk0NTAwMFoiLCIzMTMiXQ"
+}

@@ -1,0 +1,50 @@
+{
+  "items": [
+    {
+      "machineId": "1431a581-8baa-495e-83e8-6690404c2275",
+      "name": "dev-MBP.SSS",
+      "online": false,
+      "status": "offline",
+      "cpuPct": null,
+      "memPct": null,
+      "diskMaxPct": null,
+      "diskMaxMount": null,
+      "containersTotal": 0,
+      "containersBad": 0,
+      "failedUnits": 0,
+      "receivedAt": null,
+      "openIncidents": 0
+    },
+    {
+      "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+      "name": "agent",
+      "online": true,
+      "status": "ok",
+      "cpuPct": 26.6,
+      "memPct": 54.6,
+      "diskMaxPct": 57,
+      "diskMaxMount": "/",
+      "containersTotal": 11,
+      "containersBad": 0,
+      "failedUnits": 0,
+      "receivedAt": "2026-11-14T04:00:49.820Z",
+      "openIncidents": 0
+    },
+    {
+      "machineId": "185b42c0-0781-4f16-8936-12e044bdc818",
+      "name": "dev-macbook-pro",
+      "online": true,
+      "status": "critical",
+      "cpuPct": 25.1,
+      "memPct": 75.8,
+      "diskMaxPct": 96.6,
+      "diskMaxMount": "/System/Volumes/Data",
+      "containersTotal": 22,
+      "containersBad": 0,
+      "failedUnits": 0,
+      "receivedAt": "2026-11-14T04:00:49.769Z",
+      "openIncidents": 1
+    }
+  ],
+  "worst": "critical"
+}

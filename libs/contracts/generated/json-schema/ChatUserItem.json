@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ChatUserItem.json",
+  "title": "ChatUserItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ts": {
+      "$ref": "EpochMs.json"
+    },
+    "kind": {
+      "type": "string",
+      "const": "user"
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 16000
+    },
+    "variant": {
+      "type": "string",
+      "enum": [
+        "prompt",
+        "command",
+        "shell",
+        "task"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "ts",
+    "kind",
+    "text"
+  ],
+  "additionalProperties": false
+}

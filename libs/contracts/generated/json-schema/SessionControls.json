@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SessionControls.json",
+  "title": "SessionControls",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "type": "boolean"
+    },
+    "stop": {
+      "type": "boolean"
+    },
+    "setMode": {
+      "type": "boolean"
+    },
+    "remoteControl": {
+      "type": "boolean"
+    },
+    "close": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "prompt",
+    "stop",
+    "setMode"
+  ],
+  "additionalProperties": false
+}

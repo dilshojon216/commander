@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CommandDto.json",
+  "title": "CommandDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "$ref": "CommandType.json"
+    },
+    "status": {
+      "$ref": "CommandState.json"
+    },
+    "machineId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "machineSlug": {
+      "type": "string"
+    },
+    "projectId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "claudeSessionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cwd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "permissionMode": {
+      "anyOf": [
+        {
+          "$ref": "RemotePermissionMode.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "promptLength": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "promptPreview": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requestedByDeviceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "stepUp": {
+      "$ref": "CommandStepUp.json"
+    },
+    "review": {
+      "$ref": "CommandReview.json"
+    },
+    "errorCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "errorMessage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "CommandResultData.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "sentAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ackedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expiresAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "status",
+    "machineId",
+    "machineSlug",
+    "sessionId",
+    "claudeSessionId",
+    "cwd",
+    "permissionMode",
+    "model",
+    "promptLength",
+    "promptPreview",
+    "requestedByDeviceId",
+    "stepUp",
+    "errorCode",
+    "errorMessage",
+    "result",
+    "createdAt",
+    "sentAt",
+    "ackedAt",
+    "finishedAt",
+    "expiresAt"
+  ],
+  "additionalProperties": false
+}

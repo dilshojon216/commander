@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthStatus.json",
+  "title": "HealthStatus",
+  "type": "string",
+  "enum": [
+    "ok",
+    "warn",
+    "critical",
+    "offline",
+    "unknown"
+  ]
+}

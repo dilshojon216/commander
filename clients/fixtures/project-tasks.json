@@ -1,0 +1,144 @@
+{
+  "projectId": "3a5d8b53-fd04-48ba-8e0d-a2cf20d785ce",
+  "tasks": [
+    {
+      "key": "0.1",
+      "part": "",
+      "title": "Spike: imkoniyatlarni Claude Code 2.1.x'da qo'lda tekshirish",
+      "phase": "Faza 0 — Poydevor (≈1 hafta)",
+      "status": "done",
+      "rawStatus": "✅",
+      "order": 0,
+      "size": "M",
+      "stats": {
+        "tokens": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheReadTokens": 0,
+          "cacheCreationTokens": 0,
+          "totalTokens": 0,
+          "costUsd": null,
+          "requests": 0
+        },
+        "sessions": 0,
+        "activeSeconds": 0,
+        "firstActivityAt": null,
+        "lastActivityAt": null,
+        "source": null
+      },
+      "column": "done",
+      "columnSource": "tasks_md",
+      "plan": {
+        "estimateHours": 6,
+        "estimateSource": "size",
+        "actualHours": 0,
+        "ratio": 0
+      },
+      "score": null
+    },
+    {
+      "key": "0.2",
+      "part": "",
+      "title": "Nx monorepo: (sanitized sample text)",
+      "phase": "Faza 0 — Poydevor (≈1 hafta)",
+      "status": "done",
+      "rawStatus": "✅",
+      "order": 1,
+      "size": "M",
+      "stats": {
+        "tokens": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheReadTokens": 0,
+          "cacheCreationTokens": 0,
+          "totalTokens": 0,
+          "costUsd": null,
+          "requests": 0
+        },
+        "sessions": 0,
+        "activeSeconds": 0,
+        "firstActivityAt": null,
+        "lastActivityAt": null,
+        "source": null
+      },
+      "column": "done",
+      "columnSource": "tasks_md",
+      "plan": {
+        "estimateHours": 6,
+        "estimateSource": "size",
+        "actualHours": 0,
+        "ratio": 0
+      },
+      "score": null
+    },
+    {
+      "key": "0.3",
+      "part": "",
+      "title": "Tailscale: Mac + (sanitized sample text)",
+      "phase": "Faza 0 — Poydevor (≈1 hafta)",
+      "status": "done",
+      "rawStatus": "✅",
+      "order": 2,
+      "size": "S",
+      "stats": {
+        "tokens": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheReadTokens": 0,
+          "cacheCreationTokens": 0,
+          "totalTokens": 0,
+          "costUsd": null,
+          "requests": 0
+        },
+        "sessions": 0,
+        "activeSeconds": 0,
+        "firstActivityAt": null,
+        "lastActivityAt": null,
+        "source": null
+      },
+      "column": "done",
+      "columnSource": "tasks_md",
+      "plan": {
+        "estimateHours": 2,
+        "estimateSource": "size",
+        "actualHours": 0,
+        "ratio": 0
+      },
+      "score": null
+    }
+  ],
+  "other": [],
+  "unattributed": {
+    "label": "vazifasiz",
+    "tokens": {
+      "inputTokens": 2014,
+      "outputTokens": 239107,
+      "cacheReadTokens": 151636214,
+      "cacheCreationTokens": 1228099,
+      "totalTokens": 153105434,
+      "costUsd": 0.384386,
+      "requests": 331
+    },
+    "sessions": 2
+  },
+  "summary": {
+    "done": 42,
+    "doing": 0,
+    "todo": 13,
+    "unknown": 0,
+    "total": 55
+  },
+  "tasksMd": {
+    "path": "docs/TASKS.md",
+    "bytes": 21704,
+    "summary": {
+      "done": 42,
+      "doing": 0,
+      "todo": 13,
+      "unknown": 0,
+      "total": 55
+    },
+    "updatedAt": "2026-11-13T19:36:57.715Z"
+  },
+  "tokensCoveredFrom": "2026-10-15T04:01:00.189Z"
+}

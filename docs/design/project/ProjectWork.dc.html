@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Loyiha ish maydoni</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--pur:#B69BFF;--blueBg:rgba(91,155,255,.13);--yelBg:rgba(232,190,84,.13);--orgBg:rgba(255,138,76,.14);--grnBg:rgba(76,195,138,.13);--redBg:rgba(255,107,102,.13);--purBg:rgba(182,155,255,.14);--grayBg:rgba(154,163,176,.12);--onOk:#06150D}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--pur:#6B46C9;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--redBg:#FCE5E4;--purBg:#EEE8FB;--grayBg:#ECEEF2;--onOk:#FFFFFF}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:7px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--s3);text-decoration:none}
+.btn-pri{background:var(--blue);border-color:transparent;color:#fff}
+.nav{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:7px;color:var(--mu);text-decoration:none;font-weight:500}
+.nav:hover{background:var(--s2);color:var(--tx);text-decoration:none}
+.nav.on{background:var(--s3);color:var(--tx)}
+.segs{display:inline-flex;gap:2px;padding:2px;border-radius:7px;background:var(--s3)}
+.seg{height:24px;padding:0 9px;border:0;border-radius:5px;background:transparent;color:var(--mu);font:600 11px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.seg.on{background:var(--s1);color:var(--tx);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.tabbtn{height:38px;padding:0 4px;margin-right:18px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--mu);font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
+.tabbtn.on{color:var(--tx);border-bottom-color:var(--blue)}
+.tcard{background:var(--s1);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch">
+<aside style="flex: 1 1 220px; max-width: 240px; box-sizing: border-box; padding: 16px 12px; border-right: 1px solid var(--bd); background: var(--s1); display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#FF7A45"></rect><path d="M8 9l4 4-4 4M14 17h5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-weight: 700; font-size: 15px">Commander</span>
+</div>
+<a class="nav" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"></rect><rect x="9" y="2" width="5" height="5" rx="1"></rect><rect x="2" y="9" width="5" height="5" rx="1"></rect><rect x="9" y="9" width="5" height="5" rx="1"></rect></svg><span style="flex: 1">Umumiy</span></a>
+<a class="nav" href="Sessions.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10"></path></svg><span style="flex: 1">Sessiyalar</span><span class="pill" style="height: 18px; padding: 0 6px; background: var(--org); color: #fff; font-size: 11px">2</span><span class="mono" style="font-size: 12px; color: var(--mu)">10</span></a>
+<a class="nav on" href="Projects.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3H6l1.5 1.5h5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"></path></svg><span style="flex: 1">Loyihalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">14</span></a>
+<a class="nav" href="Tokens.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 13V8M6.5 13V4M10 13V7M13.5 13V2"></path></svg><span style="flex: 1">Tokenlar</span></a>
+<a class="nav" href="Machines.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2.5" width="12" height="4.5" rx="1"></rect><rect x="2" y="9" width="12" height="4.5" rx="1"></rect><path d="M4.5 4.75h.01M4.5 11.25h.01"></path></svg><span style="flex: 1">Mashinalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">6/7</span></a>
+<div style="flex: 1"></div>
+<button class="nav" type="button" onClick="{{toggleTheme}}" style="border: 0; background: transparent; font: inherit; cursor: pointer; width: 100%"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 9.5A5.5 5.5 0 016.5 3a5.5 5.5 0 106.5 6.5z"></path></svg><span>{{themeLabel}}</span></button>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px 10px">
+<a href="Projects.dc.html" aria-label="Loyihalarga qaytish" style="color: var(--mu); display: flex"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"></path></svg></a>
+<div style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 18px; font-weight: 600">acme_app</h1>
+<span class="mono" style="font-size: 12px; color: var(--mu)">3 ta sessiya · backend, frontend, mobile · TASKS.md · 15 vazifa</span>
+</div>
+<button class="btn" type="button"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 113 5M3 2v3h3"></path></svg>TASKS.md'dan yangilash</button>
+<button class="btn btn-pri" type="button" onClick="{{toggleImport}}"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 3v10M3 8h10"></path></svg>.md fayldan vazifalar</button>
+</header>
+
+<div style="position: sticky; top: 0; z-index: 4; padding: 10px 24px; background: var(--bg); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch">
+<span class="lbl" style="align-self: center; margin-right: 4px">Sessiyalar va rejim</span>
+<sc-for list="{{sess}}" as="s" hint-placeholder-count="3">
+<div class="card" style="padding: 8px 10px; display: flex; align-items: center; gap: 10px; border-color: {{s.bc}}">
+<span class="pill" style="color: {{s.c}}; background: {{s.bg}}"><span class="dot {{s.anim}}"></span>{{s.role}}</span>
+<div style="display: flex; flex-direction: column"><span class="mono" style="font-size: 12px; font-weight: 600">{{s.machine}}</span><span style="font-size: 11px; color: var(--mu)">{{s.status}}</span></div>
+<div class="segs" role="group" aria-label="{{s.role}} sessiya rejimi">
+<sc-for list="{{s.modes}}" as="m" hint-placeholder-count="3"><button class="seg {{m.on}}" type="button" onClick="{{m.pick}}" title="{{m.hint}}" aria-pressed="{{m.pressed}}">{{m.l}}</button></sc-for>
+</div>
+</div>
+</sc-for>
+<span style="flex: 1"></span>
+<span style="align-self: center; font-size: 12px; color: var(--mu); max-width: 260px">Qo'lda: har amalda ruxsat so'raydi. Avto: tahrirlar o'zi qilinadi. Reja: faqat reja tuzadi, hech narsa o'zgartirmaydi.</span>
+</div>
+
+<div style="padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 16px">
+
+<sc-if value="{{importOpen}}" hint-placeholder-val="{{ false }}">
+<section class="card" style="border-color: var(--blue); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px"><b style="flex: 1">.md fayldan vazifalar yaratish</b><select style="height: 30px; border-radius: 7px; border: 1px solid var(--bd); background: var(--s1); color: var(--tx); font: 12px 'JetBrains Mono',monospace" aria-label="Manba fayl"><option>docs/billing-v2-spec.md</option><option>TASKS.md</option><option>docs/mobile-offline.md</option></select></div>
+<span style="color: var(--mu)">Claude faylni o'qib 5 ta vazifa ajratdi. Keraklisini belgilang, sessiyaga biriktiring:</span>
+<sc-for list="{{parsed}}" as="p" hint-placeholder-count="5">
+<label style="display: flex; align-items: center; gap: 10px; padding: 6px 0; border-top: 1px solid var(--bd)"><input type="checkbox" checked="checked"><span style="flex: 1">{{p.t}}</span><span class="pill" style="color: {{p.c}}; background: {{p.bg}}">{{p.role}}</span><span class="mono" style="color: var(--mu); font-size: 12px">~{{p.est}}</span></label>
+</sc-for>
+<div style="display: flex; gap: 8px; justify-content: flex-end"><button class="btn" type="button" onClick="{{toggleImport}}">Bekor</button><button class="btn btn-pri" type="button" onClick="{{toggleImport}}">5 ta vazifani qo'shish → TASKS.md</button></div>
+</section>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="5">
+<div class="card" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span class="lbl">{{k.l}}</span><span class="mono" style="font-size: 20px; font-weight: 600; color: {{k.c}}">{{k.v}}</span><span style="font-size: 12px; color: var(--mu)">{{k.s}}</span></div>
+</sc-for>
+</div>
+
+<div style="display: flex; border-bottom: 1px solid var(--bd)" role="tablist">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button class="tabbtn {{t.on}}" type="button" role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}">{{t.l}}</button></sc-for>
+</div>
+
+<sc-if value="{{isBoard}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: start">
+<sc-for list="{{cols}}" as="col" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 10px; background: var(--s2); border: 1px solid var(--bd)">
+<div style="display: flex; align-items: center; gap: 8px; padding: 2px 4px 4px"><span class="dot" style="color: {{col.c}}"></span><b style="flex: 1">{{col.l}}</b><span class="mono" style="color: var(--mu)">{{col.n}}</span></div>
+<sc-for list="{{col.items}}" as="t" hint-placeholder-count="3">
+<article class="tcard">
+<div style="display: flex; align-items: center; gap: 6px"><span class="mono" style="font-size: 11px; color: var(--mu)">{{t.id}}</span><span style="flex: 1"></span><span class="pill" style="height: 18px; font-size: 11px; color: {{t.rc}}; background: {{t.rbg}}">{{t.role}}</span></div>
+<span style="font-weight: 500">{{t.title}}</span>
+<sc-if value="{{t.hasProg}}" hint-placeholder-val="{{ false }}"><div style="height: 4px; border-radius: 4px; background: var(--s3)"><div style="height: 4px; border-radius: 4px; width: {{t.prog}}; background: var(--blue)"></div></div></sc-if>
+<div class="mono" style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: var(--mu)"><span>{{t.when}}</span><span>{{t.time}}</span><span>{{t.tok}}</span></div>
+<sc-if value="{{t.hasScore}}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 6px; font-size: 12px"><span style="color: var(--yel); letter-spacing: 1px">{{t.stars}}</span><span style="color: {{t.dc}}">{{t.delta}}</span></div></sc-if>
+</article>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isDay}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{days}}" as="d" hint-placeholder-count="5"><button class="seg {{d.on}}" type="button" onClick="{{d.pick}}" style="height: 30px; padding: 0 12px; background: var(--s3)">{{d.l}}</button></sc-for></div>
+<div class="card" style="overflow: hidden">
+<div class="lbl" style="display: flex; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--bd)"><span style="width: 96px">Vaqt</span><span style="flex: 1">Vazifa</span><span style="width: 110px">Sessiya</span><span style="width: 120px; text-align: right">Reja / haqiqiy</span><span style="width: 70px; text-align: right">Token</span><span style="width: 120px">Baho</span></div>
+<sc-for list="{{log}}" as="r" hint-placeholder-count="6">
+<div style="display: flex; gap: 12px; align-items: flex-start; padding: 11px 16px; border-top: 1px solid var(--bd)">
+<span class="mono" style="width: 96px; color: var(--mu); font-size: 12px">{{r.t}}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 500"><span class="mono" style="color: var(--mu); font-size: 11px">{{r.id}}</span> {{r.title}}</span><span style="font-size: 12px; color: var(--mu)">{{r.note}}</span></div>
+<span style="width: 110px"><span class="pill" style="height: 20px; color: {{r.rc}}; background: {{r.rbg}}">{{r.role}}</span></span>
+<span class="mono" style="width: 120px; text-align: right; font-size: 12px"><span style="color: var(--mu)">{{r.plan}}</span> / <span style="color: {{r.dc}}">{{r.act}}</span></span>
+<span class="mono" style="width: 70px; text-align: right; font-size: 12px; color: var(--mu)">{{r.tok}}</span>
+<span style="width: 120px; display: flex; flex-direction: column; gap: 2px"><span style="color: var(--yel); letter-spacing: 1px">{{r.stars}}</span><span style="font-size: 11px; color: var(--mu)">{{r.why}}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+<aside class="card" style="flex: 1 1 280px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<span class="lbl">Kun xulosasi · {{dayLabel}}</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div><div class="mono" style="font-size: 20px; font-weight: 600">4</div><span style="font-size: 12px; color: var(--mu)">vazifa yopildi</span></div>
+<div><div class="mono" style="font-size: 20px; font-weight: 600">5 s 40 d</div><span style="font-size: 12px; color: var(--mu)">sessiya vaqti</span></div>
+<div><div class="mono" style="font-size: 20px; font-weight: 600">31.2M</div><span style="font-size: 12px; color: var(--mu)">token</span></div>
+<div><div class="mono" style="font-size: 20px; font-weight: 600; color: var(--yel)">4.1</div><span style="font-size: 12px; color: var(--mu)">o'rtacha baho</span></div>
+</div>
+<div style="padding: 10px 12px; border-radius: 8px; background: var(--s2); display: flex; flex-direction: column; gap: 6px">
+<b style="font-size: 12px">Claude bahosi</b>
+<span style="font-size: 12px; color: var(--mu)">Backend vazifalari rejadan tez yopildi. SW-11 (frontend jadval) ikki marta qayta qilindi: API javobi o'zgargan, frontend sessiyasi buni kech bildi. Ertaga birinchi navbatda SW-12 ni olish tavsiya qilinadi.</span>
+</div>
+<span style="font-size: 11px; color: var(--fa)">Baho avtomatik: testlar o'tdimi, qayta urinishlar, reja va haqiqiy vaqt farqi. Bahoni qo'lda o'zgartirsa bo'ladi.</span>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{isLink}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; position: relative">
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="3">
+<div class="card" style="padding: 14px; display: flex; flex-direction: column; gap: 8px; border-color: {{n.bc}}">
+<div style="display: flex; align-items: center; gap: 8px"><span class="pill" style="color: {{n.rc}}; background: {{n.rbg}}">{{n.role}}</span><span class="mono" style="color: var(--mu); font-size: 12px; flex: 1">{{n.machine}}</span><span class="pill" style="color: {{n.sc}}; background: {{n.sbg}}"><span class="dot {{n.anim}}"></span>{{n.status}}</span></div>
+<span style="font-size: 12px; color: var(--mu)">Hozir: {{n.now}}</span>
+<div class="mono" style="font-size: 11px; color: var(--fa)">Kiruvchi: {{n.inbox}} · Chiquvchi: {{n.out}}</div>
+</div>
+</sc-for>
+<div aria-hidden="true" style="position: absolute; top: 50%; left: calc(33.3% - 36px); width: 32px; height: 2px; background: var(--pur)"></div>
+<div aria-hidden="true" style="position: absolute; top: 50%; left: calc(66.6% - 8px); width: 32px; height: 2px; background: var(--pur)"></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<section class="card" style="flex: 999 1 560px; min-width: 0; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px"><b style="flex: 1">Sessiyalararo xabarlar</b><span class="pill" style="color: var(--pur); background: var(--purBg)">6 bugun</span></div>
+<sc-for list="{{msgs}}" as="m" hint-placeholder-count="4">
+<div style="display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--bd)">
+<span class="mono" style="width: 44px; color: var(--mu); font-size: 12px">{{m.t}}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><span class="pill" style="height: 20px; color: {{m.fc}}; background: {{m.fbg}}">{{m.from}}</span><span style="color: var(--mu)">→</span><span class="pill" style="height: 20px; color: {{m.tc}}; background: {{m.tbg}}">{{m.to}}</span><span class="pill" style="height: 20px; color: var(--mu); background: var(--grayBg)">{{m.kind}}</span></div>
+<span>{{m.text}}</span>
+<code class="mono" style="font-size: 11px; color: var(--mu)">{{m.ref}}</code>
+<span style="font-size: 12px; color: {{m.ac}}">{{m.ack}}</span>
+</div>
+</div>
+</sc-for>
+<div style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--bd); background: var(--s2)">
+<select aria-label="Qabul qiluvchi sessiya" style="height: 34px; border-radius: 7px; border: 1px solid var(--bd); background: var(--s1); color: var(--tx); font: 12px Inter,sans-serif"><option>→ frontend</option><option>→ backend</option><option>→ mobile</option><option>→ hammasi</option></select>
+<input type="text" aria-label="Xabar" placeholder="Sessiyaga kontekst yoki ko'rsatma yuboring…" style="flex: 1; height: 34px; padding: 0 10px; border-radius: 7px; border: 1px solid var(--bd); background: var(--s1); color: var(--tx); font: 13px Inter,sans-serif">
+<button class="btn btn-pri" type="button">Yuborish</button>
+</div>
+</section>
+<aside class="card" style="flex: 1 1 280px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<span class="lbl">Umumiy kontekst</span>
+<sc-for list="{{shared}}" as="s" hint-placeholder-count="3"><div style="display: flex; gap: 8px; align-items: center"><span class="mono" style="flex: 1; font-size: 12px">{{s.f}}</span><span style="font-size: 11px; color: var(--mu)">{{s.who}}</span></div></sc-for>
+<span class="lbl" style="margin-top: 6px">Avto-yo'naltirish qoidalari</span>
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="3">
+<label style="display: flex; gap: 10px; align-items: flex-start"><input type="checkbox" checked="{{r.on}}" onChange="{{r.toggle}}" style="margin-top: 2px"><span style="font-size: 12px">{{r.t}}</span></label>
+</sc-for>
+<span style="font-size: 11px; color: var(--fa)">Xabar qabul qiluvchi sessiyaga keyingi prompt oldidan kontekst sifatida qo'shiladi. Qo'lda rejimdagi sessiya avval sizdan ruxsat so'raydi.</span>
+</aside>
+</div>
+</div>
+</sc-if>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { theme: null, tab: "board", day: 0, imp: false, modes: { backend: "auto", frontend: "manual", mobile: "plan" }, rules: [true, true, true] }; }
+  renderVals() {
+    const theme = this.state.theme || this.props.theme || "dark";
+    const st = this.state;
+    const R = { backend: ["backend", "var(--blue)", "var(--blueBg)"], frontend: ["frontend", "var(--pur)", "var(--purBg)"], mobile: ["mobile", "var(--grn)", "var(--grnBg)"] };
+    const role = function (k) { return { role: R[k][0], rc: R[k][1], rbg: R[k][2] }; };
+    const SS = { w: ["Ishlamoqda", "var(--blue)", "var(--blueBg)", "live"], wt: ["Javob kutmoqda", "var(--yel)", "var(--yelBg)", ""], ap: ["Ruxsat kutmoqda", "var(--org)", "var(--orgBg)", ""] };
+    const sdef = [["backend", "srv-01", "w", "SW-09 · Ishlamoqda 18 daq"], ["frontend", "mac-mini", "ap", "SW-11 · Ruxsat kutmoqda"], ["mobile", "win-pc", "wt", "SW-14 · Javob kutmoqda"]];
+    const MODES = [["manual", "Qo'lda", "default: har amalda ruxsat so'raydi"], ["auto", "Avto", "acceptEdits: tahrirlar avtomatik"], ["plan", "Reja", "plan: faqat reja, o'zgarishsiz"]];
+    const sess = sdef.map((s) => {
+      const x = SS[s[2]];
+      return { role: s[0], machine: s[1], status: s[3], c: R[s[0]][1], bg: R[s[0]][2], anim: x[3], bc: s[2] === "ap" ? "var(--org)" : "var(--bd)",
+        modes: MODES.map((m) => ({ l: m[1], hint: m[2], on: st.modes[s[0]] === m[0] ? "on" : "", pressed: st.modes[s[0]] === m[0] ? "true" : "false", pick: () => { const n = Object.assign({}, st.modes); n[s[0]] = m[0]; this.setState({ modes: n }); } })) };
+    });
+    const T = function (id, title, r, when, time, tok, extra) { return Object.assign({ id: id, title: title, when: when, time: time, tok: tok, hasProg: false, prog: "0%", hasScore: false, stars: "", delta: "", dc: "var(--mu)" }, role(r), extra || {}); };
+    const cols = [
+      { l: "Qoldi", c: "var(--mu)", items: [T("SW-12", "Hisob-faktura PDF eksporti", "backend", "reja: 2 s", "", ""), T("SW-15", "Offline rejimda sinxron navbat", "mobile", "reja: 4 s", "", ""), T("SW-16", "Narx tarifi sozlamalari sahifasi", "frontend", "reja: 1.5 s", "", "")] },
+      { l: "Jarayonda", c: "var(--blue)", items: [T("SW-09", "Billing API: invoices endpoint", "backend", "10:20 dan", "1 s 18 d", "8.4M", { hasProg: true, prog: "70%" }), T("SW-11", "Hisob-fakturalar jadvali", "frontend", "11:05 dan", "52 d", "5.1M", { hasProg: true, prog: "45%" }), T("SW-14", "Hisoblagich ko'rsatkichi kiritish ekrani", "mobile", "11:40 dan", "26 d", "2.2M", { hasProg: true, prog: "30%" })] },
+      { l: "Tekshiruvda", c: "var(--yel)", items: [T("SW-08", "Abonent qidiruvi (full-text)", "backend", "09:58 tugadi", "1 s 05 d", "6.0M", { hasScore: true, stars: "★★★★☆", delta: "PR #214 · testlar o'tdi", dc: "var(--mu)" })] },
+      { l: "Bajarildi", c: "var(--grn)", items: [T("SW-07", "Auth: refresh token rotatsiyasi", "backend", "kecha 17:40", "1 s 30 d", "9.2M", { hasScore: true, stars: "★★★★★", delta: "rejadan 30 d tez", dc: "var(--grn)" }), T("SW-06", "Dashboard grafiklari", "frontend", "kecha 15:10", "3 s 10 d", "14.8M", { hasScore: true, stars: "★★★☆☆", delta: "rejadan +58% kech", dc: "var(--red)" }), T("SW-05", "Login ekrani", "mobile", "12 noy", "55 d", "3.0M", { hasScore: true, stars: "★★★★☆", delta: "rejada", dc: "var(--mu)" })] }
+    ].map(function (c) { return Object.assign(c, { n: c.items.length }); });
+    const L = function (t, id, title, note, r, plan, act, late, tok, stars, why) { return Object.assign({ t: t, id: id, title: title, note: note, plan: plan, act: act, dc: late ? "var(--red)" : "var(--grn)", tok: tok, stars: stars, why: why }, role(r)); };
+    const logs = [
+      [L("09:02–09:58", "SW-08", "Abonent qidiruvi", "PR #214 ochildi, 32 test", "backend", "1 s", "56 d", false, "6.0M", "★★★★☆", "tez, 1 qayta urinish"),
+       L("09:10–10:40", "SW-11", "Hisob-fakturalar jadvali (1-urinish)", "API javobi o'zgargani uchun to'xtatildi", "frontend", "1.5 s", "1 s 30 d", false, "7.9M", "★★☆☆☆", "qayta qilinadi"),
+       L("10:20–hozir", "SW-09", "Billing API: invoices", "70%: endpoint tayyor, testlar yozilmoqda", "backend", "2 s", "1 s 18 d…", false, "8.4M", "—", "jarayonda"),
+       L("11:05–hozir", "SW-11", "Hisob-fakturalar jadvali (2-urinish)", "backend xabaridan keyin types yangilandi", "frontend", "—", "52 d…", false, "5.1M", "—", "jarayonda"),
+       L("11:40–hozir", "SW-14", "Ko'rsatkich kiritish ekrani", "kamera bilan raqam o'qish: savol berdi", "mobile", "3 s", "26 d…", false, "2.2M", "—", "javob kutmoqda")],
+      [L("14:00–15:30", "SW-07", "Auth: refresh token", "rejadan 30 daqiqa tez", "backend", "2 s", "1 s 30 d", false, "9.2M", "★★★★★", "testlar 100%"),
+       L("12:00–15:10", "SW-06", "Dashboard grafiklari", "3 marta qayta dizayn", "frontend", "2 s", "3 s 10 d", true, "14.8M", "★★★☆☆", "+58% kech")]
+    ];
+    const dayIdx = st.day;
+    return {
+      themeClass: "root t-" + theme,
+      themeLabel: theme === "dark" ? "Yorug' rejim" : "Qorong'i rejim",
+      toggleTheme: () => this.setState({ theme: theme === "dark" ? "light" : "dark" }),
+      sess: sess,
+      importOpen: st.imp, toggleImport: () => this.setState({ imp: !st.imp }),
+      parsed: [["Invoice modeliga dueDate va status maydonlari", "backend", "1 s"], ["To'lov eslatmasi: cron + Telegram", "backend", "2 s"], ["Fakturalar jadvalida status filtri", "frontend", "1 s"], ["Faktura PDF ko'rinishi", "frontend", "1.5 s"], ["Mobil: to'lov holati push-bildirishnomasi", "mobile", "2 s"]].map(function (p) { return Object.assign({ t: p[0], est: p[2] }, { role: R[p[1]][0], c: R[p[1]][1], bg: R[p[1]][2] }); }),
+      kpis: [
+        { l: "Bajarildi", v: "7 / 15", s: "47% · 3 tasi bu hafta", c: "var(--tx)" },
+        { l: "Jarayonda", v: "3", s: "har sessiyada bittadan", c: "var(--blue)" },
+        { l: "Bugun", v: "4", s: "vazifa ustida ishlandi", c: "var(--tx)" },
+        { l: "O'rtacha baho", v: "4.1", s: "oxirgi 7 vazifa", c: "var(--yel)" },
+        { l: "Reja aniqligi", v: "78%", s: "reja va haqiqiy vaqt", c: "var(--tx)" }
+      ],
+      tabs: [["board", "Vazifalar doskasi"], ["day", "Kunlik ko'rinish"], ["link", "Sessiyalar aloqasi"]].map((t) => ({ l: t[1], on: st.tab === t[0] ? "on" : "", sel: st.tab === t[0] ? "true" : "false", pick: () => this.setState({ tab: t[0] }) })),
+      isBoard: st.tab === "board", isDay: st.tab === "day", isLink: st.tab === "link",
+      cols: cols,
+      days: [["Bugun, 13 noy"], ["12 noy"], ["11 noy"], ["10 noy"], ["Hafta"]].map((d, i) => ({ l: d[0], on: dayIdx === i ? "on" : "", pick: () => this.setState({ day: i }) })),
+      dayLabel: dayIdx === 1 ? "12 noy" : "13 noy",
+      log: logs[dayIdx === 1 ? 1 : 0],
+      nodes: [
+        Object.assign(role("backend"), { machine: "srv-01 · NestJS", status: "Ishlamoqda", sc: "var(--blue)", sbg: "var(--blueBg)", anim: "live", bc: "var(--bd)", now: "SW-09 Billing API", inbox: 1, out: 3 }),
+        Object.assign(role("frontend"), { machine: "mac-mini · Next.js", status: "Ruxsat", sc: "var(--org)", sbg: "var(--orgBg)", anim: "", bc: "var(--org)", now: "SW-11 Fakturalar jadvali", inbox: 3, out: 1 }),
+        Object.assign(role("mobile"), { machine: "win-pc · Flutter", status: "Kutmoqda", sc: "var(--yel)", sbg: "var(--yelBg)", anim: "", bc: "var(--bd)", now: "SW-14 Ko'rsatkich ekrani", inbox: 2, out: 1 })
+      ],
+      msgs: [
+        { t: "11:02", from: "backend", fc: R.backend[1], fbg: R.backend[2], to: "frontend", tc: R.frontend[1], tbg: R.frontend[2], kind: "API o'zgarishi", text: "GET /api/invoices javobiga dueDate va status qo'shildi; amount endi tiyinda (integer).", ref: "openapi.yaml · +18 −4", ack: "✓ frontend qabul qildi · Edit: src/api/types.ts", ac: "var(--grn)" },
+        { t: "11:02", from: "backend", fc: R.backend[1], fbg: R.backend[2], to: "mobile", tc: R.mobile[1], tbg: R.mobile[2], kind: "API o'zgarishi", text: "Xuddi shu o'zgarish: amount tiyinda.", ref: "openapi.yaml", ack: "◷ mobile hali o'qimadi (Reja rejimida)", ac: "var(--yel)" },
+        { t: "11:20", from: "frontend", fc: R.frontend[1], fbg: R.frontend[2], to: "backend", tc: R.backend[1], tbg: R.backend[2], kind: "Savol", text: "Jadval uchun pagination: cursor yoki offset? 10k+ faktura kutilmoqda.", ref: "SW-11", ack: "✓ backend javob berdi: cursor, ?after=<id>&limit=50", ac: "var(--grn)" },
+        { t: "11:44", from: "mobile", fc: R.mobile[1], fbg: R.mobile[2], to: "backend", tc: R.backend[1], tbg: R.backend[2], kind: "So'rov", text: "Ko'rsatkich rasmini yuklash uchun endpoint kerak (multipart, 5 MB gacha).", ref: "SW-14", ack: "→ SW-17 vazifasi sifatida taklif qilindi · sizning tasdig'ingiz kutilmoqda", ac: "var(--org)" }
+      ],
+      shared: [{ f: "openapi.yaml", who: "3 sessiya" }, { f: "docs/billing-v2-spec.md", who: "backend, frontend" }, { f: "TASKS.md", who: "3 sessiya" }],
+      rules: ["Backend API kontraktini o'zgartirsa, frontend va mobile'ga xabar yuborilsin", "Sessiya vazifani tugatsa, TASKS.md da holat yangilansin", "Sessiyalar bir-biriga yangi vazifa yaratsa, avval mendan so'ralsin"].map((t, i) => ({ t: t, on: st.rules[i], toggle: () => { const n = st.rules.slice(); n[i] = !n[i]; this.setState({ rules: n }); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

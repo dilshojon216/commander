@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HealthDocker.json",
+  "title": "HealthDocker",
+  "type": "object",
+  "properties": {
+    "available": {
+      "type": "boolean"
+    },
+    "containers": {
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "$ref": "HealthContainer.json"
+      }
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 64
+    }
+  },
+  "required": [
+    "available",
+    "containers"
+  ],
+  "additionalProperties": false
+}

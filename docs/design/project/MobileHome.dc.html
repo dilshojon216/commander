@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander mobil · Umumiy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--blueBg:rgba(91,155,255,.13);--yelBg:rgba(232,190,84,.13);--orgBg:rgba(255,138,76,.14);--grnBg:rgba(76,195,138,.13);--grayBg:rgba(154,163,176,.12);--onOk:#06150D}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--grayBg:#ECEEF2;--onOk:#FFFFFF}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:14px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:600 14px Inter,system-ui,sans-serif;cursor:pointer;flex:1}
+.btn-ok{background:var(--grn);border-color:transparent;color:var(--onOk)}
+.btn-no{background:transparent;border-color:var(--red);color:var(--red)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:56px;color:var(--mu);text-decoration:none;font-size:11px;font-weight:500}
+.tab.on{color:var(--tx)}
+a{color:var(--blue);text-decoration:none}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 390px; height: 844px; display: flex; flex-direction: column; overflow: hidden">
+<header style="display: flex; align-items: center; gap: 10px; padding: 18px 18px 12px">
+<svg width="28" height="28" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#FF7A45"></rect><path d="M8 9l4 4-4 4M14 17h5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<h1 style="margin: 0; font-size: 20px; font-weight: 700; flex: 1">Commander</h1>
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+</header>
+<div style="flex: 1; overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+
+<section class="card" style="border-color: var(--org); overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: var(--orgBg)"><span class="dot live" style="color: var(--org)"></span><h2 style="margin: 0; font-size: 15px; font-weight: 600; flex: 1">Ruxsat kutmoqda</h2><span class="mono" style="font-weight: 600">4:12</span></div>
+<div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center"><b>backend-services</b><span class="mono" style="color: var(--mu); font-size: 12px">srv-01</span><span class="pill mono" style="background: var(--s3)">Bash</span></div>
+<code class="mono" style="display: block; padding: 10px; border-radius: 8px; background: var(--s2); border: 1px solid var(--bd); font-size: 12px; word-break: break-all">docker compose -f deploy/prod.yml up -d --build api-gateway</code>
+<div style="display: flex; gap: 10px"><button class="btn btn-no" type="button">Rad</button><button class="btn btn-ok" type="button">Ruxsat</button></div>
+</div>
+<a href="MobileSessions.dc.html" style="display: block; padding: 11px 14px; border-top: 1px solid var(--bd); font-weight: 500">+1 so'rov · demo_flow_ai · 0:48 →</a>
+</section>
+
+<a class="card" href="MobileSession.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; color: var(--tx); text-decoration: none">
+<div style="display: flex; align-items: center; gap: 8px"><span class="pill" style="color: var(--yel); background: var(--yelBg)"><span class="dot"></span>Javob kutmoqda</span><span style="flex: 1"></span><span class="mono" style="color: var(--mu); font-size: 12px">6 daq</span></div>
+<div><b>mobile-app</b> <span class="mono" style="color: var(--mu); font-size: 12px">win-pc</span></div>
+<span style="color: var(--mu)">"Qaysi branch'ga push qilay: main yoki release/1.4?"</span>
+</a>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div class="card" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 6px; align-items: center"><span class="lbl">5 soat</span><span class="pill" style="height: 17px; font-size: 10px; color: var(--mu); border: 1px dashed var(--mu)">taxmin</span></div>
+<span class="mono" style="font-size: 24px; font-weight: 600; color: var(--mu)">≈0%</span>
+<div style="height: 5px; border-radius: 5px; background: var(--s3)"></div>
+<span style="font-size: 11px; color: var(--mu)">15:40 · yangilandi</span>
+</div>
+<div class="card" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 6px; align-items: center"><span class="lbl">Haftalik</span><span class="pill" style="height: 17px; font-size: 10px; color: var(--blue); background: var(--blueBg)">rasmiy</span></div>
+<span class="mono" style="font-size: 24px; font-weight: 600">8%</span>
+<div style="height: 5px; border-radius: 5px; background: var(--s3)"><div style="width: 8%; height: 5px; border-radius: 5px; background: var(--blue)"></div></div>
+<span style="font-size: 11px; color: var(--mu)">Yak 06:00 · 2 daq oldin</span>
+</div>
+</div>
+
+<div class="card" style="padding: 12px 14px; display: flex; align-items: center; gap: 12px">
+<div style="flex: 1"><span class="lbl">Bugun</span><div class="mono" style="font-size: 22px; font-weight: 600">67.6M</div><span style="font-size: 12px; color: var(--mu)">174 so'rov · ≈ $24 API ekv.</span></div>
+<div style="display: flex; align-items: flex-end; gap: 3px; height: 40px"><sc-for list="{{spark}}" as="b" hint-placeholder-count="12"><div style="width: 6px; height: {{b.h}}; border-radius: 2px; background: {{b.c}}"></div></sc-for></div>
+</div>
+
+<section class="card" style="overflow: hidden">
+<div style="display: flex; justify-content: space-between; padding: 12px 14px"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Mashinalar</h2><span style="color: var(--mu); font-size: 13px">6/7 onlayn</span></div>
+<div style="display: flex; gap: 8px; padding: 0 14px 14px; overflow-x: auto">
+<sc-for list="{{machines}}" as="m" hint-placeholder-count="7"><div style="flex: none; padding: 8px 10px; border-radius: 10px; background: var(--s2); border: 1px {{m.bs}} var(--bd); opacity: {{m.op}}; display: flex; flex-direction: column; gap: 2px"><span class="mono" style="font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px"><span class="dot" style="color: {{m.c}}"></span>{{m.n}}</span><span style="font-size: 11px; color: var(--mu)">{{m.s}}</span></div></sc-for>
+</div>
+</section>
+</div>
+<nav style="display: flex; border-top: 1px solid var(--bd); background: var(--s1); padding-bottom: 14px">
+<a class="tab on" href="MobileHome.dc.html"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"></rect><rect x="9" y="2" width="5" height="5" rx="1"></rect><rect x="2" y="9" width="5" height="5" rx="1"></rect><rect x="9" y="9" width="5" height="5" rx="1"></rect></svg>Umumiy</a>
+<a class="tab" href="MobileSessions.dc.html" style="position: relative"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10"></path></svg>Sessiyalar<span style="position: absolute; top: 6px; left: 54%; min-width: 16px; height: 16px; border-radius: 8px; background: var(--org); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span></a>
+<a class="tab" href="MobileHome.dc.html"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3H6l1.5 1.5h5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"></path></svg>Loyihalar</a>
+<a class="tab" href="MobileHome.dc.html"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 13V8M6.5 13V4M10 13V7M13.5 13V2"></path></svg>Tokenlar</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const theme = this.props.theme || "dark";
+    const v = [8, 14, 6, 20, 26, 12, 30, 18, 24, 34, 28, 40];
+    return {
+      themeClass: "root t-" + theme,
+      spark: v.map(function (x, i) { return { h: x + "px", c: i === v.length - 1 ? "var(--blue)" : "var(--blueBg)" }; }),
+      machines: [["mac-mini", "3 sessiya", 1], ["win-pc", "1 kutmoqda", 1], ["srv-01", "2 sessiya", 1], ["srv-02", "1 ishlamoqda", 1], ["srv-03", "1 bo'sh", 1], ["srv-04", "1 tugatdi", 1], ["srv-05", "oflayn", 0]].map(function (m) { return { n: m[0], s: m[1], c: m[2] ? "var(--grn)" : "var(--fa)", op: m[2] ? 1 : 0.55, bs: m[2] ? "solid" : "dashed" }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

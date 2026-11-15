@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "CommandStepUp.json",
+  "title": "CommandStepUp",
+  "type": "object",
+  "properties": {
+    "required": {
+      "type": "boolean"
+    },
+    "via": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "telegram"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expiresAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confirmedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confirmedByDeviceId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "required",
+    "via",
+    "expiresAt",
+    "confirmedAt",
+    "confirmedByDeviceId"
+  ],
+  "additionalProperties": false
+}

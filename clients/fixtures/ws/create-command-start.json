@@ -1,0 +1,8 @@
+{
+  "type": "session.start",
+  "machineId": "48dada0a-c388-4478-8149-5f7349de83b7",
+  "cwd": "/Users/dev/working/demo",
+  "prompt": "run the tests",
+  "permissionMode": "default",
+  "name": "demo run"
+}

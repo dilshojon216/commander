@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TemplateScope.json",
+  "title": "TemplateScope",
+  "type": "string",
+  "enum": [
+    "global",
+    "project",
+    "repo"
+  ]
+}

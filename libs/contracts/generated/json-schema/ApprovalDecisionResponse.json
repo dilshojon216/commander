@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ApprovalDecisionResponse.json",
+  "title": "ApprovalDecisionResponse",
+  "type": "object",
+  "properties": {
+    "approval": {
+      "$ref": "ApprovalDto.json"
+    },
+    "delivered": {
+      "type": "boolean"
+    },
+    "idempotent": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "approval",
+    "delivered",
+    "idempotent"
+  ],
+  "additionalProperties": false
+}

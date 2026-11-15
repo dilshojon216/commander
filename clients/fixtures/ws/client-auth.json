@@ -1,0 +1,9 @@
+{
+  "v": 1,
+  "id": "00000000-0000-4000-8000-000000000010",
+  "type": "auth",
+  "ts": 1763092800000,
+  "payload": {
+    "token": "cmdr_EXAMPLE_NOT_A_REAL_TOKEN"
+  }
+}

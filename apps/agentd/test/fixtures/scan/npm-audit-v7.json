@@ -1,0 +1,5 @@
+{"auditReportVersion":2,"vulnerabilities":{
+"lodash":{"name":"lodash","severity":"critical","isDirect":true,"via":[{"source":1106913,"name":"lodash","dependency":"lodash","title":"Prototype Pollution in lodash","url":"https://github.com/advisories/GHSA-jf85-cpcp-j695","severity":"critical","cwe":["CWE-1321"],"cvss":{"score":9.1},"range":"<4.17.12"}],"effects":[],"range":"<4.17.12","nodes":["node_modules/lodash"],"fixAvailable":{"name":"lodash","version":"4.17.21","isSemVerMajor":false}},
+"minimatch":{"name":"minimatch","severity":"moderate","isDirect":false,"via":[{"source":1,"name":"minimatch","title":"ReDoS in minimatch","url":"https://github.com/advisories/GHSA-f8q6-p94x-37v3","severity":"moderate","range":"<3.0.5"}],"effects":["glob"],"range":"<3.0.5","nodes":["node_modules/minimatch"],"fixAvailable":false},
+"glob":{"name":"glob","severity":"medium","isDirect":false,"via":["minimatch"],"effects":[],"range":"7.0.0 - 7.1.7","nodes":[],"fixAvailable":true}
+},"metadata":{"vulnerabilities":{"info":0,"low":0,"moderate":2,"high":0,"critical":1,"total":3}}}

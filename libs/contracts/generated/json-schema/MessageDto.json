@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "MessageDto.json",
+  "title": "MessageDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "groupKey": {
+      "type": "string"
+    },
+    "batchId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "fromSessionId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fromRole": {
+      "type": "string"
+    },
+    "fromLabel": {
+      "type": "string"
+    },
+    "toSessionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "toRole": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "toLabel": {
+      "type": "string"
+    },
+    "toTarget": {
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "MessageKind.json"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "replyTo": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "$ref": "MessageStatus.json"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "deliveredAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "readAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "groupKey",
+    "batchId",
+    "fromSessionId",
+    "fromRole",
+    "fromLabel",
+    "toSessionId",
+    "toRole",
+    "toLabel",
+    "toTarget",
+    "kind",
+    "subject",
+    "body",
+    "replyTo",
+    "status",
+    "createdAt",
+    "deliveredAt",
+    "readAt"
+  ],
+  "additionalProperties": false
+}

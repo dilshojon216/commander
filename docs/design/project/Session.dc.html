@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Commander · Sessiya</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.t-dark{--bg:#0B0D10;--s1:#12151A;--s2:#181C22;--s3:#20252D;--bd:#262C35;--tx:#E6E8EB;--mu:#9AA3B0;--fa:#6E7684;--blue:#5B9BFF;--yel:#E8BE54;--org:#FF8A4C;--grn:#4CC38A;--red:#FF6B66;--blueBg:rgba(91,155,255,.13);--yelBg:rgba(232,190,84,.13);--orgBg:rgba(255,138,76,.14);--grnBg:rgba(76,195,138,.13);--redBg:rgba(255,107,102,.13);--grayBg:rgba(154,163,176,.12);--onOk:#06150D}
+.t-light{--bg:#F4F5F7;--s1:#FFFFFF;--s2:#F7F8FA;--s3:#ECEEF2;--bd:#DFE2E8;--tx:#14171C;--mu:#525B68;--fa:#7A8390;--blue:#1D5FD6;--yel:#8A5A00;--org:#B23C08;--grn:#13733F;--red:#C42B27;--blueBg:#E7EFFD;--yelBg:#FBF1D6;--orgBg:#FCE8DC;--grnBg:#E1F3E8;--redBg:#FCE5E4;--grayBg:#ECEEF2;--onOk:#FFFFFF}
+.root{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.live{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:7px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--s3);text-decoration:none}
+.btn-ok{background:var(--grn);border-color:transparent;color:var(--onOk)}
+.btn-no{background:transparent;border-color:var(--red);color:var(--red)}
+.btn-pri{background:var(--blue);border-color:transparent;color:#fff}
+.btn-stop{background:var(--redBg);border-color:transparent;color:var(--red)}
+.kbd{font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid currentColor;opacity:.75}
+.nav{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:7px;color:var(--mu);text-decoration:none;font-weight:500}
+.nav:hover{background:var(--s2);color:var(--tx);text-decoration:none}
+.nav.on{background:var(--s3);color:var(--tx)}
+.tool{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--s2);color:var(--tx);font:500 12px 'JetBrains Mono',monospace;cursor:pointer;text-align:left}
+.tool:hover{background:var(--s3)}
+pre{margin:0}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch">
+
+<aside style="flex: 1 1 220px; max-width: 240px; box-sizing: border-box; padding: 16px 12px; border-right: 1px solid var(--bd); background: var(--s1); display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#FF7A45"></rect><path d="M8 9l4 4-4 4M14 17h5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-weight: 700; font-size: 15px">Commander</span>
+</div>
+<a class="nav" href="Main.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"></rect><rect x="9" y="2" width="5" height="5" rx="1"></rect><rect x="2" y="9" width="5" height="5" rx="1"></rect><rect x="9" y="9" width="5" height="5" rx="1"></rect></svg><span style="flex: 1">Umumiy</span></a>
+<a class="nav on" href="Sessions.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5"></rect><path d="M5 7l2 1.5L5 10"></path></svg><span style="flex: 1">Sessiyalar</span><span class="pill" style="height: 18px; padding: 0 6px; background: var(--org); color: #fff; font-size: 11px">2</span><span class="mono" style="font-size: 12px; color: var(--mu)">10</span></a>
+<a class="nav" href="Projects.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3H6l1.5 1.5h5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5z"></path></svg><span style="flex: 1">Loyihalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">14</span></a>
+<a class="nav" href="Tokens.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 13V8M6.5 13V4M10 13V7M13.5 13V2"></path></svg><span style="flex: 1">Tokenlar</span></a>
+<a class="nav" href="Machines.dc.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2.5" width="12" height="4.5" rx="1"></rect><rect x="2" y="9" width="12" height="4.5" rx="1"></rect><path d="M4.5 4.75h.01M4.5 11.25h.01"></path></svg><span style="flex: 1">Mashinalar</span><span class="mono" style="font-size: 12px; color: var(--mu)">6/7</span></a>
+<div style="flex: 1"></div>
+<button class="nav" type="button" onClick="{{toggleTheme}}" style="border: 0; background: transparent; font: inherit; cursor: pointer; width: 100%"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 9.5A5.5 5.5 0 016.5 3a5.5 5.5 0 106.5 6.5z"></path></svg><span>{{themeLabel}}</span></button>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 24px; border-bottom: 1px solid var(--bd)">
+<a href="Sessions.dc.html" aria-label="Sessiyalarga qaytish" style="color: var(--mu); display: flex"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3L5 8l5 5"></path></svg></a>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<h1 style="margin: 0; font-size: 17px; font-weight: 600">backend-services</h1>
+<span class="pill" style="color: var(--org); background: var(--orgBg)"><span class="dot"></span>Ruxsat kutmoqda</span>
+</div>
+<span class="mono" style="font-size: 12px; color: var(--mu)">srv-01 · ~/work/backend-services · claude-opus-5-5 · 09:42 da boshlangan · interaktiv</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="font-size: 12px; color: var(--mu)">Rejim</span>
+<div role="group" aria-label="Sessiya rejimi" style="display: inline-flex; gap: 2px; padding: 3px; border-radius: 8px; background: var(--s3)">
+<sc-for list="{{modes}}" as="m" hint-placeholder-count="3"><button type="button" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" title="{{m.hint}}" style="height: 26px; padding: 0 11px; border: 0; border-radius: 6px; background: {{m.bg}}; color: {{m.c}}; font: 600 12px Inter, system-ui, sans-serif; cursor: pointer">{{m.l}}</button></sc-for>
+</div>
+</div>
+<span class="pill" style="color: var(--grn); background: var(--grnBg)"><span class="dot live"></span>Jonli</span>
+<button class="btn btn-stop" type="button"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="3" width="10" height="10" rx="2" fill="currentColor"></rect></svg>To'xtatish</button>
+<button class="btn" type="button" aria-label="Boshqa amallar" style="width: 32px; padding: 0">⋯</button>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; flex: 1; align-items: stretch">
+<section style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column">
+<div style="flex: 1; padding: 24px; display: flex; flex-direction: column; gap: 18px; max-width: 860px; width: 100%; box-sizing: border-box; margin: 0 auto">
+
+<div style="align-self: flex-end; max-width: 80%; padding: 10px 14px; border-radius: 12px 12px 4px 12px; background: var(--blueBg); border: 1px solid var(--bd)">
+<div class="lbl" style="margin-bottom: 4px">Siz · 09:42</div>
+api-gateway'dagi rate limit testlari yiqilyapti. Sababini top, tuzat va prod'ga deploy qil.
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px"><span style="width: 20px; height: 20px; border-radius: 6px; background: #D97757; display: inline-block"></span><span style="font-weight: 600">Claude</span><span class="mono" style="color: var(--fa); font-size: 11px">09:42</span></div>
+<p style="margin: 0">Avval testlarni ishga tushirib, qaysi biri yiqilayotganini ko'raman.</p>
+<sc-for list="{{tools}}" as="t" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 0">
+<button class="tool" type="button" onClick="{{t.toggle}}" aria-expanded="{{t.open}}">
+<span style="color: var(--mu); width: 10px">{{t.chev}}</span>
+<span style="color: {{t.c}}; font-weight: 600">{{t.name}}</span>
+<span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{t.arg}}</span>
+<span style="color: {{t.metaC}}">{{t.meta}}</span>
+</button>
+<sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}">
+<pre class="mono" style="padding: 10px 12px; margin-top: -1px; border: 1px solid var(--bd); border-top: 0; border-radius: 0 0 8px 8px; background: var(--bg); font-size: 12px; color: var(--mu); white-space: pre-wrap">{{t.out}}</pre>
+</sc-if>
+</div>
+</sc-for>
+<p style="margin: 0">Sabab topildi: <code class="mono" style="padding: 1px 5px; border-radius: 4px; background: var(--s3)">RateLimitGuard</code> Redis kalitida <code class="mono" style="padding: 1px 5px; border-radius: 4px; background: var(--s3)">userId</code> o'rniga <code class="mono" style="padding: 1px 5px; border-radius: 4px; background: var(--s3)">ip</code> ishlatilgan, shuning uchun bir foydalanuvchi ikki xil IP'dan kelganda limit ikki barobar oshib ketyapti. Tuzatdim, 48 ta test o'tdi.</p>
+<span class="mono" style="font-size: 11px; color: var(--fa)">↳ 1.2M token · cache read 1.18M · output 3.4K · 41 s</span>
+</div>
+
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--redBg); color: var(--red)">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="8" cy="8" r="6"></circle><path d="M8 5v3.5M8 11h.01"></path></svg>
+<div><b>Xato:</b> <span class="mono" style="font-size: 12px">Bash: git push origin main</span> → rejected (non-fast-forward). Claude avval <span class="mono" style="font-size: 12px">git pull --rebase</span> qildi.</div>
+</div>
+
+<div class="card" style="border-color: {{apBorder}}; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: {{apHeadBg}}">
+<span class="dot {{apAnim}}" style="color: {{apColor}}"></span>
+<span style="font-weight: 600; flex: 1">{{apTitle}}</span>
+<span class="mono" style="font-weight: 600; color: {{apTimerC}}">{{apTimer}}</span>
+</div>
+<div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; opacity: {{apOp}}">
+<div style="display: flex; gap: 8px; align-items: center"><span class="pill mono" style="background: var(--s3)">Bash</span><span class="mono" style="color: var(--mu); font-size: 12px">~/work/backend-services</span></div>
+<pre class="mono" style="padding: 10px 12px; border-radius: 6px; background: var(--s2); border: 1px solid var(--bd); font-size: 12px; white-space: pre-wrap">docker compose -f deploy/prod.yml up -d --build api-gateway
+# env: REDIS_URL=[REDACTED]</pre>
+<sc-if value="{{apPending}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 8px; justify-content: flex-end">
+<button class="btn btn-no" type="button" onClick="{{deny}}">Rad <span class="kbd">d</span></button>
+<button class="btn btn-ok" type="button" onClick="{{askConfirm}}">Ruxsat <span class="kbd">a</span></button>
+</div>
+</sc-if>
+<sc-if value="{{apConfirm}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 8px; background: var(--yelBg)">
+<span style="flex: 1; color: var(--tx)">Prod'da konteyner qayta quriladi. Rostdan ruxsat berasizmi?</span>
+<button class="btn" type="button" onClick="{{cancelConfirm}}">Bekor</button>
+<button class="btn btn-ok" type="button" onClick="{{approve}}">Ha, ruxsat berish</button>
+</div>
+</sc-if>
+<sc-if value="{{apDone}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--mu)"><span>{{apResult}}</span><button class="btn" type="button" onClick="{{reset}}" style="height: 26px; font-size: 12px">Holatni qaytarish (demo)</button></div>
+</sc-if>
+</div>
+</div>
+</div>
+
+<div style="position: sticky; bottom: 0; padding: 12px 24px 18px; background: var(--bg); border-top: 1px solid var(--bd)">
+<div style="max-width: 860px; margin: 0 auto">
+<sc-if value="{{canSend}}" hint-placeholder-val="{{ true }}">
+<label style="display: block; position: relative">
+<span style="position: absolute; left: -9999px">Prompt</span>
+<textarea rows="2" placeholder="Claude'ga yozing… (Enter yuborish, Shift+Enter yangi qator)" style="display: block; width: 100%; box-sizing: border-box; resize: none; padding: 12px 120px 12px 14px; border-radius: 10px; border: 1px solid var(--bd); background: var(--s1); color: var(--tx); font: 13px/1.5 Inter,system-ui,sans-serif; outline: none"></textarea>
+<button class="btn btn-pri" type="button" style="position: absolute; right: 8px; bottom: 8px">Yuborish</button>
+</label>
+</sc-if>
+<sc-if value="{{cannotSend}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 10px; border: 1px dashed var(--bd); background: var(--s2); color: var(--mu)">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"></rect><path d="M5.5 7V5a2.5 2.5 0 015 0v2"></path></svg>
+<span>{{disabledReason}}</span>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<aside style="flex: 1 1 280px; max-width: 320px; box-sizing: border-box; border-left: 1px solid var(--bd); padding: 20px; display: flex; flex-direction: column; gap: 22px; background: var(--s1)">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="lbl">Sessiya tokenlari</span>
+<span class="mono" style="font-size: 24px; font-weight: 600">4.86M</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; font-size: 12px">
+<span style="color: var(--mu)">cache read</span><span class="mono" style="text-align: right">4.79M</span>
+<span style="color: var(--mu)">cache write</span><span class="mono" style="text-align: right">52.1K</span>
+<span style="color: var(--mu)">output</span><span class="mono" style="text-align: right">14.8K</span>
+<span style="color: var(--mu)">input</span><span class="mono" style="text-align: right">96</span>
+<span style="color: var(--mu)">so'rovlar</span><span class="mono" style="text-align: right">23</span>
+</div>
+<span style="font-size: 11px; color: var(--fa)">≈ $2.10 API ekvivalenti</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0">
+<span class="lbl" style="margin-bottom: 10px">Holat tarixi</span>
+<sc-for list="{{timeline}}" as="h" hint-placeholder-count="5">
+<div style="display: flex; gap: 10px">
+<div style="display: flex; flex-direction: column; align-items: center"><span class="dot" style="color: {{h.c}}; margin-top: 5px"></span><span style="flex: 1; width: 1px; background: var(--bd); min-height: 18px"></span></div>
+<div style="padding-bottom: 10px"><div style="font-weight: 500">{{h.label}}</div><div class="mono" style="font-size: 11px; color: var(--mu)">{{h.t}}</div></div>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl">O'zgargan fayllar · 4</span>
+<sc-for list="{{files}}" as="f" hint-placeholder-count="4">
+<div class="mono" style="display: flex; gap: 8px; font-size: 12px"><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.p}}</span><span style="color: var(--grn)">{{f.a}}</span><span style="color: var(--red)">{{f.d}}</span></div>
+</sc-for>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"promptMode":{"editor":"enum","options":["active","readonly","offline"],"default":"active"},"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { theme: null, open: { 1: true }, ap: "pending" }; }
+  renderVals() {
+    const theme = this.state.theme || this.props.theme || "dark";
+    const open = this.state.open;
+    const list = [
+      ["Read", "var(--blue)", "src/guards/rate-limit.guard.ts", "142 qator", "var(--mu)", "import { CanActivate, ExecutionContext } from '@nestjs/common';\n…"],
+      ["Bash", "var(--yel)", "npm test -- rate-limit", "3 yiqildi", "var(--red)", "FAIL  src/guards/rate-limit.guard.spec.ts\n  ✕ blocks after 100 req/min per user (41 ms)\n  ✕ shares bucket across IPs (12 ms)\n  ✕ resets after window (8 ms)\nTests: 3 failed, 45 passed, 48 total"],
+      ["Edit", "var(--grn)", "src/guards/rate-limit.guard.ts", "+12 −3", "var(--mu)", "- const key = `rl:${req.ip}`;\n+ const key = `rl:${req.user?.id ?? req.ip}`;"],
+      ["Bash", "var(--yel)", "npm test -- rate-limit", "48 o'tdi", "var(--grn)", "Tests: 48 passed, 48 total"]
+    ];
+    const tools = list.map((t, i) => ({
+      name: t[0], c: t[1], arg: t[2], meta: t[3], metaC: t[4], out: t[5],
+      open: !!open[i], chev: open[i] ? "▾" : "▸",
+      toggle: () => { const o = Object.assign({}, open); o[i] = !o[i]; this.setState({ open: o }); }
+    }));
+    const ap = this.state.ap;
+    const M = {
+      pending: ["Ruxsat so'rovi", "var(--org)", "var(--orgBg)", "var(--org)", "live", "4:12 qoldi", "var(--tx)", 1, ""],
+      confirm: ["Ruxsat so'rovi · tasdiqlang", "var(--org)", "var(--orgBg)", "var(--org)", "live", "4:05 qoldi", "var(--tx)", 1, ""],
+      approved: ["Ruxsat berildi", "var(--bd)", "var(--grnBg)", "var(--grn)", "", "09:51", "var(--mu)", 0.6, "Dashboard'dan siz ruxsat berdingiz · 09:51"],
+      denied: ["Rad etildi", "var(--bd)", "var(--redBg)", "var(--red)", "", "09:51", "var(--mu)", 0.6, "Dashboard'dan rad etildi · Claude boshqa yo'l qidiradi"]
+    }[ap];
+    const pm = this.props.promptMode || "active";
+    const mode = this.state.mode || "manual";
+    const modes = [["manual", "Qo'lda", "default: har amalda ruxsat so'raydi"], ["auto", "Avto", "acceptEdits: fayl tahrirlari avtomatik"], ["plan", "Reja", "plan: faqat reja tuzadi"]].map((m) => ({
+      l: m[1], hint: m[2], pressed: mode === m[0] ? "true" : "false",
+      bg: mode === m[0] ? "var(--s1)" : "transparent", c: mode === m[0] ? "var(--tx)" : "var(--mu)",
+      pick: () => this.setState({ mode: m[0] })
+    }));
+    return {
+      modes: modes,
+      themeClass: "root t-" + theme,
+      themeLabel: theme === "dark" ? "Yorug' rejim" : "Qorong'i rejim",
+      toggleTheme: () => this.setState({ theme: theme === "dark" ? "light" : "dark" }),
+      tools: tools,
+      apTitle: M[0], apBorder: M[1], apHeadBg: M[2], apColor: M[3], apAnim: M[4], apTimer: M[5], apTimerC: M[6], apOp: M[7], apResult: M[8],
+      apPending: ap === "pending", apConfirm: ap === "confirm", apDone: ap === "approved" || ap === "denied",
+      askConfirm: () => this.setState({ ap: "confirm" }),
+      cancelConfirm: () => this.setState({ ap: "pending" }),
+      approve: () => this.setState({ ap: "approved" }),
+      deny: () => this.setState({ ap: "denied" }),
+      reset: () => this.setState({ ap: "pending" }),
+      canSend: pm === "active", cannotSend: pm !== "active",
+      disabledReason: pm === "offline" ? "Chat mavjud emas: srv-01 oflayn. Mashina qayta ulanganda jonli oqim davom etadi." : "Terminal sessiyasi: faqat ko'rish. Prompt yuborish uchun sessiyani Commander orqali oching.",
+      timeline: [
+        { label: "Ruxsat kutmoqda", t: "09:47 · hozir", c: "var(--org)" },
+        { label: "Ishlamoqda", t: "09:43 – 09:47", c: "var(--blue)" },
+        { label: "Javob kutmoqda", t: "09:42 – 09:43", c: "var(--yel)" },
+        { label: "Ishlamoqda", t: "09:42", c: "var(--blue)" },
+        { label: "Boshlandi", t: "09:42", c: "var(--mu)" }
+      ],
+      files: [
+        { p: "src/guards/rate-limit.guard.ts", a: "+12", d: "−3" },
+        { p: "src/guards/rate-limit.guard.spec.ts", a: "+28", d: "−0" },
+        { p: "deploy/prod.yml", a: "+1", d: "−1" },
+        { p: "CHANGELOG.md", a: "+3", d: "−0" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
