@@ -74,7 +74,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         {items.map((it) => {
           const on = isActive(pathname, it.href);
           return (
-            <Link key={it.href} href={it.href} className={`nav ${on ? "on" : ""}`} aria-current={on ? "page" : undefined} onClick={onNavigate}>
+            <Link key={it.href} href={it.href} prefetch={false} className={`nav ${on ? "on" : ""}`} aria-current={on ? "page" : undefined} onClick={onNavigate}>
               {it.icon}
               <span className="flex-1">{it.label}</span>
               {it.badge ? (

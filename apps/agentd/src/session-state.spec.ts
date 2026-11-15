@@ -19,6 +19,13 @@ describe('mapHookToStatus (session-report.sh bilan bir xil mantiq)', () => {
     expect(map('PreToolUse', undefined)).toBeNull();
     expect(map('PreToolUse', 'waiting')).toBe('working');
     expect(map('PreToolUse', 'awaiting_approval')).toBe('working');
+    expect(map('PreToolUse', 'done')).toBe('working'); // Claude o'zi davom etdi (fon vazifa tugadi)
+  });
+
+  it("fonda subagent bo'lsa Stop 'working'da qoldiradi", () => {
+    expect(mapHookToStatus({ event: 'Stop', last: 'working', backgroundAgents: 1 })).toBeNull();
+    expect(mapHookToStatus({ event: 'Stop', last: 'waiting', backgroundAgents: 2 })).toBe('working');
+    expect(mapHookToStatus({ event: 'Stop', last: 'working', backgroundAgents: 0 })).toBe('done');
   });
 
   it("tugagan sessiyadagi idle_prompt o'tkazib yuboriladi, boshqa Notification doim yuboriladi", () => {

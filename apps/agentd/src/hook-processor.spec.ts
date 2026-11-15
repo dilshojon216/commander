@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { AgentEventSchema } from '@commander/contracts';
 import type { AgentEvent } from '@commander/contracts';
 import { makeStores } from '../test/helpers.js';
-import { HookProcessor } from './hook-processor.js';
+import { HookProcessor, SUBAGENT_TTL_MS } from './hook-processor.js';
 import { silentLogger } from './logger.js';
 import { ProjectRootResolver } from './project-root.js';
 
@@ -52,6 +52,39 @@ describe('HookProcessor', () => {
     const { proc, events } = setup();
     expect(proc.process(hook({ hook_event_name: 'SessionStart', agent_id: 'sub-1' }))).toBe(false);
     expect(events()).toHaveLength(0);
+  });
+
+  it("fonda subagent ishlasa Stop 'done' emas; hammasi tugagach keyingi Stop 'done'", () => {
+    const { proc, events } = setup();
+    proc.process(hook({ hook_event_name: 'UserPromptSubmit' }));
+    expect(proc.process(hook({ hook_event_name: 'SubagentStart', agent_id: 'a1' }))).toBe(false);
+    expect(proc.process(hook({ hook_event_name: 'SubagentStart', agent_id: 'a2' }))).toBe(false);
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(false); // working qoladi
+    proc.process(hook({ hook_event_name: 'SubagentStop', agent_id: 'a1' }));
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(false); // a2 hali ishlayapti
+    proc.process(hook({ hook_event_name: 'SubagentStop', agent_id: 'a2' }));
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(true);
+    expect(events().map((e) => e.status)).toEqual(['working', 'done']);
+  });
+
+  it("SubagentStop kelmagan subagent TTL'dan keyin hisobga olinmaydi", () => {
+    let now = 1_000_000;
+    const s = makeStores();
+    const proc = new HookProcessor({ ...s, roots: new ProjectRootResolver(() => false, 100, '/nohome'), log: silentLogger, now: () => now });
+    proc.process(hook({ hook_event_name: 'UserPromptSubmit' }));
+    proc.process(hook({ hook_event_name: 'SubagentStart', agent_id: 'lost' }));
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(false);
+    now += SUBAGENT_TTL_MS + 1;
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(true);
+  });
+
+  it("done'dan keyin Claude o'zi davom etsa (PreToolUse) yana 'working'", () => {
+    const { proc, events } = setup();
+    proc.process(hook({ hook_event_name: 'UserPromptSubmit' }));
+    proc.process(hook({ hook_event_name: 'Stop' }));
+    expect(proc.process(hook({ hook_event_name: 'PreToolUse' }))).toBe(true);
+    expect(proc.process(hook({ hook_event_name: 'Stop' }))).toBe(true);
+    expect(events().map((e) => e.status)).toEqual(['working', 'done', 'working', 'done']);
   });
 
   it("message 2000 ga, notificationType 64 ga qisqartiriladi; sir maskalanadi", () => {

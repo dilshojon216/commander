@@ -57,8 +57,12 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 PLIST
 printf 'APPL????' > "$APP/Contents/PkgInfo"
 
-echo "==> ad-hoc imzo"
-codesign --force --sign - --options runtime --timestamp=none \
+# Barqaror imzo: Keychain ruxsati ("Doim ruxsat") imzo talabiga bog'langan. Ad-hoc imzo har yig'ishda o'zgaradi va
+# ilova tokenni o'qiyotganda ruxsat oynasi qayta chiqadi. Kalit zanjirida kod imzolash sertifikati bo'lsa — shu bilan.
+SIGN_ID="${COMMANDER_MENUBAR_SIGN_ID:-$(security find-identity -v -p codesigning 2>/dev/null | awk -F'"' '/Apple Development|Developer ID Application/{print $2; exit}')}"
+SIGN_ID="${SIGN_ID:--}"
+echo "==> imzo: $([ "$SIGN_ID" = "-" ] && echo ad-hoc || echo "$SIGN_ID")"
+codesign --force --sign "$SIGN_ID" --options runtime --timestamp=none \
   --identifier "$BUNDLE_ID" "$APP"
 codesign --verify --strict --verbose=1 "$APP"
 plutil -lint "$APP/Contents/Info.plist" >/dev/null

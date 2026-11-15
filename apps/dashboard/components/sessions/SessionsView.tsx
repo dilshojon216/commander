@@ -34,7 +34,7 @@ const ENDED_CHIP: Chip = { id: "ended", label: "Yopilgan", color: "var(--fa)" };
 /** Bitta qator uchun havola katagi: faqat birinchisi fokuslanadi (ekran o'qiydigan takrorlanmasin). */
 function Cell({ href, first, className = "", children }: { href: string; first?: boolean; className?: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className={`cell ${className}`} tabIndex={first ? undefined : -1} aria-hidden={first ? undefined : true}>
+    <Link href={href} prefetch={false} className={`cell ${className}`} tabIndex={first ? undefined : -1} aria-hidden={first ? undefined : true}>
       {children}
     </Link>
   );

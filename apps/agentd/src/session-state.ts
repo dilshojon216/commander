@@ -6,6 +6,9 @@ import type { SessionStatus } from '@commander/contracts';
  *   Notification -> waiting (tugagan sessiyadagi idle_prompt o'tkazib yuboriladi),
  *   Stop -> done, SessionEnd -> ended.
  * Bir xil holat takror kelsa (Notification'dan tashqari) hech narsa yuborilmaydi.
+ *
+ * `Stop` = bitta navbat tugadi, butun ish emas: fonda subagent ishlayotgan bo'lsa (`backgroundAgents > 0`) sessiya
+ * `working`da qoladi. `done`dan keyin PreToolUse kelsa Claude o'zi davom etgan (fon vazifa tugadi, Stop-hook uyg'otdi): `working`.
  */
 
 export interface HookStateInput {
@@ -13,6 +16,8 @@ export interface HookStateInput {
   notificationType?: string | null;
   /** Shu sessiyada oxirgi yuborilgan holat (yo'q bo'lsa `undefined`). `ended` = yo'q deb hisoblanadi. */
   last: SessionStatus | undefined;
+  /** Shu sessiyada hali tugamagan subagentlar soni (SubagentStart/SubagentStop bo'yicha). */
+  backgroundAgents?: number;
 }
 
 /** Natija `null` bo'lsa hodisa yuborilmaydi. */
@@ -38,7 +43,7 @@ export function mapHookToStatus(input: HookStateInput): SessionStatus | null {
       status = 'awaiting_approval';
       break;
     case 'Stop':
-      status = 'done';
+      status = (input.backgroundAgents ?? 0) > 0 ? 'working' : 'done';
       break;
     case 'SessionEnd':
       status = 'ended';
@@ -46,8 +51,8 @@ export function mapHookToStatus(input: HookStateInput): SessionStatus | null {
     default:
       return null;
   }
-  // PreToolUse har tool chaqiruvida keladi: faqat kutishni tugatganda yuboriladi.
-  if (input.event === 'PreToolUse' && last !== 'waiting' && last !== 'awaiting_approval') return null;
+  // PreToolUse har tool chaqiruvida keladi: faqat kutish yoki tugagan navbatdan keyin yuboriladi.
+  if (input.event === 'PreToolUse' && last !== 'waiting' && last !== 'awaiting_approval' && last !== 'done') return null;
   // Xuddi shu holat qayta (masalan ketma-ket ikki prompt): yangilik yo'q.
   if (status === last && input.event !== 'Notification') return null;
   return status;

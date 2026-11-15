@@ -15,7 +15,12 @@ final class AppModel {
     /// Hal bo'lgan, lekin natija xabari bir necha soniya ko'rinib turadigan kartalar.
     private(set) var fading: [String: (approval: ApprovalDto, message: String)] = [:]
     var panelVisible = false
+    /// Panelni dasturiy ochish (bildirishnoma / maskot bosilganda); `StatusPanelController` o'rnatadi.
+    @ObservationIgnored var panelOpener: (() -> Void)?
+    @ObservationIgnored var panelCloser: (() -> Void)?
     var showSettings = false
+    /// Token Keychain'dan o'qilmoqda (ruxsat oynasi javob kutayotgan bo'lishi mumkin).
+    private(set) var loadingToken = false
     private(set) var lastError: String?
 
     @ObservationIgnored let notifier = Notifier()
@@ -73,12 +78,22 @@ final class AppModel {
                 self?.tick()
             }
         }
-        token = TokenStore.load()
-        if isPaired {
-            connect()
-        } else {
-            connection = .unpaired
-            if !smoke { pairingWindow.show(prefill: nil) }
+        // Keychain so'rovi ruxsat oynasini kutib qolishi mumkin (imzo o'zgarganda): asosiy oqimni bloklamaslik uchun fonda.
+        loadingToken = true
+        Task { [weak self] in
+            // Global navbatda: Keychain kutishi Swift concurrency pool'ini band qilmasin.
+            let token = await withCheckedContinuation { cont in
+                DispatchQueue.global(qos: .userInitiated).async { cont.resume(returning: TokenStore.load()) }
+            }
+            guard let self else { return }
+            self.loadingToken = false
+            self.token = token
+            if self.isPaired {
+                self.connect()
+            } else {
+                self.connection = .unpaired
+                if !smoke { self.pairingWindow.show(prefill: nil) }
+            }
         }
     }
 
@@ -209,12 +224,13 @@ final class AppModel {
 
     func openPanel() {
         popup.dismissAll()
-        StatusItemOpener.open(isVisible: panelVisible)
+        if !panelVisible { panelOpener?() }
     }
 
     /// Ilova ichidagi "Commander" oynasi (WKWebView). Dock ikonkasi oyna ochiq paytda ko'rinadi.
     func openDashboard(_ target: DashboardTarget = .overview) {
         popup.dismissAll()
+        panelCloser?()
         dashboardWindow.show(target)
     }
 

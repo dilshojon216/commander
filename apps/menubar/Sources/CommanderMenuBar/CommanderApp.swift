@@ -2,28 +2,33 @@ import AppKit
 import MenuBarCore
 import SwiftUI
 
+/// Sof AppKit hayot sikli: SwiftUI `App` sahnasi (hatto bo'sh `Settings`) ishga tushishda o'z oynasini ochib qo'yardi.
+/// Menu-bar ikonkasi va panel `StatusPanelController`da, sozlamalar panel ichida.
 @main
-struct CommanderApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
-
-    var body: some Scene {
-        MenuBarExtra {
-            PanelView(model: delegate.model)
-        } label: {
-            MenuBarLabel(model: delegate.model)
-        }
-        .menuBarExtraStyle(.window)
+enum CommanderMain {
+    @MainActor static func main() {
+        let app = NSApplication.shared
+        let delegate = AppDelegate()
+        app.delegate = delegate
+        app.run()
+        withExtendedLifetime(delegate) {}
     }
 }
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     let model = AppModel()
+    private var statusPanel: StatusPanelController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         if PreviewRenderer.runIfRequested() { exit(0) }
         // LSUIElement `.app` da Info.plist orqali; `swift run` uchun ham Dock ikonkasiz.
         NSApp.setActivationPolicy(.accessory)
+        let panel = StatusPanelController(model: model)
+        statusPanel = panel
+        model.panelOpener = { [weak panel] in panel?.show() }
+        model.panelCloser = { [weak panel] in panel?.close() }
+        NSApp.mainMenu = makeMainMenu()
         model.start()
         // Tutun sinovi: dashboard oynasini ham ochib ko'rish.
         if ProcessInfo.processInfo.environment["COMMANDER_MENUBAR_OPEN_DASHBOARD"] == "1" { model.openDashboard() }
@@ -35,6 +40,55 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
+    /// Asosiy menyu (dashboard oynasi ochiqligida ko'rinadi): Sozlamalar panelda ochiladi.
+    private func makeMainMenu() -> NSMenu {
+        let main = NSMenu()
+        let appItem = NSMenuItem()
+        let appMenu = NSMenu(title: "Commander")
+        appMenu.addItem(withTitle: "Commander haqida", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        appMenu.addItem(.separator())
+        let settingsItem = NSMenuItem(title: "Sozlamalar…", action: #selector(openSettings), keyEquivalent: ",")
+        settingsItem.target = self
+        appMenu.addItem(settingsItem)
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Yashirish", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Chiqish", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appItem.submenu = appMenu
+        main.addItem(appItem)
+
+        let editItem = NSMenuItem()
+        let edit = NSMenu(title: "Tahrir")
+        edit.addItem(withTitle: "Bekor qilish", action: Selector(("undo:")), keyEquivalent: "z")
+        let redo = edit.addItem(withTitle: "Qaytarish", action: Selector(("redo:")), keyEquivalent: "z")
+        redo.keyEquivalentModifierMask = [.command, .shift]
+        edit.addItem(.separator())
+        edit.addItem(withTitle: "Kesish", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
+        edit.addItem(withTitle: "Nusxalash", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
+        edit.addItem(withTitle: "Qo'yish", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
+        edit.addItem(withTitle: "Hammasini tanlash", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+        editItem.submenu = edit
+        main.addItem(editItem)
+
+        let windowItem = NSMenuItem()
+        let window = NSMenu(title: "Oyna")
+        window.addItem(withTitle: "Kichraytirish", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+        window.addItem(withTitle: "Yopish", action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
+        windowItem.submenu = window
+        main.addItem(windowItem)
+        NSApp.windowsMenu = window
+        return main
+    }
+
+    @objc private func openSettings() {
+        model.showSettings = true
+        model.openPanel()
+    }
+
+    /// Oldingi ishga tushishdagi oynalar (masalan Sozlamalar) qayta tiklanmaydi.
+    func applicationShouldSaveApplicationState(_ app: NSApplication) -> Bool { false }
+    func applicationShouldRestoreApplicationState(_ app: NSApplication) -> Bool { false }
+
     /// Oxirgi oyna yopilsa ilova yopilmaydi (menu-bar ilovasi).
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 
@@ -42,23 +96,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         if !(urls.isEmpty) { model.start() }
         for url in urls { model.handleOpenURL(url) }
-    }
-}
-
-/// Menu-bar: maskot boshi (soddalashtirilgan) + ixcham matn. Diqqat kerak bo'lsa rangli chiroq.
-struct MenuBarLabel: View {
-    let model: AppModel
-    @Environment(\.colorScheme) private var scheme
-
-    var body: some View {
-        let mood = model.mood
-        let summary = model.summary
-        let text = model.menuText
-        HStack(spacing: 4) {
-            Image(nsImage: MascotGlyphRenderer.image(light: mood.light, attention: mood.needsAttention || mood.light != .gray, dark: scheme == .dark))
-            if !text.isEmpty { Text(text).monospacedDigit() }
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(MenuText.accessibilityLabel(summary: summary, limits: model.state.limits, connection: model.connection))
     }
 }

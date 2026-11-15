@@ -342,7 +342,7 @@ Object.assign(settings.env, {
   OTEL_RESOURCE_ATTRIBUTES: 'host.name=' + process.env.MACHINE_NAME,
 });
 
-const hooks = ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'PostToolUseFailure', 'Notification', 'Stop', 'SessionEnd'];
+const hooks = ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'PostToolUseFailure', 'Notification', 'Stop', 'SessionEnd', 'SubagentStart', 'SubagentStop'];
 const nodeCmd = process.env.NODE_BIN || 'node';
 const hookCommand = nodeCmd + ' \$HOME/.commander/bin/cc-hook.mjs';
 const hookConfig = {

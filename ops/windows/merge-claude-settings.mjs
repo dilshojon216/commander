@@ -66,7 +66,7 @@ Object.assign(settings.env, {
 settings.hooks = { ...(settings.hooks ?? {}) };
 const hookConfig = { type: 'command', command: hookCommand, timeout: 10, async: true };
 let added = 0;
-for (const name of ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'PostToolUseFailure', 'Notification', 'Stop', 'SessionEnd']) {
+for (const name of ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'PostToolUseFailure', 'Notification', 'Stop', 'SessionEnd', 'SubagentStart', 'SubagentStop']) {
   const groups = Array.isArray(settings.hooks[name]) ? settings.hooks[name] : [];
   const found = groups.some((g) => Array.isArray(g?.hooks) && g.hooks.some((h) => typeof h?.command === 'string' && h.command.includes('cc-hook')));
   if (!found) {

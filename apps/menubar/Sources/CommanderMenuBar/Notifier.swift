@@ -77,6 +77,7 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         let approvalId = info["approvalId"] as? String
         let path = info["dashboardPath"] as? String
         await MainActor.run {
+            DebugLog.write("notification click action=\(action) path=\(path ?? "-") \(DebugLog.windowState())")
             switch action {
             case NotificationActionID.allow:
                 if let approvalId { self.onDecision?(approvalId, .allow) }

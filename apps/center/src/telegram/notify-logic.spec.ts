@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { LimitWindowView, LimitsResponse } from '@commander/contracts';
-import { MachineWatch, SessionNoticeGate, decideLimitAlerts } from './notify-logic.js';
+import { DONE_NOTICE_DELAY_MS, DoneNoticeScheduler, MachineWatch, SessionNoticeGate, decideLimitAlerts, type TimerScheduler } from './notify-logic.js';
 
 const view = (over: Partial<LimitWindowView>): LimitWindowView => ({
   usedPct: 0,
@@ -126,5 +126,73 @@ describe('MachineWatch', () => {
     expect(w.due(T0 + 600_000)).toEqual([]);
     expect(w.observe('flap', true, T0 + 20_000)).toBeNull();
     expect(w.observe('boot-offline', true, T0 + 30_000)).toBeNull();
+  });
+});
+
+describe('DoneNoticeScheduler', () => {
+  const fake = () => {
+    let now = 0;
+    let seq = 0;
+    const timers = new Map<number, { at: number; fn: () => void }>();
+    const scheduler: TimerScheduler = {
+      set: (fn, ms) => {
+        const id = ++seq;
+        timers.set(id, { at: now + ms, fn });
+        return id;
+      },
+      clear: (h) => void timers.delete(h as number),
+    };
+    const advance = (ms: number): void => {
+      now += ms;
+      for (const [id, t] of [...timers]) {
+        if (t.at <= now) {
+          timers.delete(id);
+          t.fn();
+        }
+      }
+    };
+    return { scheduler, advance };
+  };
+
+  it('kechikishdan keyin bir marta ishga tushadi', () => {
+    const f = fake();
+    const d = new DoneNoticeScheduler(DONE_NOTICE_DELAY_MS, f.scheduler);
+    const fire = vi.fn();
+    d.schedule('s1', fire);
+    f.advance(DONE_NOTICE_DELAY_MS - 1);
+    expect(fire).not.toHaveBeenCalled();
+    f.advance(1);
+    expect(fire).toHaveBeenCalledTimes(1);
+    expect(d.size).toBe(0);
+  });
+  it('yangi done eskisini almashtiradi (sessiya bo\'yicha bitta)', () => {
+    const f = fake();
+    const d = new DoneNoticeScheduler(1000, f.scheduler);
+    const a = vi.fn();
+    const b = vi.fn();
+    d.schedule('s1', a);
+    f.advance(600);
+    d.schedule('s1', b);
+    expect(d.size).toBe(1);
+    f.advance(600);
+    expect(a).not.toHaveBeenCalled();
+    f.advance(400);
+    expect(b).toHaveBeenCalledTimes(1);
+  });
+  it('cancel va clearAll kutilayotganlarni o\'chiradi', () => {
+    const f = fake();
+    const d = new DoneNoticeScheduler(1000, f.scheduler);
+    const a = vi.fn();
+    const b = vi.fn();
+    d.schedule('s1', a);
+    d.schedule('s2', b);
+    d.cancel('s1');
+    d.cancel('yo\'q');
+    expect(d.size).toBe(1);
+    d.clearAll();
+    f.advance(5000);
+    expect(a).not.toHaveBeenCalled();
+    expect(b).not.toHaveBeenCalled();
+    expect(d.size).toBe(0);
   });
 });

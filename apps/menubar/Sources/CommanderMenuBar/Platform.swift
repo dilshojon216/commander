@@ -7,6 +7,35 @@ import SwiftUI
 
 let log = Logger(subsystem: "uz.commander.menubar", category: "app")
 
+/// Diagnostika: `defaults write uz.commander.menubar debugLog -bool YES` bo'lsa ~/Library/Logs/commander/menubar-debug.log ga yoziladi.
+/// Faqat oyna/hodisa holati yoziladi: token, prompt matni va sahifa mazmuni yozilmaydi (yo'l faqat path qismi).
+enum DebugLog {
+    static let enabled = UserDefaults.standard.bool(forKey: "debugLog")
+    private static let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Logs/commander/menubar-debug.log")
+    private static let queue = DispatchQueue(label: "uz.commander.menubar.debuglog")
+
+    static func write(_ message: @autoclosure () -> String) {
+        guard enabled else { return }
+        let line = "\(Date().formatted(.iso8601.time(includingFractionalSeconds: true))) \(message())\n"
+        queue.async {
+            try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+            if let h = try? FileHandle(forWritingTo: url) {
+                h.seekToEndOfFile()
+                h.write(Data(line.utf8))
+                try? h.close()
+            } else {
+                try? line.write(to: url, atomically: true, encoding: .utf8)
+            }
+        }
+    }
+
+    @MainActor static func windowState() -> String {
+        let key = NSApp.keyWindow.map { "\(type(of: $0))#\($0.windowNumber)" } ?? "nil"
+        let wins = NSApp.windows.filter(\.isVisible).map { "\(type(of: $0))#\($0.windowNumber)@\($0.level.rawValue)" }.joined(separator: ",")
+        return "active=\(NSApp.isActive) key=\(key) visible=[\(wins)]"
+    }
+}
+
 /// Client token FAQAT Keychain'da (CLAUDE.md #5; fayl/log/UserDefaults'ga yozilmaydi).
 /// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`: boshqa qurilmaga/zaxiraga ko'chmaydi.
 /// Avval Data Protection keychain; ad-hoc imzoda entitlement yo'qligi sababli (-34018) login keychain'ga qaytadi.
@@ -101,30 +130,6 @@ enum LoginItem {
         } catch {
             return "Login elementini o'zgartirib bo'lmadi: \(error.localizedDescription)"
         }
-    }
-}
-
-/// MenuBarExtra panelini dasturiy ochish (bildirishnoma / maskot bosilganda).
-/// Ommaviy API yo'q: status bar tugmasini topib bosamiz (faqat ochiq bo'lmasa).
-@MainActor
-enum StatusItemOpener {
-    static func open(isVisible: Bool) {
-        guard !isVisible else { return }
-        NSApp.activate()
-        for w in NSApp.windows where w.className.contains("StatusBarWindow") {
-            if let button = findButton(in: w.contentView) {
-                button.performClick(nil)
-                return
-            }
-        }
-        log.notice("status item button not found")
-    }
-
-    private static func findButton(in view: NSView?) -> NSButton? {
-        guard let view else { return nil }
-        if let b = view as? NSButton { return b }
-        for sub in view.subviews { if let b = findButton(in: sub) { return b } }
-        return nil
     }
 }
 

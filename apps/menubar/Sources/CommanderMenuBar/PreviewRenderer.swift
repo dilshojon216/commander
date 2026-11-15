@@ -44,7 +44,7 @@ enum PreviewRenderer {
                 .frame(width: 360, height: 128).background(bg), scheme: scheme, to: out.appendingPathComponent("popup-\(tag).png"))
 
             if let fixtures, let model = previewModel(fixtures) {
-                save(PanelView(model: model).background(bg), scheme: scheme, to: out.appendingPathComponent("panel-\(tag).png"))
+                save(PanelContainer(model: model, maxBodyHeight: 2000, onResize: {}, staticRender: true).background(bg), scheme: scheme, to: out.appendingPathComponent("panel-\(tag).png"))
             }
         }
         print("previews -> \(out.path)")

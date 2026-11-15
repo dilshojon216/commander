@@ -34,7 +34,7 @@ import { INVESTIGATE_BUTTON_TTL_MS, telegramInvestigations } from './telegram-in
 import { buildPrDefaults } from '@commander/contracts';
 import { callbackKey, decodeCallback, encodeCallback } from './callback-data.js';
 import type { CallbackAction } from './callback-data.js';
-import { MachineWatch, SessionNoticeGate, decideLimitAlerts } from './notify-logic.js';
+import { DoneNoticeScheduler, MachineWatch, SessionNoticeGate, decideLimitAlerts, type SessionNoticeKind } from './notify-logic.js';
 import { DEFAULT_PREFS, TelegramAccessService } from './telegram-access.service.js';
 import type { TelegramPrefs } from './telegram-access.service.js';
 import {
@@ -155,6 +155,7 @@ export class TelegramService implements OnApplicationBootstrap, BeforeApplicatio
   private readonly logger = new Logger(TelegramService.name);
   private readonly key: Buffer | null;
   private readonly gate: SessionNoticeGate;
+  private readonly doneNotices = new DoneNoticeScheduler();
   private readonly watch: MachineWatch;
   private readonly machineNames = new Map<string, string>();
   private readonly approvalMessages = new Map<string, Map<string, number>>();
@@ -263,6 +264,7 @@ export class TelegramService implements OnApplicationBootstrap, BeforeApplicatio
     this.unregisterStepUp = null;
     if (this.machineTimer) clearInterval(this.machineTimer);
     this.machineTimer = null;
+    this.doneNotices.clearAll();
     if (this.bot && this.polling) {
       await Promise.race([this.bot.stop().catch(() => undefined), new Promise<void>((r) => setTimeout(r, 3000).unref())]);
     }
@@ -2286,14 +2288,40 @@ export class TelegramService implements OnApplicationBootstrap, BeforeApplicatio
   private async onSessionsChanged(refs: Parameters<SessionsV1Service['findByRefs']>[0]): Promise<void> {
     for (const s of await this.sessions.findByRefs(refs)) {
       const kind = this.gate.observe(s.id, s.status);
+      if (s.status !== 'done') this.doneNotices.cancel(s.id); // sessiya qayta ishga tushdi: kutilayotgan "tugadi" bekor
       if (!kind) continue;
-      if (s.staleSince !== null || s.endedAt !== null) continue;
-      const machine = await this.machines.findById(s.machineId);
-      if (!machine?.online) continue; // faqat online mashinadagi sessiyalar
-      if (!this.gate.admit(s.id, kind, Date.now(), { notifyDone: this.prefs.notifyDone, mutedUntil: this.prefs.mutedUntil })) continue;
-      const gitKb = kind === 'done' ? await this.gitDoneKeyboard(s.id, s.projectId) : null;
-      await this.send(formatSessionNotice(s, kind), gitKb ?? undefined);
+      if (kind === 'done') {
+        // Kechiktirilgan: `Stop` faqat navbat tugashi, Claude o'zi qayta boshlashi mumkin.
+        this.doneNotices.schedule(s.id, () => {
+          void this.sendDoneNotice(s.id).catch((err: unknown) => this.logger.warn(`done notice failed (${s.id}): ${this.scrub(errMessage(err))}`));
+        });
+        continue;
+      }
+      await this.sendSessionNotice(s, kind);
     }
+  }
+
+  /** Kechikishdan keyin: sessiya hamon `done` bo'lsagina xabar yuboradi (gate.admit aynan shu paytda). */
+  private async sendDoneNotice(sessionId: string): Promise<void> {
+    if (this.stopping) return;
+    let s: SessionDto;
+    try {
+      s = await this.sessions.get(sessionId);
+    } catch (err) {
+      if (err instanceof NotFoundException) return; // sessiya o'chirilgan
+      throw err;
+    }
+    if (s.status !== 'done') return;
+    await this.sendSessionNotice(s, 'done');
+  }
+
+  private async sendSessionNotice(s: SessionDto, kind: SessionNoticeKind): Promise<void> {
+    if (s.staleSince !== null || s.endedAt !== null) return;
+    const machine = await this.machines.findById(s.machineId);
+    if (!machine?.online) return; // faqat online mashinadagi sessiyalar
+    if (!this.gate.admit(s.id, kind, Date.now(), { notifyDone: this.prefs.notifyDone, mutedUntil: this.prefs.mutedUntil })) return;
+    const gitKb = kind === 'done' ? await this.gitDoneKeyboard(s.id, s.projectId) : null;
+    await this.send(formatSessionNotice(s, kind), gitKb ?? undefined);
   }
 
   private async onMachineChanged(machineId: string): Promise<void> {

@@ -47,6 +47,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
             isOpen = true
             apply(activation.windowOpened())
         }
+        DebugLog.write("dash show target=\(target.path) \(DebugLog.windowState())")
         NSApp.activate()
         w.makeKeyAndOrderFront(nil)
         // `.accessory` -> `.regular` dan keyin oyna ba'zan orqada qoladi: keyingi siklda yana oldinga.
@@ -91,6 +92,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         if !w.setFrameUsingName(Self.frameName) { w.center() }
         w.setFrameAutosaveName(Self.frameName)
         w.keyHandler = { [weak self] e in self?.handleKey(e) ?? false }
+        w.clickProbe = { [weak self] e in self?.probe(e) }
 
         let toolbar = NSToolbar(identifier: "CommanderDashboardToolbar")
         toolbar.delegate = self
@@ -128,6 +130,16 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         let bridge = DashboardAuthBridge(settings: settings)
         cfg.userContentController.addScriptMessageHandler(bridge, contentWorld: .page, name: DashboardAuthBridge.name)
         authBridge = bridge
+        if DebugLog.enabled {
+            // Diagnostika: sahifa xatolarini yig'adi (native ko'prik yo'q; `probe` evaluateJavaScript bilan o'qiydi).
+            let js = """
+            (function(){var e=window.__cmdDbg=[];function p(m){e.push(String(m).slice(0,300));if(e.length>30)e.shift();}
+            window.addEventListener('error',function(x){p('error: '+x.message+' @'+(x.filename||'')+':'+x.lineno);});
+            window.addEventListener('unhandledrejection',function(x){p('rejection: '+(x.reason&&x.reason.message||x.reason));});
+            var ce=console.error;console.error=function(){p('console: '+Array.prototype.join.call(arguments,' '));return ce.apply(console,arguments);};})();
+            """
+            cfg.userContentController.addUserScript(WKUserScript(source: js, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
         let wv = WKWebView(frame: .zero, configuration: cfg)
         wv.navigationDelegate = self
         wv.uiDelegate = self
@@ -200,6 +212,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         // targetFrame == nil: target=_blank / window.open — yangi oyna ochilmaydi.
         let newWindow = navigationAction.targetFrame == nil
         let isMain = navigationAction.targetFrame?.isMainFrame ?? true
+        DebugLog.write("dash nav path=\(url?.path ?? "-") type=\(navigationAction.navigationType.rawValue) main=\(isMain) new=\(newWindow)")
         switch DashboardNavigationPolicy.decide(url, base: settings.dashboardURL, isMainFrame: isMain) {
         case .allow:
             if newWindow, let url { webView.load(URLRequest(url: url)); return .cancel }
@@ -214,6 +227,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        DebugLog.write("dash finish path=\(webView.url?.path ?? "-")")
         hideDown()
     }
 
@@ -231,6 +245,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
 
     private func handleFailure(_ error: Error) {
         let ns = error as NSError
+        DebugLog.write("dash fail domain=\(ns.domain) code=\(ns.code)")
         // Bekor qilingan / siyosat to'xtatgan yuklanish xato emas.
         if ns.domain == NSURLErrorDomain && ns.code == NSURLErrorCancelled { return }
         if ns.domain == "WebKitErrorDomain" && ns.code == 102 { return }
@@ -250,6 +265,26 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         case .cancel: break
         }
         return nil
+    }
+
+    // MARK: diagnostika
+
+    /// Bosilgan nuqtadagi element, sahifa yo'li va yig'ilgan JS xatolari (faqat `debugLog` yoqilganda).
+    private func probe(_ e: NSEvent) {
+        guard DebugLog.enabled, let webView, e.window === window else { return }
+        let pt = webView.convert(e.locationInWindow, from: nil)
+        let zoom = webView.pageZoom
+        let x = Int(pt.x / zoom), y = Int((webView.isFlipped ? pt.y : webView.bounds.height - pt.y) / zoom)
+        let js = """
+        (function(){var el=document.elementFromPoint(\(x),\(y));var d=function(n){if(!n)return'null';var a=n.closest&&n.closest('a');
+        return n.tagName.toLowerCase()+(n.id?'#'+n.id:'')+'.'+String(n.className||'').slice(0,60)+(a?' a='+a.getAttribute('href'):'');};
+        return JSON.stringify({path:location.pathname,el:d(el),ready:document.readyState,errs:(window.__cmdDbg||[]).slice(-5)});})()
+        """
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            webView.evaluateJavaScript(js) { result, error in
+                DebugLog.write("dash probe at=\(x),\(y) \(result as? String ?? "err=\(String(describing: error))")")
+            }
+        }
     }
 
     // MARK: klaviatura
@@ -383,6 +418,15 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
 /// Klaviatura yorliqlarini asosiy menyudan oldin ushlash uchun.
 final class DashboardWindow: NSWindow {
     var keyHandler: ((NSEvent) -> Bool)?
+    var clickProbe: ((NSEvent) -> Void)?
+
+    override func sendEvent(_ event: NSEvent) {
+        if event.type == .leftMouseDown {
+            DebugLog.write("dash click key=\(isKeyWindow) active=\(NSApp.isActive) loc=\(Int(event.locationInWindow.x)),\(Int(event.locationInWindow.y))")
+            clickProbe?(event)
+        }
+        super.sendEvent(event)
+    }
 
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
         if keyHandler?(event) == true { return true }

@@ -1,12 +1,13 @@
 import { ConflictException, ForbiddenException } from '@nestjs/common';
 import { Bot } from 'grammy';
 import type { Update } from 'grammy/types';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ApprovalDto, CommandDto, MachineDto, SessionDto } from '@commander/contracts';
 import { StepUpRegistry } from '../commands/step-up.js';
 import { RealtimeBus } from '../realtime/realtime-bus.js';
 import { callbackKey, decodeCallback, encodeCallback } from './callback-data.js';
 import { formatApproval } from './telegram-format.js';
+import { DONE_NOTICE_DELAY_MS } from './notify-logic.js';
 import { TelegramService } from './telegram.service.js';
 import type { TelegramOptions } from './telegram.options.js';
 
@@ -123,6 +124,7 @@ function setup(opts: { allowed?: string[]; lockdown?: boolean; queue?: unknown; 
   const sessionsSvc = {
     list: vi.fn(async () => ({ items: [], nextCursor: null })),
     findByRefs: vi.fn(async () => [session({ status: 'waiting' })]),
+    get: vi.fn(async () => session({ status: 'waiting' })),
   };
   const lockdown = { state: vi.fn(async () => ({ enabled: opts.lockdown === true, since: null })) };
   const audit = { record: vi.fn(async () => undefined) };
@@ -405,6 +407,45 @@ describe('TelegramService', () => {
       await changed('waiting'); // 60 s oralig'i ichida
       expect(t.sent('sendMessage')).toHaveLength(1);
       expect(String(t.sent('sendMessage')[0]!.payload.text)).toContain('Javobingizni kutmoqda');
+    });
+
+    describe('done kechiktirilishi', () => {
+      beforeEach(() => vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date'] }));
+      afterEach(() => vi.useRealTimers());
+      const doneTexts = (): string[] => t.sent('sendMessage').map((m) => String(m.payload.text)).filter((x) => x.includes('tugadi'));
+
+      it('done darhol yuborilmaydi; kechikishdan keyin hamon done bo\'lsa yuboriladi', async () => {
+        await changed('working');
+        await changed('done');
+        t.sessionsSvc.get.mockResolvedValue(session({ status: 'done' }));
+        expect(doneTexts()).toHaveLength(0);
+        await vi.advanceTimersByTimeAsync(DONE_NOTICE_DELAY_MS + 100);
+        await t.flush();
+        expect(doneTexts()).toHaveLength(1);
+      });
+      it('kutish ichida working ga qaytsa bekor qilinadi', async () => {
+        await changed('working');
+        await changed('done');
+        await vi.advanceTimersByTimeAsync(10_000);
+        await changed('working');
+        t.sessionsSvc.get.mockResolvedValue(session({ status: 'done' }));
+        await vi.advanceTimersByTimeAsync(DONE_NOTICE_DELAY_MS * 2);
+        await t.flush();
+        expect(doneTexts()).toHaveLength(0);
+      });
+      it('qayta yuklashda status done emas bo\'lsa yuborilmaydi', async () => {
+        await changed('working');
+        await changed('done');
+        t.sessionsSvc.get.mockResolvedValue(session({ status: 'working' }));
+        await vi.advanceTimersByTimeAsync(DONE_NOTICE_DELAY_MS + 100);
+        await t.flush();
+        expect(doneTexts()).toHaveLength(0);
+      });
+      it('waiting darhol yuboriladi', async () => {
+        await changed('working');
+        await changed('waiting');
+        expect(t.sent('sendMessage')).toHaveLength(1);
+      });
     });
 
     it('offline mashinadagi sessiya uchun xabar yo\'q', async () => {

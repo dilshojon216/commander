@@ -52,6 +52,10 @@ export interface HookProcessorDeps {
 
 const PERMISSION_MODE_RE = /^[A-Za-z][A-Za-z0-9_-]{0,31}$/;
 
+/** SubagentStop kelmay qolgan (uzilgan) subagent sessiyani abadiy `working`da ushlab turmasin. */
+export const SUBAGENT_TTL_MS = 3 * 60 * 60_000;
+const MAX_SUBAGENTS_PER_SESSION = 64;
+
 export class HookProcessor {
   private readonly now: () => number;
   /** Sessiya bo'yicha markazga oxirgi yuborilgan ruxsat rejimi (xotirada; restartdan keyin birinchi hook qayta yuboradi). */
@@ -60,6 +64,8 @@ export class HookProcessor {
   private readonly lastExplicit = new Map<string, string>();
   /** Sessiya bo'yicha oxirgi yuborilgan branch-taxmin (`null` = branch vazifaga mos kelmaydi). */
   private readonly lastBranchTask = new Map<string, string | null>();
+  /** Sessiya bo'yicha hali tugamagan subagentlar: agent_id -> boshlangan vaqt (xotirada). */
+  private readonly subagents = new Map<string, Map<string, number>>();
 
   constructor(private readonly d: HookProcessorDeps) {
     this.now = d.now ?? Date.now;
@@ -73,7 +79,10 @@ export class HookProcessor {
       return false;
     }
     const p = parsed.data;
-    if (p.agent_id) return false; // subagent
+    if (p.agent_id) {
+      this.trackSubagent(p.session_id, p.hook_event_name, p.agent_id);
+      return false; // subagent hodisasi sessiyaning o'z holati emas
+    }
 
     const { store, outbox, roots } = this.d;
     const existing = store.get(p.session_id);
@@ -93,6 +102,7 @@ export class HookProcessor {
       event: p.hook_event_name,
       notificationType: p.notification_type ?? null,
       last: existing?.status ?? undefined,
+      backgroundAgents: this.activeSubagents(p.session_id),
     });
     const task = this.detectTask(p, root ?? existing?.root ?? existing?.cwd ?? null);
     if (status === null) {
@@ -131,6 +141,28 @@ export class HookProcessor {
     if (task) this.rememberTask(p.session_id, task);
     if (status === 'ended') this.forgetSession(p.session_id);
     return true;
+  }
+
+  private trackSubagent(sessionId: string, event: string, agentId: string): void {
+    if (event === 'SubagentStart') {
+      const set = this.subagents.get(sessionId) ?? new Map<string, number>();
+      if (set.size >= MAX_SUBAGENTS_PER_SESSION && !set.has(agentId)) return;
+      set.set(agentId, this.now());
+      this.subagents.set(sessionId, set);
+    } else if (event === 'SubagentStop') {
+      const set = this.subagents.get(sessionId);
+      set?.delete(agentId);
+      if (set?.size === 0) this.subagents.delete(sessionId);
+    }
+  }
+
+  private activeSubagents(sessionId: string): number {
+    const set = this.subagents.get(sessionId);
+    if (!set) return 0;
+    const cutoff = this.now() - SUBAGENT_TTL_MS;
+    for (const [id, startedAt] of set) if (startedAt < cutoff) set.delete(id);
+    if (set.size === 0) this.subagents.delete(sessionId);
+    return set.size;
   }
 
   /**
@@ -172,6 +204,7 @@ export class HookProcessor {
   private forgetSession(sid: string): void {
     this.lastExplicit.delete(sid);
     this.lastBranchTask.delete(sid);
+    this.subagents.delete(sid);
   }
 }
 

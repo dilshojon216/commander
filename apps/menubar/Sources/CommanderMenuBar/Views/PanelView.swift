@@ -2,61 +2,50 @@ import CommanderContracts
 import MenuBarCore
 import SwiftUI
 
-/// MenuBarExtra (.window) paneli (dizayn: MacMenuBar.dc.html, 380px).
-struct PanelView: View {
+/// Panel tanasi (aylanadigan qism): umumiy ko'rsatkichlar, ruxsat so'rovlari, limitlar, sessiyalar, mashinalar.
+struct PanelBody: View {
     let model: AppModel
     static let maxApprovals = 3
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            if model.showSettings {
-                SettingsView(model: model)
+        VStack(alignment: .leading, spacing: 10) {
+            if model.loadingToken {
+                Banner(text: "Keychain ruxsati kutilmoqda: ochilgan oynada Mac parolini kiritib \"Doim ruxsat berish\"ni bosing", fg: Theme.yellow, bg: Theme.yellowBg, icon: "key.fill")
+            } else if !model.isPaired {
+                UnpairedView(model: model)
             } else {
-                main
+                ConnectionBanner(model: model)
+                if model.state.lockdown {
+                    Banner(text: "Lockdown yoqiq: masofadan faqat rad etish mumkin", fg: Theme.red, bg: Theme.redBg, icon: "lock.fill")
+                }
+                StatTiles(summary: model.summary)
+                approvals
+                PanelCard(title: "Limitlar", icon: "gauge.with.dots.needle.67percent") {
+                    LimitsCard(limits: model.state.limits)
+                }
+                SessionsCard(model: model)
+                MachinesCard(model: model)
+                if model.summary.openAlerts > 0 || model.summary.activeQueue > 0 { StatusStrip(summary: model.summary) }
             }
         }
-        .padding(8)
-        .frame(width: 380)
-        .onAppear { model.panelAppeared() }
-        .onDisappear { model.panelDisappeared() }
+        .padding(12)
     }
 
     @ViewBuilder
-    private var main: some View {
-        let summary = model.summary
-        PanelHeader(model: model, summary: summary)
-        if !model.isPaired {
-            UnpairedView(model: model)
-        } else {
-            ConnectionBanner(model: model)
-            if model.state.lockdown {
-                Banner(text: "Lockdown yoqiq: masofadan faqat rad etish mumkin", fg: Theme.red, bg: Theme.redBg, icon: "lock.fill")
+    private var approvals: some View {
+        let list = model.sortedApprovals
+        if !list.isEmpty || !model.fading.isEmpty {
+            VStack(alignment: .leading, spacing: 6) {
+                CardTitle(title: "Ruxsat so'rovlari", icon: "hand.raised.fill", tint: Theme.orange, count: list.count)
+                ForEach(list.prefix(Self.maxApprovals), id: \.id) { a in ApprovalCardView(approval: a, model: model) }
+                if list.count > Self.maxApprovals {
+                    MenuRow(title: "Yana \(list.count - Self.maxApprovals) ta so'rov — dashboard'da") { model.openDashboard() }
+                }
+                ForEach(Array(model.fading.keys.sorted()), id: \.self) { id in
+                    if let f = model.fading[id] { FadingApprovalView(approval: f.approval, message: f.message) }
+                }
             }
-            // Panel cheklangan balandlikda: ko'pi bilan 3 ta ruxsat kartasi va 8 ta loyiha; qolgani dashboard'da.
-            let approvals = model.sortedApprovals
-            ForEach(approvals.prefix(Self.maxApprovals), id: \.id) { a in
-                ApprovalCardView(approval: a, model: model)
-            }
-            if approvals.count > Self.maxApprovals {
-                MenuRow(title: "Yana \(approvals.count - Self.maxApprovals) ta ruxsat so'rovi — dashboard'da") { model.openDashboard() }
-            }
-            ForEach(Array(model.fading.keys.sorted()), id: \.self) { id in
-                if let f = model.fading[id] { FadingApprovalView(approval: f.approval, message: f.message) }
-            }
-            SessionsSection(model: model)
-
-            Divider().padding(.horizontal, 4).padding(.vertical, 2)
-            LimitsCard(limits: model.state.limits)
-            StatusStrip(summary: summary)
         }
-        Divider().padding(.horizontal, 4).padding(.vertical, 2)
-        MenuRow(title: "Dashboard'ni ochish", shortcut: "⌘D") { model.openDashboard() }
-            .keyboardShortcut("d", modifiers: .command)
-        MenuRow(title: "Brauzerda ochish") { model.openDashboardInBrowser() }
-        MenuRow(title: "Sozlamalar…", shortcut: "⌘,") { model.showSettings = true }
-            .keyboardShortcut(",", modifiers: .command)
-        MenuRow(title: "Chiqish", shortcut: "⌘Q") { NSApp.terminate(nil) }
-            .keyboardShortcut("q", modifiers: .command)
     }
 }
 
@@ -66,17 +55,31 @@ struct PanelHeader: View {
 
     var body: some View {
         let mood = model.mood
-        HStack(spacing: 8) {
-            MascotView(pose: mood.pose, light: mood.light, height: 30)
-            Text("Commander").font(.system(size: 14, weight: .bold))
-            Spacer()
-            connectionPill
-            if summary.totalMachines > 0 {
-                Pill(text: "\(summary.onlineMachines)/\(summary.totalMachines) mashina", fg: Theme.muted, bg: Theme.grayBg, dot: false, mono: true)
-                    .accessibilityLabel("\(summary.onlineMachines) ta mashina onlayn, jami \(summary.totalMachines)")
+        HStack(spacing: 10) {
+            MascotView(pose: mood.pose, light: mood.light, height: 36)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Commander").font(.system(size: 15, weight: .bold))
+                Text(subtitle).font(.system(size: 11)).foregroundStyle(Theme.muted).lineLimit(1)
             }
+            Spacer(minLength: 6)
+            connectionPill
+            Button { model.showSettings = true } label: {
+                Image(systemName: "gearshape").font(.system(size: 13, weight: .medium)).frame(width: 26, height: 26)
+            }
+            .buttonStyle(IconButtonStyle())
+            .help("Sozlamalar (⌘,)")
+            .keyboardShortcut(",", modifiers: .command)
+            .accessibilityLabel("Sozlamalar")
         }
-        .padding(.horizontal, 10).padding(.top, 4).padding(.bottom, 6)
+        .padding(.horizontal, 14).padding(.vertical, 10)
+    }
+
+    private var subtitle: String {
+        if !model.isPaired { return "Ulanmagan" }
+        if summary.approvals > 0 { return "\(summary.approvals) ta so'rov javob kutmoqda" }
+        if summary.waiting > 0 { return "\(summary.waiting) ta sessiya sizni kutmoqda" }
+        if summary.working > 0 { return "\(summary.working) ta sessiya ishlayapti" }
+        return "Hammasi tinch"
     }
 
     @ViewBuilder
@@ -88,6 +91,124 @@ struct PanelHeader: View {
         case .unauthorized: Pill(text: "Token rad etildi", fg: Theme.red, bg: Theme.redBg)
         case .unpaired: Pill(text: "Ulanmagan", fg: Theme.muted, bg: Theme.grayBg)
         }
+    }
+}
+
+/// Pastki qator: asosiy amallar ikonka-tugma ko'rinishida.
+struct PanelFooter: View {
+    let model: AppModel
+
+    var body: some View {
+        HStack(spacing: 4) {
+            FooterButton(title: "Dashboard", icon: "rectangle.3.group", shortcut: "d") { model.openDashboard() }
+            FooterButton(title: "Brauzerda", icon: "safari") { model.openDashboardInBrowser() }
+            Spacer()
+            FooterButton(title: "Chiqish", icon: "power", shortcut: "q") { NSApp.terminate(nil) }
+        }
+        .padding(.horizontal, 10).padding(.vertical, 8)
+    }
+}
+
+struct FooterButton: View {
+    let title: String
+    let icon: String
+    var shortcut: Character?
+    let action: () -> Void
+
+    var body: some View {
+        let b = Button(action: action) {
+            HStack(spacing: 5) {
+                Image(systemName: icon).font(.system(size: 11, weight: .medium))
+                Text(title).font(.system(size: 12, weight: .medium))
+                if let shortcut { Text("⌘\(String(shortcut).uppercased())").font(.system(size: 10, design: .monospaced)).foregroundStyle(Theme.faint) }
+            }
+            .padding(.horizontal, 9).frame(height: 26)
+        }
+        .buttonStyle(IconButtonStyle())
+        if let shortcut { b.keyboardShortcut(KeyEquivalent(shortcut), modifiers: .command) } else { b }
+    }
+}
+
+struct IconButtonStyle: ButtonStyle {
+    @State private var hover = false
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(Theme.text)
+            .background(RoundedRectangle(cornerRadius: 7).fill(configuration.isPressed ? Theme.surface3 : hover ? Theme.surface2 : .clear))
+            .contentShape(RoundedRectangle(cornerRadius: 7))
+            .onHover { hover = $0 }
+    }
+}
+
+/// Bo'lim kartasi: sarlavha + yengil fon.
+struct PanelCard<Content: View>: View {
+    let title: String
+    let icon: String
+    var tint: Color = Theme.muted
+    var trailing: String?
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                CardTitle(title: title, icon: icon, tint: tint)
+                Spacer()
+                if let trailing { Text(trailing).font(.system(size: 11)).foregroundStyle(Theme.faint) }
+            }
+            content()
+        }
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Theme.surface2))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(Theme.border.opacity(0.6), lineWidth: 1))
+    }
+}
+
+struct CardTitle: View {
+    let title: String
+    let icon: String
+    var tint: Color = Theme.muted
+    var count: Int?
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon).font(.system(size: 10, weight: .semibold)).foregroundStyle(tint).accessibilityHidden(true)
+            SectionLabel(text: title)
+            if let count, count > 0 {
+                Text("\(count)").font(.system(size: 10, weight: .bold)).foregroundStyle(tint)
+                    .padding(.horizontal, 5).background(Capsule().fill(tint.opacity(0.16)))
+            }
+        }
+    }
+}
+
+/// Bir qarashda: nechta sessiya ishlayapti / kutmoqda / tugadi va mashinalar.
+struct StatTiles: View {
+    let summary: DashboardSummary
+
+    var body: some View {
+        HStack(spacing: 8) {
+            tile("\(summary.working)", "Ishlayapti", "bolt.fill", Theme.blue, Theme.blueBg)
+            tile("\(summary.waiting + summary.approvals)", "Kutmoqda", "hourglass", Theme.yellow, Theme.yellowBg,
+                 highlight: summary.waiting + summary.approvals > 0)
+            tile("\(summary.done)", "Tugadi", "checkmark.circle.fill", Theme.green, Theme.greenBg)
+            tile("\(summary.onlineMachines)/\(summary.totalMachines)", "Mashina", "desktopcomputer",
+                 summary.onlineMachines < summary.totalMachines ? Theme.orange : Theme.muted, Theme.grayBg)
+        }
+    }
+
+    private func tile(_ value: String, _ label: String, _ icon: String, _ fg: Color, _ bg: Color, highlight: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Image(systemName: icon).font(.system(size: 11, weight: .semibold)).foregroundStyle(fg)
+            Text(value).font(.system(size: 20, weight: .bold, design: .rounded)).monospacedDigit().foregroundStyle(Theme.text)
+                .lineLimit(1).minimumScaleFactor(0.7)
+            Text(label).font(.system(size: 10, weight: .medium)).foregroundStyle(Theme.muted).lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 10).padding(.vertical, 8)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(highlight ? bg : Theme.surface2))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(highlight ? fg.opacity(0.35) : Theme.border.opacity(0.6), lineWidth: 1))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label): \(value)")
     }
 }
 
@@ -157,50 +278,69 @@ struct UnpairedView: View {
     }
 }
 
-/// Sessiyalar loyiha bo'yicha (holat pill'lari bilan); bosilsa loyiha sessiyalari ochiladi.
-struct SessionsSection: View {
+/// Sessiyalar loyiha bo'yicha. Faol (ishlayotgan/kutayotgan) loyihalar ochiq turadi; bosilsa yig'iladi/ochiladi.
+struct SessionsCard: View {
     let model: AppModel
     static let maxGroups = 8
-    @State private var expanded: Set<String> = []
+    static let maxSessionsPerGroup = 6
+    @State private var toggled: Set<String> = []
 
     var body: some View {
         let groups = model.projectGroups
-        SectionLabel(text: "Loyihalar bo'yicha").padding(.horizontal, 10).padding(.top, 8).padding(.bottom, 2)
-        if groups.isEmpty {
-            Text(model.state.hasSnapshot ? "Faol sessiya yo'q" : "Yuklanmoqda…")
-                .font(.system(size: 12)).foregroundStyle(Theme.muted).padding(.horizontal, 10).padding(.vertical, 4)
-        }
-        ForEach(groups.prefix(Self.maxGroups)) { g in
-            Button {
-                if expanded.contains(g.name) { expanded.remove(g.name) } else { expanded.insert(g.name) }
-            } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: expanded.contains(g.name) ? "chevron.down" : "chevron.right")
-                        .font(.system(size: 9, weight: .semibold)).foregroundStyle(Theme.faint).frame(width: 10)
-                    Text(g.name).font(.system(size: 13, weight: .semibold)).lineLimit(1)
-                    Spacer(minLength: 4)
-                    ForEach(g.counts, id: \.self) { c in
-                        let k = kind(c.status)
-                        let colors = Theme.status(k)
-                        Pill(text: "\(c.count) \(StatusText.label(c.status))", fg: colors.fg, bg: colors.bg, pulsing: k == .working)
+        let total = groups.reduce(0) { $0 + $1.sessions.count }
+        PanelCard(title: "Sessiyalar", icon: "terminal", trailing: total > 0 ? "\(total) ta · \(groups.count) loyiha" : nil) {
+            if groups.isEmpty {
+                Text(model.state.hasSnapshot ? "Faol sessiya yo'q" : "Yuklanmoqda…")
+                    .font(.system(size: 12)).foregroundStyle(Theme.muted).padding(.vertical, 2)
+            }
+            VStack(spacing: 2) {
+                ForEach(groups.prefix(Self.maxGroups)) { g in
+                    let open = isOpen(g)
+                    Button {
+                        if toggled.contains(g.name) { toggled.remove(g.name) } else { toggled.insert(g.name) }
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 9, weight: .bold)).foregroundStyle(Theme.faint).frame(width: 10)
+                                .rotationEffect(.degrees(open ? 90 : 0))
+                            Image(systemName: "folder.fill").font(.system(size: 11)).foregroundStyle(Theme.blue.opacity(0.8))
+                            Text(g.name).font(.system(size: 13, weight: .semibold)).lineLimit(1)
+                            Spacer(minLength: 4)
+                            ForEach(g.counts, id: \.self) { c in
+                                let k = StatusKind.of(c.status)
+                                let colors = Theme.status(k)
+                                Pill(text: "\(c.count) \(StatusText.label(c.status))", fg: colors.fg, bg: colors.bg, pulsing: k == .working)
+                            }
+                        }
+                        .padding(.horizontal, 6).padding(.vertical, 6)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(RowButtonStyle())
+                    .accessibilityLabel("\(g.name): " + g.counts.map { "\($0.count) \(StatusText.label($0.status))" }.joined(separator: ", "))
+                    .accessibilityHint(open ? "Yopish" : "Sessiyalarni ko'rsatish")
+                    if open {
+                        VStack(spacing: 0) {
+                            ForEach(g.sessions.prefix(Self.maxSessionsPerGroup), id: \.id) { s in SessionRow(session: s) }
+                        }
+                        .padding(.bottom, 4)
                     }
                 }
-                .padding(.horizontal, 10).padding(.vertical, 7)
-                .contentShape(Rectangle())
             }
-            .buttonStyle(RowButtonStyle())
-            .accessibilityLabel("\(g.name): " + g.counts.map { "\($0.count) \(StatusText.label($0.status))" }.joined(separator: ", "))
-            .accessibilityHint(expanded.contains(g.name) ? "Yopish" : "Sessiyalarni ko'rsatish")
-            if expanded.contains(g.name) {
-                ForEach(g.sessions.prefix(8), id: \.id) { s in SessionRow(session: s) }
+            if groups.count > Self.maxGroups {
+                MenuRow(title: "Yana \(groups.count - Self.maxGroups) loyiha — dashboard'da") { model.openDashboard() }
             }
-        }
-        if groups.count > Self.maxGroups {
-            MenuRow(title: "Yana \(groups.count - Self.maxGroups) loyiha — dashboard'da") { model.openDashboard() }
         }
     }
 
-    private func kind(_ s: SessionStatus) -> SessionStatusKind {
+    /// Sukut: ishlayotgan/kutayotgan sessiyasi bor loyiha ochiq. Foydalanuvchi bosgani buni teskari qiladi.
+    private func isOpen(_ g: ProjectGroup) -> Bool {
+        let active = g.sessions.contains { [.working, .waiting, .awaitingApproval].contains($0.status) }
+        return active != toggled.contains(g.name)
+    }
+}
+
+enum StatusKind {
+    static func of(_ s: SessionStatus) -> SessionStatusKind {
         switch s {
         case .working: return .working
         case .waiting: return .waiting
@@ -212,11 +352,128 @@ struct SessionsSection: View {
     }
 }
 
+/// Mashinalar: onlayn holati, sessiyalar soni va resurslar (CPU / xotira / disk).
+struct MachinesCard: View {
+    let model: AppModel
+
+    var body: some View {
+        let machines = model.state.machines.values.sorted {
+            $0.online != $1.online ? $0.online : name($0).localizedCaseInsensitiveCompare(name($1)) == .orderedAscending
+        }
+        if !machines.isEmpty {
+            PanelCard(title: "Mashinalar", icon: "server.rack", trailing: "\(machines.filter(\.online).count)/\(machines.count) onlayn") {
+                VStack(spacing: 6) {
+                    ForEach(machines, id: \.id) { m in MachineRow(machine: m, health: model.state.health[m.id], name: name(m)) }
+                }
+            }
+        }
+    }
+
+    private func name(_ m: MachineDto) -> String { m.displayName ?? m.hostname ?? m.slug }
+}
+
+struct MachineRow: View {
+    let machine: MachineDto
+    let health: HealthSummaryItem?
+    let name: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 6) {
+                PulsingDot(color: machine.online ? healthColor : Theme.faint)
+                Image(systemName: osIcon).font(.system(size: 11)).foregroundStyle(Theme.muted).frame(width: 14)
+                Text(name).font(.system(size: 12, weight: .semibold)).lineLimit(1)
+                Spacer(minLength: 4)
+                if machine.online {
+                    let c = machine.sessions
+                    if c.working > 0 { Pill(text: "\(c.working) ishda", fg: Theme.blue, bg: Theme.blueBg, dot: false) }
+                    if c.waiting + c.awaitingApproval > 0 { Pill(text: "\(c.waiting + c.awaitingApproval) kutmoqda", fg: Theme.yellow, bg: Theme.yellowBg, dot: false) }
+                    if c.working == 0 && c.waiting + c.awaitingApproval == 0 { Text("\(c.open) sessiya").font(.system(size: 11)).foregroundStyle(Theme.faint) }
+                } else {
+                    Text(offlineText).font(.system(size: 11)).foregroundStyle(Theme.faint)
+                }
+            }
+            if machine.online, let h = health, h.cpuPct != nil || h.memPct != nil || h.diskMaxPct != nil {
+                HStack(spacing: 10) {
+                    Meter(label: "CPU", pct: h.cpuPct)
+                    Meter(label: "RAM", pct: h.memPct)
+                    Meter(label: "Disk", pct: h.diskMaxPct)
+                }
+                .padding(.leading, 33)
+            }
+        }
+        .padding(.vertical, 2)
+        .opacity(machine.online ? 1 : 0.6)
+        .help(helpText)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var healthColor: Color {
+        switch health?.status {
+        case .critical: return Theme.red
+        case .warn: return Theme.yellow
+        default: return Theme.green
+        }
+    }
+
+    private var osIcon: String {
+        let os = (machine.os ?? "").lowercased()
+        if os.contains("darwin") || os.contains("mac") { return "laptopcomputer" }
+        if os.contains("win") { return "pc" }
+        return "server.rack"
+    }
+
+    private var offlineText: String {
+        guard let s = machine.lastSeenAt, let d = ContractDates.parse(s) else { return "oflayn" }
+        return "oflayn · \(LimitFormat.relative(from: d, to: Date()))"
+    }
+
+    private var helpText: String {
+        var parts: [String] = []
+        if let h = health {
+            parts.append("Holat: \(StatusText.health(h.status))")
+            if let m = h.diskMaxMount { parts.append("eng to'la disk: \(m)") }
+            if h.containersBad > 0 { parts.append("\(h.containersBad)/\(h.containersTotal) konteyner muammoli") }
+            if h.failedUnits > 0 { parts.append("\(h.failedUnits) systemd xizmati xato") }
+            if h.openIncidents > 0 { parts.append("\(h.openIncidents) ochiq hodisa") }
+        }
+        if let v = machine.claudeVersion { parts.append("Claude \(v)") }
+        return parts.joined(separator: " · ")
+    }
+}
+
+/// Kichik resurs o'lchagichi: yorliq + foiz + chiziq (70%+ sariq, 90%+ qizil).
+struct Meter: View {
+    let label: String
+    let pct: Double?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 3) {
+                Text(label).font(.system(size: 9, weight: .semibold)).foregroundStyle(Theme.faint)
+                Spacer(minLength: 0)
+                Text(pct.map { "\(Int($0.rounded()))%" } ?? "—").font(.system(size: 9, weight: .semibold, design: .monospaced))
+                    .foregroundStyle(pct == nil ? Theme.faint : color)
+            }
+            LimitBar(pct: pct ?? 0, color: color, estimate: false).frame(height: 4)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var color: Color {
+        guard let pct else { return Theme.faint }
+        return pct >= 90 ? Theme.red : pct >= 70 ? Theme.yellow : Theme.green
+    }
+}
+
 struct SessionRow: View {
     let session: SessionDto
 
     var body: some View {
-        HStack(alignment: .top, spacing: 6) {
+        HStack(alignment: .top, spacing: 7) {
+            let k = StatusKind.of(session.status)
+            PulsingDot(color: Theme.status(k).fg, pulsing: k == .working).padding(.top, 4)
+                .help(StatusText.label(session.status))
             VStack(alignment: .leading, spacing: 1) {
                 HStack(spacing: 4) {
                     if session.staleSince != nil {
@@ -236,7 +493,7 @@ struct SessionRow: View {
                     .font(.system(size: 10)).foregroundStyle(Theme.faint)
             }
         }
-        .padding(.leading, 26).padding(.trailing, 10).padding(.vertical, 3)
+        .padding(.leading, 24).padding(.trailing, 6).padding(.vertical, 3)
         .opacity(session.staleSince != nil ? 0.6 : 1)
         .accessibilityElement(children: .combine)
     }

@@ -57,6 +57,67 @@ export interface NoticeContext {
 const MAX_TRACKED = 2000;
 
 /**
+ * `done` xabari shuncha kechiktiriladi: `Stop` faqat bitta navbat tugaganini bildiradi, Claude ko'pincha
+ * o'zi qayta ishga tushadi (fon subagent/task tugashi, inbox avto-uyg'otish). Shu vaqtdan keyin ham `done`
+ * bo'lsagina "Sessiya tugadi" yuboriladi.
+ */
+export const DONE_NOTICE_DELAY_MS = 45_000;
+
+export type TimerHandle = unknown;
+export interface TimerScheduler {
+  set(fn: () => void, ms: number): TimerHandle;
+  clear(handle: TimerHandle): void;
+}
+
+/** Haqiqiy taymerlar (unref: jarayonni ushlab turmaydi). */
+export const realScheduler: TimerScheduler = {
+  set: (fn, ms) => {
+    const t = setTimeout(fn, ms);
+    t.unref();
+    return t;
+  },
+  clear: (h) => clearTimeout(h as NodeJS.Timeout),
+};
+
+/**
+ * Sessiya bo'yicha BITTA kutilayotgan `done` tekshiruvi: yangi `done` eskisini almashtiradi,
+ * `done` bo'lmagan har qanday holat bekor qiladi. Taymer o'z-o'zini tozalaydi.
+ */
+export class DoneNoticeScheduler {
+  private readonly pending = new Map<string, TimerHandle>();
+
+  constructor(
+    private readonly delayMs: number = DONE_NOTICE_DELAY_MS,
+    private readonly scheduler: TimerScheduler = realScheduler,
+  ) {}
+
+  schedule(sessionId: string, fire: () => void): void {
+    this.cancel(sessionId);
+    const handle = this.scheduler.set(() => {
+      this.pending.delete(sessionId);
+      fire();
+    }, this.delayMs);
+    this.pending.set(sessionId, handle);
+  }
+
+  cancel(sessionId: string): void {
+    const h = this.pending.get(sessionId);
+    if (h === undefined) return;
+    this.scheduler.clear(h);
+    this.pending.delete(sessionId);
+  }
+
+  clearAll(): void {
+    for (const h of this.pending.values()) this.scheduler.clear(h);
+    this.pending.clear();
+  }
+
+  get size(): number {
+    return this.pending.size;
+  }
+}
+
+/**
  * Sessiya holat o'tishlari uchun to'siq: faqat HAQIQIY o'tish (waiting/done ga), birinchi ko'rilganda jim
  * (restartdan keyin eski holat uchun xabar yog'ilmasin), sessiya bo'yicha eng kami `minGapMs`, mute va
  * `notify done` ga bo'ysunadi.

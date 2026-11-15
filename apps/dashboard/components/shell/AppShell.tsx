@@ -7,6 +7,7 @@ import type { HideRules } from "@/lib/machines";
 import { IconClose, IconMenu } from "@/components/ui/icons";
 import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { LockdownBanner } from "./LockdownBanner";
+import { NavWatchdog } from "./NavWatchdog";
 import { NewSessionModal } from "./NewSessionModal";
 import { Logo, SidebarContent } from "./Sidebar";
 import { ShellUiProvider, useShellUi } from "./ShellUi";
@@ -19,6 +20,7 @@ export function AppShell({ initial, hide, canApprove, canControl, children }: { 
         <Frame>{children}</Frame>
         <NewSessionModal />
         <KeyboardShortcuts />
+        <NavWatchdog />
       </ShellUiProvider>
     </LiveDataProvider>
   );
